@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;700&family=Ubuntu+Condensed&display=swap');
+
+.font-light {
+  font-weight: 300 !important;
+}
+.font-bold {
+  font-weight: 700 !important;
+}
+.font-md {
+  font-family: 500 !important;
+}
+
+.font14 {
+  font-size: 14px !important;
+}
+
+.font15 {
+  font-size: 15px !important;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.font20 {
+  font-size: 20px !important;
+}
+
+.font18 {
+  font-size: 18px !important;
+}
+
+.font38 {
+  font-size: 38px !important;
+}
+
+.font60 {
+  font-size: 60px !important;
+}
+
+.font64 {
+  font-size: 64px !important;
+}
+
+.font24 {
+  font-size: 24px !important;
+}
+.font22 {
+  font-size: 22px !important;
+}
+.font26 {
+  font-size: 26px !important;
+}
+
+.font30 {
+  font-size: 30px !important;
+}
+
+.font54 {
+  font-size: 54px !important;
+}
+
+.font58 {
+  font-size: 58px !important;
+}
+
+.font11 {
+  font-size: 11px !important;
+}
+
+.font10 {
+  font-size: 10px !important;
+}
+
+.font48 {
+  font-size: 48px;
+}
+.font45 {
+  font-size: 45px;
+}
+
+@media (max-width: 994px) {
+  .font58 {
+    font-size: 50px !important;
+  }
+  .font60 {
+    font-size: 45px !important;
+  }
+}

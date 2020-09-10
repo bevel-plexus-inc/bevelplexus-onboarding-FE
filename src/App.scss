@@ -1,0 +1,225 @@
+@import './styles/button.scss';
+@import './styles/font.scss';
+@import './styles/register.scss';
+
+html {
+  scroll-behavior: smooth;
+}
+
+*body {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  color: #4a4b65;
+}
+.d-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.text-grey {
+  color: #879dad !important;
+}
+.text-red {
+  color: #f34335 !important;
+}
+.box-shadow {
+  box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+}
+.bg-white {
+  background: white !important;
+}
+.bg-blue {
+  background: #015eff !important;
+}
+.bg-grey {
+  background: #f5f6f9 !important;
+}
+.hidden {
+  overflow: hidden !important;
+}
+.text-white {
+  color: white !important;
+}
+.text-blue {
+  color: #015eff !important;
+}
+.click {
+  cursor: pointer;
+}
+textarea {
+  resize: none;
+}
+.btn,
+.form-control,
+a,
+span,
+button,
+summary {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+.py-space {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+.pt-space {
+  padding-top: 20vh;
+}
+.border-radius {
+  border-radius: 6px;
+}
+@media (max-width: 992px) {
+  .sm-mt {
+    margin-top: 2rem !important;
+  }
+  .sm-dflex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+  }
+  .sm-mt-none {
+    margin-top: 0 !important;
+  }
+  .sm-pt-none {
+    padding-top: 0 !important;
+  }
+  .sm-px-none {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .sm-ml-none {
+    margin-left: 0 !important;
+  }
+  .sm-text-left {
+    text-align: left !important;
+  }
+  .sm-text-center {
+    text-align: center !important;
+  }
+  .sm-reverse {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+  }
+  .sm-mb-none {
+    margin-bottom: 0 !important;
+  }
+  .sm-mt-2 {
+    margin-top: 2rem !important;
+  }
+  .sm-mb-2 {
+    margin-bottom: 2rem !important;
+  }
+  .sm-dblock {
+    display: block !important;
+  }
+  .sm-dnone {
+    display: none !important;
+  }
+  .sm-d-none {
+    display: none !important;
+  }
+  .sm-mx-8 {
+    margin-left: 8vw;
+    margin-right: 8vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .lg-mr-0 {
+    margin-right: 0 !important;
+  }
+  .lg-ml-0 {
+    margin-left: 0 !important;
+  }
+}
+.form-control::placeholder,
+.PhoneInputInput::placeholder,
+select.form-control {
+  color: #b4bec6;
+  font-size: 14px;
+}
+/* The check-container */
+.check-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* Hide the browser's default checkbox */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background: #ffffff;
+    border: 1px solid rgba(219, 221, 227, 0.7);
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+    border-radius: 4px;
+  }
+  tr td .checkmark {
+    top: 0;
+    left: 16px;
+  }
+
+  /* On mouse-over, add a grey background color */
+  &:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  input:checked ~ .checkmark {
+    background-color: white;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .checkmark:after {
+    left: 5px;
+    top: 5px;
+    width: 13px;
+    height: 13px;
+    border: solid #015eff;
+    background: blue;
+  }
+}
