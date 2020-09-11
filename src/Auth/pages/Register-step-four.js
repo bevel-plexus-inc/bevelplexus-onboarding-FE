@@ -1,17 +1,8 @@
 import React, {useState} from 'react';
-import regular from '../../assets/img/user-regular.svg';
-import student from '../../assets/img/user-student.svg';
 import {Link} from 'react-router-dom';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import {SecondSidebar} from '../component/second-sidebar';
 
 const RegisterStepFour = () => {
-  const [dob, setdob] = useState();
-  const dobChange = (e) => {
-    console.log(e);
-    setdob(e);
-  };
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'four'} />

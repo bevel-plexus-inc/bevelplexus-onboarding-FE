@@ -163,6 +163,23 @@
       flex-direction: column;
       min-height: 450px;
       background: white;
+      #chooseFile1,
+      #chooseFile2 {
+        display: none;
+      }
+      .progress-container {
+        border: 1px solid #4a4b65;
+        border-radius: 6px;
+        height: 42px;
+        .progress-inner {
+          background: #015eff;
+          display: block;
+          color: white;
+          height: 100%;
+          padding: 0.5rem;
+        }
+      }
+
       .btn-upload {
         color: #4a4b65;
         border: #4a4b65 solid 1px;
@@ -170,10 +187,27 @@
         font-weight: 700;
         font-size: 15px;
         width: 100%;
+        padding: 0.6rem 2rem !important;
+        cursor: pointer;
         &:hover {
           background: lighten($color: #4a4b65, $amount: 60%);
           color: #495057;
         }
+      }
+      .btn-green {
+        width: 100%;
+        font-weight: 700;
+        font-size: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .btn-outline-red {
+        width: 100%;
+        font-weight: 700;
+        font-size: 15px;
+        padding: 0.6rem 2rem !important;
+        color: #4a4b65;
       }
     }
     @media (min-width: 992px) {

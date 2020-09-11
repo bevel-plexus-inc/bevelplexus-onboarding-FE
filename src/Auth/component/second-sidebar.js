@@ -47,21 +47,21 @@ export const SecondSidebar = ({sideProgress}) => {
                 </Link>
                 <Link
                   to="/register-step-two"
-                  className={sideProgress == 'two' ? 'active' : ''}
+                  className={sideProgress === 'two' ? 'active' : ''}
                 >
-                  {sideProgress == 'three' ? (
+                  {sideProgress === 'three' ? (
                     <span
                       class="iconify"
                       data-icon="bx:bxs-check-circle"
                       data-inline="false"
                     ></span>
-                  ) : sideProgress == 'four' ? (
+                  ) : sideProgress === 'four' ? (
                     <span
                       class="iconify"
                       data-icon="bx:bxs-check-circle"
                       data-inline="false"
                     ></span>
-                  ) : sideProgress == 'five' ? (
+                  ) : sideProgress === 'five' ? (
                     <span
                       class="iconify"
                       data-icon="bx:bxs-check-circle"
@@ -74,15 +74,15 @@ export const SecondSidebar = ({sideProgress}) => {
                 </Link>
                 <Link
                   to="/register-step-three"
-                  className={sideProgress == 'three' ? 'active' : ''}
+                  className={sideProgress === 'three' ? 'active' : ''}
                 >
-                  {sideProgress == 'four' ? (
+                  {sideProgress === 'four' ? (
                     <span
                       class="iconify"
                       data-icon="bx:bxs-check-circle"
                       data-inline="false"
                     ></span>
-                  ) : sideProgress == 'five' ? (
+                  ) : sideProgress === 'five' ? (
                     <span
                       class="iconify"
                       data-icon="bx:bxs-check-circle"
@@ -95,7 +95,7 @@ export const SecondSidebar = ({sideProgress}) => {
                 </Link>
                 <Link
                   to="/register-step-five"
-                  className={sideProgress == 'five' ? 'active' : ''}
+                  className={sideProgress === 'five' ? 'active' : ''}
                 >
                   <span className="number">4</span>
                   Documents

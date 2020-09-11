@@ -3,13 +3,45 @@ import identity from '../../assets/img/identity.svg';
 import enrollment from '../../assets/img/enrollment.svg';
 import {Link} from 'react-router-dom';
 import {SecondSidebar} from '../component/second-sidebar';
+import axios from 'axios';
 
 const RegisterStepFive = () => {
-  const [dob, setdob] = useState();
-  const dobChange = (e) => {
-    console.log(e);
-    setdob(e);
+  const [percentageFile1, setpercentageFile1] = useState(0);
+
+  const uploadFile = (e) => {
+    console.log(e.target.files[0]);
+    const file1 = e.target.files[0];
+    let formData = new FormData();
+    formData.append('file1', file1);
+    const options = {
+      onUploadProgress: (progressEvent) => {
+        const {loaded, total} = progressEvent;
+        let percent = Math.floor((loaded * 100) / total);
+        console.log(`${loaded}kb of ${total}kb | ${percent}%`);
+        if (percent < 100) {
+          setpercentageFile1(percent);
+        }
+      },
+    };
+    axios
+      .post(
+        'https://run.mocky.io/v3/7d9bf459-32de-4010-9dbc-e3c25ab6a917',
+        formData,
+        options
+      )
+      .then((res) => {
+        console.log(res);
+        setpercentageFile1(100);
+        setTimeout(() => {
+          setpercentageFile1('complete');
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+        setpercentageFile1('error');
+      });
   };
+
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'five'} />
@@ -54,9 +86,70 @@ const RegisterStepFive = () => {
                           </p>
                         </div>
                         <div className="mt-auto">
-                          <button className="btn btn-upload">
-                            Choose file
-                          </button>
+                          {percentageFile1 <= 0 ? (
+                            <>
+                              <label
+                                className="btn btn-upload"
+                                for="chooseFile1"
+                              >
+                                Choose file
+                              </label>
+                              <input
+                                type="file"
+                                name="chooseFile1"
+                                id="chooseFile1"
+                                onChange={uploadFile}
+                              />
+                            </>
+                          ) : percentageFile1 > 0 ? (
+                            <div class="progress-container">
+                              <div
+                                class="progress-inner text-center"
+                                style={{width: `${percentageFile1}%`}}
+                              >
+                                {percentageFile1}%
+                              </div>
+                            </div>
+                          ) : percentageFile1 === 'error' ? (
+                            <>
+                              <label
+                                className="btn btn-outline-red"
+                                for="chooseFile1"
+                              >
+                                Choose file
+                              </label>
+                              <input
+                                type="file"
+                                name="chooseFile1"
+                                id="chooseFile1"
+                                onChange={uploadFile}
+                              />
+                              <p className="mb-0 font12">
+                                <span className="text-red">
+                                  {' '}
+                                  File too large,
+                                </span>
+                                please re-upload with a max of 2Mb.
+                              </p>
+                            </>
+                          ) : percentageFile1 === 'complete' ? (
+                            <>
+                              <button className="btn btn-green">
+                                File Uploaded
+                                <span
+                                  class="iconify ml-2"
+                                  data-icon="noto-v1:check-mark-button"
+                                  data-inline="false"
+                                ></span>
+                              </button>
+                              <p className="mb-0 font12">
+                                Thank you, document well{' '}
+                                <span className="text-green">received!</span>
+                              </p>
+                            </>
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -78,9 +171,15 @@ const RegisterStepFive = () => {
                           </p>
                         </div>
                         <div className="mt-auto">
-                          <button className="btn btn-upload">
+                          <label className="btn btn-upload" for="chooseFile2">
                             Choose file
-                          </button>
+                          </label>
+                          <input
+                            type="file"
+                            name="chooseFile2"
+                            id="chooseFile2"
+                            onChange={uploadFile}
+                          />
                         </div>
                       </div>
                     </div>

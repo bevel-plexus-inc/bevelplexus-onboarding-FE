@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import {Sidebar} from '../component/sidebar';
-import regular from '../../assets/img/user-regular.svg';
-import student from '../../assets/img/user-student.svg';
 import {Link} from 'react-router-dom';
 
 const RegisterVerifyCode = () => {

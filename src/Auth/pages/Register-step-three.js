@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import regular from '../../assets/img/user-regular.svg';
-import student from '../../assets/img/user-student.svg';
 import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';

@@ -14,6 +14,15 @@
     color: white;
   }
 }
+.btn-green {
+  background: #0fc578;
+  color: white;
+  transition: all ease 0.3s;
+  &:hover {
+    background: darken($color: #0fc578, $amount: 10%);
+    color: white;
+  }
+}
 .btn-outline-blue {
   color: #015eff;
   border: #015eff solid 1px;
@@ -23,12 +32,12 @@
     color: white;
   }
 }
-.btn-outline-black {
-  color: #4a4b65;
-  border: #4a4b65 solid 1px;
+.btn-outline-red {
+  color: #f34335;
+  border: #f34335 solid 1px;
   background: white;
   &:hover {
-    background: lighten($color: #4a4b65, $amount: 10%);
+    background: lighten($color: #f34335, $amount: 10%);
     color: white;
   }
 }
