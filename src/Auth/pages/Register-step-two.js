@@ -17,7 +17,7 @@ const RegisterStepTwo = () => {
           <div className="px">
             <div className="d-body">
               <div>
-                <div className="mt-5 row">
+                <div className="title-space row">
                   <div className="col-lg-7 col-md-8">
                     <p className="font22 font-bold mb-2">Verify your Number</p>
                     <p className="text-grey">

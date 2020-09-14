@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import logo from '../../assets/img/logo-white.svg';
+import checkmark from '../../assets/img/check.png';
 import '../../styles/sidebar.scss';
 import {Link} from 'react-router-dom';
 
@@ -38,11 +39,7 @@ export const SecondSidebar = ({sideProgress}) => {
             <div className="mt-5 text-white">
               <div className="side-links">
                 <Link>
-                  <span
-                    class="iconify"
-                    data-icon="bx:bxs-check-circle"
-                    data-inline="false"
-                  ></span>
+                  <img src={checkmark} alt="" className="check-mark" />
                   Personal info
                 </Link>
                 <Link
@@ -50,23 +47,11 @@ export const SecondSidebar = ({sideProgress}) => {
                   className={sideProgress === 'two' ? 'active' : ''}
                 >
                   {sideProgress === 'three' ? (
-                    <span
-                      class="iconify"
-                      data-icon="bx:bxs-check-circle"
-                      data-inline="false"
-                    ></span>
+                    <img src={checkmark} alt="" className="check-mark" />
                   ) : sideProgress === 'four' ? (
-                    <span
-                      class="iconify"
-                      data-icon="bx:bxs-check-circle"
-                      data-inline="false"
-                    ></span>
+                    <img src={checkmark} alt="" className="check-mark" />
                   ) : sideProgress === 'five' ? (
-                    <span
-                      class="iconify"
-                      data-icon="bx:bxs-check-circle"
-                      data-inline="false"
-                    ></span>
+                    <img src={checkmark} alt="" className="check-mark" />
                   ) : (
                     <span className="number">2</span>
                   )}
@@ -77,17 +62,9 @@ export const SecondSidebar = ({sideProgress}) => {
                   className={sideProgress === 'three' ? 'active' : ''}
                 >
                   {sideProgress === 'four' ? (
-                    <span
-                      class="iconify"
-                      data-icon="bx:bxs-check-circle"
-                      data-inline="false"
-                    ></span>
+                    <img src={checkmark} alt="" className="check-mark" />
                   ) : sideProgress === 'five' ? (
-                    <span
-                      class="iconify"
-                      data-icon="bx:bxs-check-circle"
-                      data-inline="false"
-                    ></span>
+                    <img src={checkmark} alt="" className="check-mark" />
                   ) : (
                     <span className="number">3</span>
                   )}

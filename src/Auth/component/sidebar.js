@@ -33,7 +33,7 @@ export const Sidebar = () => {
               </div>
               <img src={logo} alt="" />
             </div>
-            <div className="mt-5 text-white">
+            <div className="pt-space text-white">
               <h3 className="font38 font-bold mb-4">
                 A few clicks away to safely transfer money.
               </h3>

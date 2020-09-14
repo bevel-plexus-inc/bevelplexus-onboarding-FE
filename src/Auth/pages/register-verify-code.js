@@ -19,7 +19,7 @@ const RegisterVerifyCode = () => {
           <div className="px">
             <div className="d-body">
               <div>
-                <div className="mt-5 row">
+                <div className="title-space row">
                   <div className="col-lg-12">
                     <p className="font22 font-bold mb-2">Verify your Number</p>
                     <p className="text-grey">
@@ -39,12 +39,12 @@ const RegisterVerifyCode = () => {
                 <div className="my-5">
                   <form>
                     <div className="row">
-                      <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
+                      <div className="col-xl-7 col-lg-8 col-md-9 col-sm-10 mx-auto text-center">
                         <div
                           className={
                             iserror
-                              ? 'verify-input mr-3 p-5 error'
-                              : 'verify-input mr-3 p-5'
+                              ? 'verify-input mr-3 p-4 error'
+                              : 'verify-input mr-3 p-4'
                           }
                         >
                           <input type="number" maxlength="1" />

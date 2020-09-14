@@ -19,7 +19,7 @@ const RegisterStepThree = () => {
             Need help? <span className="text-blue click ml-2">Click here</span>
           </div>
           <div className="px">
-            <div className="mt-5 row">
+            <div className="title-space row">
               <div className="col-lg-7 col-md-8">
                 <p className="font22 font-bold mb-2">School Information</p>
                 <p className="text-grey">
@@ -179,7 +179,7 @@ const RegisterStepThree = () => {
               </div>
             </div>
             <div className="pt-space">
-              <div className="d-flex flex-wrap align-items-center justify-content-end">
+              <div className="d-flex flex-wrap align-items-end justify-content-end">
                 <div className="agreement-check text-grey mr-2">
                   Already have a login?{' '}
                   <span className="text-blue click">Sign in here</span>
