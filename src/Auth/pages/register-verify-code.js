@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Sidebar} from '../component/sidebar';
 import {Link} from 'react-router-dom';
+import VerificationInput from 'react-verification-input';
 
 const RegisterVerifyCode = () => {
   const [iserror, setiserror] = useState(false);
@@ -8,6 +9,7 @@ const RegisterVerifyCode = () => {
     e.preventDefault();
     setiserror(true);
   };
+
   return (
     <div className="register-wrapper">
       <Sidebar />
@@ -47,11 +49,7 @@ const RegisterVerifyCode = () => {
                               : 'verify-input mr-3 p-4'
                           }
                         >
-                          <input type="number" maxlength="1" />
-                          <input type="number" />
-                          <input type="number" />
-                          <input type="number" />
-                          <input type="number" />
+                          <VerificationInput length={5} />
                         </div>
                         {iserror ? (
                           <div className="my-3 text-grey">

@@ -129,26 +129,24 @@
     border-radius: 6px;
     justify-content: center;
     display: flex;
+    height: 172px;
+    flex-direction: column;
     &.error {
       border: 1px solid #f34335;
     }
-    input {
-      border: none;
-      border-bottom: 1px solid #b4bec6;
-      font-size: 48px;
+    .verification-input__character--default {
+      line-height: 50px;
+      text-align: center;
+      background-color: transparent;
+      margin-left: 8px;
       color: #4a4b65;
-      margin: 0 10px;
-      -moz-appearance: textfield;
+      font-size: 48px;
       width: 50px;
-      &:active,
-      &:focus {
-        outline: none;
-      }
-      &::-webkit-inner-spin-button,
-      &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-      }
+      border: none;
+      border-bottom: 2px solid #b4bec6;
+      cursor: text;
+      user-select: none;
+      box-sizing: border-box;
     }
   }
   .agreement-check {
