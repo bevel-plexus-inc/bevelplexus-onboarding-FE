@@ -41,7 +41,12 @@ const Register = (props) => {
                   <div className="icon">
                     <img src={regular} alt="" />
                   </div>
-                  <p>Regular Account</p>
+                  <div>
+                    <p>Regular Account</p>
+                    <div className="detail-two">
+                      Lorem ipsum dolor sit amet, <br /> adipiscing elit.
+                    </div>
+                  </div>
                   <div className="detail">Lorem ipsum dolor sit ame.</div>
                 </div>
                 <div
@@ -51,7 +56,12 @@ const Register = (props) => {
                   <div className="icon">
                     <img src={student} alt="" />
                   </div>
-                  <p>Student Account</p>
+                  <div>
+                    <p>Student Account</p>
+                    <div className="detail-two">
+                      Lorem ipsum dolor sit amet, <br /> adipiscing elit.
+                    </div>
+                  </div>
                   <div className="detail">Lorem ipsum dolor sit ame.</div>
                 </div>
               </div>

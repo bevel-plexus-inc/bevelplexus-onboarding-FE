@@ -160,7 +160,7 @@
     .file-upload-wrapper {
       display: flex;
       flex-direction: column;
-      min-height: 453px;
+      height: 517px;
       background: white;
       #chooseFile1,
       #chooseFile2 {
@@ -251,8 +251,13 @@
           left: 0;
           display: none;
         }
-        &:hover,
-        &.active {
+        .detail-two {
+          color: #8b9ca2;
+          font-size: 14px;
+          display: none;
+        }
+
+        &:hover {
           background: linear-gradient(
               0deg,
               rgba(1, 94, 255, 0.07),
@@ -261,6 +266,11 @@
             #ffffff;
           border: 2px solid #015eff;
           .detail {
+            display: block;
+          }
+        }
+        &.active {
+          .detail-two {
             display: block;
           }
         }
