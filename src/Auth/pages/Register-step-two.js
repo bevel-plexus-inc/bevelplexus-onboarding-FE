@@ -31,7 +31,7 @@ const RegisterStepTwo = () => {
                     <div className="row">
                       <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
                         <div className="form-group mr-3">
-                          <span className="phone-input-icon">
+                          {/* <span className="phone-input-icon">
                             <span
                               class="iconify"
                               data-icon="bi:phone"
@@ -42,7 +42,32 @@ const RegisterStepTwo = () => {
                             placeholder="Phone Number"
                             value={value}
                             onChange={setValue}
-                          />
+                          /> */}
+                          <div className="phone-input-wrapper">
+                            <div className="prefix-number">
+                              <span className="input-icon">
+                                <span
+                                  class="iconify"
+                                  data-icon="ps:world"
+                                  data-inline="false"
+                                ></span>
+                              </span>
+                              <select className="form-control">
+                                <option value="">+234</option>
+                                <option value="">+234</option>
+                              </select>
+                            </div>
+                            <div className="full-number">
+                              <div className="input-icon">
+                                <span
+                                  class="iconify"
+                                  data-icon="bi:phone"
+                                  data-inline="false"
+                                ></span>
+                              </div>
+                              <input type="number" className="form-control" />
+                            </div>
+                          </div>
                         </div>
 
                         <Link to="/verify-code">

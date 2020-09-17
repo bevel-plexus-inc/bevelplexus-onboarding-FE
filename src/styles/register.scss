@@ -433,4 +433,32 @@
       }
     }
   }
+  .phone-input-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .prefix-number {
+      position: relative;
+      width: 25%;
+      @media (max-width: 500px) {
+        .input-icon {
+          left: 0.3rem;
+        }
+        select.form-control {
+          padding-left: 1.5rem;
+        }
+      }
+      @media (max-width: 400px) {
+        .input-icon {
+          display: none;
+        }
+        select.form-control {
+          padding-left: 0;
+        }
+      }
+    }
+    .full-number {
+      width: 70%;
+      position: relative;
+    }
+  }
 }
