@@ -28,7 +28,7 @@ function App() {
 }
 
 const Main = withRouter(({location}) => {
-  return (
+  return ( 
     <>
       <Switch>
         <Route exact path="/" component={Login} />
