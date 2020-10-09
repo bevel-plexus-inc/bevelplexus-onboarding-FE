@@ -1,19 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
-import 'react-phone-number-input/style.css';
-// import PhoneInput from 'react-phone-number-input';
-import {SecondSidebar} from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
+import {SecondSidebar} from '../component/second-sidebar';
 
 const RegisterStepTwo = () => {
-  // const [value, setValue] = useState();
   return (
     <div className="register-wrapper">
       <SecondSidebar sideProgress={'two'} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
+            Need help?{' '}
+            <span
+              className="text-blue click ml-2"
+              data-toggle="modal"
+              data-target="#helpModal"
+            >
+              Click here
+            </span>
           </div>
           <div className="px">
             <div className="d-body">
@@ -33,17 +37,17 @@ const RegisterStepTwo = () => {
                       <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
                         <div className="form-group mr-3">
                           {/* <span className="phone-input-icon">
-                            <span
-                              className="iconify"
-                              data-icon="bi:phone"
-                              data-inline="false"
-                            ></span>
-                          </span>
-                          <PhoneInput
-                            placeholder="Phone Number"
-                            value={value}
-                            onChange={setValue}
-                          /> */}
+                          <span
+                            className="iconify"
+                            data-icon="bi:phone"
+                            data-inline="false"
+                          ></span>
+                        </span>
+                        <PhoneInput
+                          placeholder="Phone Number"
+                          value={value}
+                          onChange={setValue}
+                        /> */}
                           <div className="phone-input-wrapper">
                             <div className="prefix-number">
                               <span className="input-icon">
@@ -94,7 +98,7 @@ const RegisterStepTwo = () => {
           </div>
         </div>
       </section>
-      <NeedHelp/>
+      <NeedHelp />
     </div>
   );
 };
