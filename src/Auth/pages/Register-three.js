@@ -45,7 +45,7 @@ const RegisterThree = (props) => {
                     <p>Regular Account</p>
                     <div className="info-icon">
                       <span
-                        class="iconify"
+                        className="iconify"
                         data-icon="bi:info-circle"
                         data-inline="false"
                       ></span>
@@ -54,7 +54,7 @@ const RegisterThree = (props) => {
                       <div className="d-flex">
                         <div className="mr-2">
                           <span
-                            class="iconify"
+                            className="iconify"
                             data-icon="bi:info-circle"
                             data-inline="false"
                           ></span>
@@ -80,7 +80,7 @@ const RegisterThree = (props) => {
                     <p>Student Account</p>
                     <div className="info-icon">
                       <span
-                        class="iconify"
+                        className="iconify"
                         data-icon="bi:info-circle"
                         data-inline="false"
                       ></span>
@@ -89,7 +89,7 @@ const RegisterThree = (props) => {
                       <div className="d-flex">
                         <div className="mr-2">
                           <span
-                            class="iconify"
+                            className="iconify"
                             data-icon="bi:info-circle"
                             data-inline="false"
                           ></span>
@@ -116,7 +116,7 @@ const RegisterThree = (props) => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="carbon:user"
                               data-inline="false"
                             ></span>
@@ -132,7 +132,7 @@ const RegisterThree = (props) => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="carbon:user"
                               data-inline="false"
                             ></span>
@@ -148,7 +148,7 @@ const RegisterThree = (props) => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="carbon:email"
                               data-inline="false"
                             ></span>
@@ -164,7 +164,7 @@ const RegisterThree = (props) => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="vaadin:password"
                               data-inline="false"
                             ></span>
@@ -180,7 +180,7 @@ const RegisterThree = (props) => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="la:key-solid"
                               data-inline="false"
                             ></span>
@@ -196,7 +196,7 @@ const RegisterThree = (props) => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="la:key-solid"
                               data-inline="false"
                             ></span>
@@ -214,9 +214,9 @@ const RegisterThree = (props) => {
               </form>
               <div className="d-flex">
                 <div className="agreement-check">
-                  <label class="check-container">
+                  <label className="check-container">
                     <input type="checkbox" />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                   <div className="ml-5">
                     I agree with the{' '}

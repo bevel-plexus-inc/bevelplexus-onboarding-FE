@@ -91,7 +91,7 @@ const RegisterStepFive = () => {
                             <>
                               <label
                                 className="btn btn-upload"
-                                for="chooseFile1"
+                                htmlFor="chooseFile1"
                               >
                                 Choose file
                               </label>
@@ -103,9 +103,9 @@ const RegisterStepFive = () => {
                               />
                             </>
                           ) : percentageFile1 > 0 ? (
-                            <div class="progress-container">
+                            <div className="progress-container">
                               <div
-                                class="progress-inner text-center"
+                                className="progress-inner text-center"
                                 style={{width: `${percentageFile1}%`}}
                               >
                                 {percentageFile1}%
@@ -115,7 +115,7 @@ const RegisterStepFive = () => {
                             <>
                               <label
                                 className="btn btn-outline-red"
-                                for="chooseFile1"
+                                htmlFor="chooseFile1"
                               >
                                 Choose file
                               </label>
@@ -138,7 +138,7 @@ const RegisterStepFive = () => {
                               <button className="btn btn-green">
                                 File Uploaded
                                 <span
-                                  class="iconify ml-2"
+                                  className="iconify ml-2"
                                   data-icon="noto-v1:check-mark-button"
                                   data-inline="false"
                                 ></span>
@@ -172,7 +172,7 @@ const RegisterStepFive = () => {
                           </p>
                         </div>
                         <div className="mt-auto">
-                          <label className="btn btn-upload" for="chooseFile2">
+                          <label className="btn btn-upload" htmlFor="chooseFile2">
                             Choose file
                           </label>
                           <input

@@ -75,7 +75,7 @@ const Register = (props) => {
                     <div className="form-group">
                       <span className="input-icon">
                         <span
-                          class="iconify"
+                          className="iconify"
                           data-icon="carbon:user"
                           data-inline="false"
                         ></span>
@@ -91,7 +91,7 @@ const Register = (props) => {
                     <div className="form-group">
                       <span className="input-icon">
                         <span
-                          class="iconify"
+                          className="iconify"
                           data-icon="carbon:user"
                           data-inline="false"
                         ></span>
@@ -107,7 +107,7 @@ const Register = (props) => {
                     <div className="form-group">
                       <span className="input-icon">
                         <span
-                          class="iconify"
+                          className="iconify"
                           data-icon="carbon:email"
                           data-inline="false"
                         ></span>
@@ -123,7 +123,7 @@ const Register = (props) => {
                     <div className="form-group">
                       <span className="input-icon">
                         <span
-                          class="iconify"
+                          className="iconify"
                           data-icon="vaadin:password"
                           data-inline="false"
                         ></span>
@@ -139,7 +139,7 @@ const Register = (props) => {
                     <div className="form-group">
                       <span className="input-icon">
                         <span
-                          class="iconify"
+                          className="iconify"
                           data-icon="la:key-solid"
                           data-inline="false"
                         ></span>
@@ -155,7 +155,7 @@ const Register = (props) => {
                     <div className="form-group">
                       <span className="input-icon">
                         <span
-                          class="iconify"
+                          className="iconify"
                           data-icon="la:key-solid"
                           data-inline="false"
                         ></span>
@@ -171,9 +171,9 @@ const Register = (props) => {
               </form>
               <div className="d-flex">
                 <div className="agreement-check">
-                  <label class="check-container">
+                  <label className="check-container">
                     <input type="checkbox" check />
-                    <span class="checkmark"></span>
+                    <span className="checkmark"></span>
                   </label>
                   <div className="ml-5">
                     I agree with the{' '}

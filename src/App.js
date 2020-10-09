@@ -13,9 +13,9 @@ import ShowMail from './Auth/pages/verify-mail';
 import ForgotPassword from './Auth/pages/forgot-password';
 import ResetPassword from './Auth/pages/reset-password';
 import EnterMail from './Auth/pages/EnterMail';
-import RegisterVerifyCode from './Auth/pages/Register-verify-code';
 import RegisterStepFiveRegular from './Auth/pages/Register-step-five-regular';
 import RegisterStepTwo from './Auth/pages/register-step-two';
+import RegisterVerifyCode from './Auth/pages/Register-verify-code';
 
 function App() {
   return (

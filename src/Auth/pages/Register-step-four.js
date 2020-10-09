@@ -33,7 +33,7 @@ const RegisterStepFour = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="ps:world"
                               data-inline="false"
                             ></span>
@@ -49,7 +49,7 @@ const RegisterStepFour = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="mdi:city-variant-outline"
                               data-inline="false"
                             ></span>
@@ -65,7 +65,7 @@ const RegisterStepFour = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="cil:location-pin"
                               data-inline="false"
                             ></span>
@@ -81,7 +81,7 @@ const RegisterStepFour = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="cil:location-pin"
                               data-inline="false"
                             ></span>
