@@ -98,6 +98,9 @@
     overflow: hidden;
     .px {
       padding: 2vh 5vw;
+      &.body-centered {
+        min-height: calc(100vh - 30px) !important;
+      }
     }
     .title-space {
       padding-top: 3vh;

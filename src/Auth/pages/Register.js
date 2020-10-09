@@ -3,6 +3,7 @@ import {Sidebar} from '../component/sidebar';
 import regular from '../../assets/img/user-regular.svg';
 import student from '../../assets/img/user-student.svg';
 import {Link} from 'react-router-dom';
+import NeedHelp from '../component/needHelp';
 
 const Register = (props) => {
   const toggleRegularTab = () => {
@@ -19,7 +20,7 @@ const Register = (props) => {
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2">Click here</span>
+            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
           </div>
           <div className="px">
             <div className="title-space row">
@@ -186,9 +187,9 @@ const Register = (props) => {
               <div className="d-flex flex-wrap align-items-end justify-content-end">
                 <div className="agreement-check text-grey mr-2">
                   Already have a login?{' '}
-                  <span className="text-blue click">Sign in here</span>
+                  <Link to='/' className="text-blue click">Sign in here</Link>
                 </div>
-                <Link to="/register-two">
+                <Link to="/show-mail">
                   <button className="btn btn-blue btn-lg">
                     Create account
                   </button>
@@ -198,6 +199,7 @@ const Register = (props) => {
           </div>
         </div>
       </section>
+      <NeedHelp/>
     </div>
   );
 };

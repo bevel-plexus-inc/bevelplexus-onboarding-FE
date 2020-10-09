@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
+import NeedHelp from '../component/needHelp';
 import {SecondSidebar} from '../component/second-sidebar';
 
 const RegisterStepFour = () => {
@@ -9,7 +10,7 @@ const RegisterStepFour = () => {
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2">Click here</span>
+            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
           </div>
           <div className="px">
             <div className="title-space row">
@@ -111,6 +112,7 @@ const RegisterStepFour = () => {
           </div>
         </div>
       </section>
+      <NeedHelp/>
     </div>
   );
 };

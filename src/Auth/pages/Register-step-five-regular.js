@@ -6,7 +6,7 @@ import {SecondSidebar} from '../component/second-sidebar';
 import axios from 'axios';
 import NeedHelp from '../component/needHelp';
 
-const RegisterStepFive = () => {
+const RegisterStepFiveRegular = () => {
   const [percentageFile1, setpercentageFile1] = useState(0);
 
   const uploadFile = (e) => {
@@ -65,7 +65,7 @@ const RegisterStepFive = () => {
               <div className=" file-upload-container">
                 {/* <div className="col-xl-9 col-lg-10 mx-auto"> */}
                   <div className="row ">
-                    <div className="col-md-6 my-3">
+                    <div className="col-md-6 my-3 mx-auto">
                       <div className="p-4 file-upload-wrapper box-shadow border-radius text-center">
                         <div>
                           <div className="my-4">
@@ -154,36 +154,7 @@ const RegisterStepFive = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-6 my-3">
-                      <div className="p-4 file-upload-wrapper box-shadow border-radius text-center">
-                        <div>
-                          <div className="my-4">
-                            <img src={enrollment} alt="" />
-                          </div>
-                          <p className="font20 text-black font-bold">
-                            Identity verification
-                          </p>
-                          <p className="font14 text-grey">
-                            1- Please upload a school issued identification,
-                            admission letter or invoice that displays your full
-                            name and student number. This is required in order
-                            to process any transactions you request to your
-                            school.
-                          </p>
-                        </div>
-                        <div className="mt-auto">
-                          <label className="btn btn-upload" for="chooseFile2">
-                            Choose file
-                          </label>
-                          <input
-                            type="file"
-                            name="chooseFile2"
-                            id="chooseFile2"
-                            onChange={uploadFile}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                    
                   </div>
                 {/* </div> */}
               </div>
@@ -207,4 +178,4 @@ const RegisterStepFive = () => {
   );
 };
 
-export default RegisterStepFive;
+export default RegisterStepFiveRegular;

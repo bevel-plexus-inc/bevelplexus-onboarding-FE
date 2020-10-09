@@ -2,14 +2,14 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import 'react-phone-number-input/style.css';
 // import PhoneInput from 'react-phone-number-input';
-import {SecondSidebar} from '../component/second-sidebar';
+import { Sidebar } from '../component/sidebar';
 import NeedHelp from '../component/needHelp';
 
-const RegisterStepTwo = () => {
+const EnterPhoneNumber = () => {
   // const [value, setValue] = useState();
   return (
     <div className="register-wrapper">
-      <SecondSidebar sideProgress={'two'} />
+    <Sidebar />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
@@ -20,10 +20,9 @@ const RegisterStepTwo = () => {
               <div>
                 <div className="title-space row">
                   <div className="col-lg-7 col-md-8">
-                    <p className="font22 font-bold mb-2">Verify your Number</p>
+                    <p className="font22 font-bold mb-2">Enter Phone Number</p>
                     <p className="text-grey">
-                      Add your phone number. We'll send you a verification code
-                      so we know you're real.
+                    Input your phone number. We'll send you a reset code to you.
                     </p>
                   </div>
                 </div>
@@ -71,7 +70,7 @@ const RegisterStepTwo = () => {
                           </div>
                         </div>
 
-                        <Link to="/register-verify-code">
+                        <Link to="/verify-code">
                           <button className="btn btn-blue btn-lg mt-4">
                             Send Code
                           </button>
@@ -99,4 +98,4 @@ const RegisterStepTwo = () => {
   );
 };
 
-export default RegisterStepTwo;
+export default EnterPhoneNumber;

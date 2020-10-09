@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {SecondSidebar} from '../component/second-sidebar';
+import NeedHelp from '../component/needHelp';
 
 const RegisterStepThree = () => {
   const [dob, setdob] = useState();
@@ -16,7 +17,7 @@ const RegisterStepThree = () => {
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2">Click here</span>
+            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
           </div>
           <div className="px">
             <div className="title-space row">
@@ -37,7 +38,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="ant-design:field-number-outlined"
                               data-inline="false"
                             ></span>
@@ -53,7 +54,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="ion:mail-outline"
                               data-inline="false"
                             ></span>
@@ -69,7 +70,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="ps:world"
                               data-inline="false"
                             ></span>
@@ -85,7 +86,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="cil:school"
                               data-inline="false"
                             ></span>
@@ -97,7 +98,7 @@ const RegisterStepThree = () => {
                           </select>
                           <div className="info-icon ml-2">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="bi:info-circle"
                               data-inline="false"
                             ></span>
@@ -106,7 +107,7 @@ const RegisterStepThree = () => {
                             <div className="d-flex">
                               <div className="mr-2">
                                 <span
-                                  class="iconify"
+                                  className="iconify"
                                   data-icon="bi:info-circle"
                                   data-inline="false"
                                 ></span>
@@ -125,7 +126,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="cil:school"
                               data-inline="false"
                             ></span>
@@ -143,7 +144,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="cil:school"
                               data-inline="false"
                             ></span>
@@ -159,7 +160,7 @@ const RegisterStepThree = () => {
                         <div className="form-group">
                           <span className="input-icon">
                             <span
-                              class="iconify"
+                              className="iconify"
                               data-icon="ic:outline-date-range"
                               data-inline="false"
                             ></span>
@@ -192,6 +193,7 @@ const RegisterStepThree = () => {
           </div>
         </div>
       </section>
+      <NeedHelp/>
     </div>
   );
 };

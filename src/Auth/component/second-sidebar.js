@@ -38,10 +38,10 @@ export const SecondSidebar = ({sideProgress}) => {
             </div>
             <div className="mt-5 text-white">
               <div className="side-links">
-                <Link>
+                <a href=''>
                   <img src={checkmark} alt="" className="check-mark" />
                   Personal info
-                </Link>
+                </a>
                 <Link
                   to="/register-step-two"
                   className={sideProgress === 'two' ? 'active' : ''}

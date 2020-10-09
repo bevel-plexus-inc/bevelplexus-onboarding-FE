@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {SecondSidebar} from '../component/second-sidebar';
+import {Sidebar} from '../component/sidebar';
 import {Link} from 'react-router-dom';
 import VerificationInput from 'react-verification-input';
 import NeedHelp from '../component/needHelp';
 
-const RegisterVerifyCode = () => {
+const VerifyCode = () => {
   const [iserror, setiserror] = useState(false);
   const submitCode = (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const RegisterVerifyCode = () => {
 
   return (
     <div className="register-wrapper">
-    <SecondSidebar sideProgress={'two'} />
+      <Sidebar />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
@@ -62,12 +62,12 @@ const RegisterVerifyCode = () => {
                           </div>
                         )}
 
-                        <button
-                          
+                        <Link
+                          to="/reset-password"
                           className="btn btn-blue btn-lg mt-4"
                         >
                           Verify Number
-                        </button>
+                        </Link>
                         <div className="mt-5 text-grey">
                           Didn't received the code?{' '}
                           <span className="text-blue click">Resend it</span>
@@ -75,15 +75,6 @@ const RegisterVerifyCode = () => {
                       </div>
                     </div>
                   </form>
-                </div>
-              </div>
-              <div className="mt-auto mb-5">
-                <div className="d-flex flex-wrap align-items-center justify-content-between font-bold text-grey agreement-check">
-                  <div>PREVIOUS</div>
-                  <div className="mr-2">SKIP FOR NOW</div>
-                  <Link to="/register-step-three">
-                    <button className="btn btn-grey btn-lg">Next</button>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -95,4 +86,4 @@ const RegisterVerifyCode = () => {
   );
 };
 
-export default RegisterVerifyCode;
+export default VerifyCode;
