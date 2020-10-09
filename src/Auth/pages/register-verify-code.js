@@ -12,7 +12,7 @@ const RegisterVerifyCode = () => {
   };
 
   return (
-    <div className="register-wrapper">
+    <div className="register-wrapper"> 
     <SecondSidebar sideProgress={'two'} />
       <section className="main-auth-content">
         <div>
