@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Main />
+        <Main /> 
       </BrowserRouter>
     </>
   );
