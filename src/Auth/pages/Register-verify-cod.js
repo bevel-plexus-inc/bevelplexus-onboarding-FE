@@ -6,10 +6,10 @@ import NeedHelp from '../component/needHelp';
 
 const RegisterVerifyCode = () => {
   const [iserror, setiserror] = useState(false);
-  const submitCode = (e) => {
-    e.preventDefault();
-    setiserror(true);
-  };
+  // const submitCode = (e) => {
+  //   e.preventDefault();
+  //   setiserror(true);
+  // };
 
   return (
     <div className="register-wrapper"> 

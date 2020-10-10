@@ -14,8 +14,8 @@ import ForgotPassword from './Auth/pages/forgot-password';
 import ResetPassword from './Auth/pages/reset-password';
 import EnterMail from './Auth/pages/EnterMail';
 import RegisterStepFiveRegular from './Auth/pages/Register-step-five-regular';
-import RegisterVerifyCode from './Auth/pages/Register-verify-code';
 import RegisterStepTwo from './Auth/pages/Register-step-two';
+import RegisterVerifyCode from './Auth/pages/Register-verify-cod';
 
 function App() {
   return (
