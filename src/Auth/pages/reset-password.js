@@ -12,6 +12,8 @@ import {RESET_PASSWORD} from '../../services/auth';
 
 const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
   const tokenParam = match.params.id;
+  // const userDetails = JSON.parse(localStorage.getItem('user'))
+  // console.log(userDetails)
   const [formData, setFormData] = useState();
   const [resetPassword, {loading}] = useMutation(RESET_PASSWORD, {
     update(proxy, result) {
@@ -32,9 +34,9 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
       let payload = {
         password: values.password,
         formToken: tokenParam,
+        email: ''
       };
       console.log(payload)
-      return
       setFormData(payload);
       resetPassword({variables: payload});
     }
