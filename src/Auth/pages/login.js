@@ -56,7 +56,7 @@ const Login = ({setAlert, handleGeneralErrors}) => {
                 <div className="text-center">
                   <p className="font48 font-bold mb-2">Sign in</p>
                   <p className="text-grey">
-                    Welcome back, we exsist to make your money transfers as
+                    Welcome back, we exist to make your money transfers as
                     affordable and seamless as possible.
                   </p>
                 </div>
