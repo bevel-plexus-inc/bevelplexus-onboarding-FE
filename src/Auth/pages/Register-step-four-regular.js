@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import identity from '../../assets/img/identity.svg';
-import enrollment from '../../assets/img/enrollment.svg';
 import {Link, useHistory} from 'react-router-dom';
 import {SecondSidebar} from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
 import {useMutation} from '@apollo/client';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {connect} from 'react-redux';
-import {VerifyIdentity, verifyEnrollment} from '../../services/auth';
+import {VerifyIdentity} from '../../services/auth';
 
-const RegisterStepFourStud = ({handleGeneralErrors}) => {
+const RegisterStepFourRegular = ({handleGeneralErrors}) => {
   const history = useHistory();
   
   const registerStatus = localStorage.getItem('registerStatus')
@@ -18,11 +17,27 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
   }
   const userId = JSON.parse(localStorage.getItem('user')).id;
   const [percentageFile, setpercentageFile] = useState(0);
-  const [percentageFile2, setpercentageFile2] = useState(0);
-  const [formData, setFormData] = useState({
-    file: '',
-    userId: userId,
-  });
+  // const [formData, setFormData] = useState({
+  //   file: '',
+  //   userId: userId,
+  // });
+
+  // const [registerID, {loading}] = useMutation(VerifyIdentity, {
+
+  //   update(proxy, result) {
+  //     console.log(result);
+  //     setpercentageFile(100);
+  //     setTimeout(() => {
+  //       setpercentageFile('complete');
+  //     }, 1000);
+  //   },
+  //   onError(err) {
+  //     console.log(err);
+  //     setpercentageFile('error');
+  //     handleGeneralErrors(err);
+  //   },
+  //   variables: formData,
+  // });
 
   const [registerID, {loading}] = useMutation(VerifyIdentity, {
     update(proxy, result) {
@@ -49,35 +64,20 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     registerID({variables:payload});
   };
 
-  const [registerEnrollment, {loading2}] = useMutation(verifyEnrollment, {
-    update(proxy, result) {
-      console.log(result);
-      setpercentageFile2(100);
-      localStorage.setItem('registerStatus', 'complete4');
-      setTimeout(() => {
-        setpercentageFile2('complete');
-      }, 1000);
-    },
-    onError(err) {
-      console.log(err);
-      setpercentageFile2('error');
-      handleGeneralErrors(err);
-    },
-    variables: formData,
-  });
-
-  const uploadFile2 = (e) => {
-    let payload = {
-      file: e.target.files[0],
-      userId: userId,
-    };
-    console.log(payload);
-    registerEnrollment({variables:payload});
-  };
+  // const uploadFile = (e) => {
+  //   console.log(e.target.files[0]);
+  //   setFormData({
+  //     file: e.target.files[0],
+  //     userId: userId,
+  //   });
+  //   console.log(formData)
+  //   registerID();
+   
+  // };
 
   return (
     <div className="register-wrapper one">
-      <SecondSidebar sideProgress={'four'} />
+      <SecondSidebar sideProgress={'four'} sideLink={'regular'} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
@@ -93,17 +93,18 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
           <div className="px">
             <div className="title-space row">
               <div className="col-lg-7 col-md-8">
-                <p className="font22 font-bold mb-2">Documents upload</p>
+                <p className="font22 font-bold mb-2">Verification</p>
                 <p className="text-grey">
-                  We take all necessary precautions to keep your Personal
-                  Information protected.
+                  Please ensure you follow the guidelines to complete your
+                  verification process successfully.
                 </p>
               </div>
             </div>
             <div className="my-5">
               <div className=" file-upload-container">
+                {/* <div className="col-xl-9 col-lg-10 mx-auto"> */}
                 <div className="row ">
-                  <div className="col-md-6 my-3">
+                  <div className="col-md-6 my-3 mx-auto">
                     <div className="p-4 file-upload-wrapper box-shadow border-radius text-center">
                       <div>
                         <div className="my-4">
@@ -125,7 +126,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        {percentageFile <= 0 && !loading ? (
+                        {percentageFile <= 0 && !loading? (
                           <>
                             <label
                               className="btn btn-upload"
@@ -163,7 +164,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               id="chooseFile1"
                               onChange={uploadFile}
                             />
-                            <p className="mb-0 font12">
+                              <p className="mb-0 font12">
                               <span className="text-red mr-1">An error occured,</span>
                               please re-upload.
                             </p>
@@ -186,7 +187,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         ) : (
                           <></>
                         )}
-                        {loading && (
+                        { loading  && (
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
@@ -195,101 +196,12 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               {50}%
                             </div>
                           </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6 my-3">
-                    <div className="p-4 file-upload-wrapper box-shadow border-radius text-center">
-                      <div>
-                        <div className="my-4">
-                          <img src={enrollment} alt="" />
-                        </div>
-                        <p className="font20 text-black font-bold">
-                          Enrollment Verification
-                        </p>
-                        <p className="font14 text-grey">
-                          1- Please upload a school issued identification,
-                          admission letter or invoice that displays your full
-                          name and student number. This is required in order to
-                          process any transactions you request to your school.
-                        </p>
-                      </div>
-                      <div className="mt-auto">
-                        {percentageFile2 <= 0 && !loading2 ? (
-                          <>
-                            <label
-                              className="btn btn-upload"
-                              htmlFor="chooseFile2"
-                            >
-                              Choose file
-                            </label>
-                            <input
-                              type="file"
-                              name="chooseFile2"
-                              id="chooseFile2"
-                              onChange={uploadFile2}
-                            />
-                          </>
-                        ) : percentageFile2 > 0 ? (
-                          <div className="progress-container">
-                            <div
-                              className="progress-inner text-center"
-                              style={{width: `${percentageFile2}%`}}
-                            >
-                              {percentageFile2}%
-                            </div>
-                          </div>
-                        ) : percentageFile2 === 'error' && !loading2 ? (
-                          <>
-                            <label
-                              className="btn btn-outline-red"
-                              htmlFor="chooseFile2"
-                            >
-                              Choose file
-                            </label>
-                            <input
-                              type="file"
-                              name="chooseFile2"
-                              id="chooseFile2"
-                              onChange={uploadFile2}
-                            />
-                           <p className="mb-0 font12">
-                              <span className="text-red mr-1">An error occured,</span> please re-upload.
-                            </p>
-                          </>
-                        ) : percentageFile2 === 'complete' ? (
-                          <>
-                            <button className="btn btn-green">
-                              File Uploaded
-                              <span
-                                className="iconify ml-2"
-                                data-icon="noto-v1:check-mark-button"
-                                data-inline="false"
-                              ></span>
-                            </button>
-                            <p className="mb-0 font12">
-                              Thank you, document well{' '}
-                              <span className="text-green">received!</span>
-                            </p>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                        {loading2 && (
-                          <div className="progress-container">
-                            <div
-                              className="progress-inner text-center"
-                              style={{width: `${50}%`}}
-                            >
-                              {50}%
-                            </div>
-                          </div>
-                        )}
+                        ) }
                       </div>
                     </div>
                   </div>
                 </div>
+                {/* </div> */}
               </div>
             </div>
             <div className="pt-space">
@@ -311,4 +223,4 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
   );
 };
 
-export default connect(null, {handleGeneralErrors})(RegisterStepFourStud);
+export default connect(null, {handleGeneralErrors})(RegisterStepFourRegular);

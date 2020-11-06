@@ -1,16 +1,16 @@
 .btn {
   padding: 0.375rem 2rem !important;
-  border-radius: 6px;
-  height: 45px;
+  border-radius: 6px !important;
+  height: 45px !important;
 }
 .btn-blue {
-  background: #015eff;
-  box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
-  color: white;
-  transition: all ease 0.3s;
+  background: #015eff !important;
+  box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2) !important;
+  color: white !important;
+  transition: all ease 0.3s !important;
   &:hover {
-    background: darken($color: #015eff, $amount: 10%);
-    color: white;
+    background: darken($color: #015eff, $amount: 10%) !important;
+    color: white !important;
   }
 }
 .btn-green {

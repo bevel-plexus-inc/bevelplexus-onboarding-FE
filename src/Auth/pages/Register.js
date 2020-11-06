@@ -2,25 +2,95 @@ import React from 'react';
 import {Sidebar} from '../component/sidebar';
 import regular from '../../assets/img/user-regular.svg';
 import student from '../../assets/img/user-student.svg';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
+import {Form, Input, Spin} from 'antd';
+import {useMutation} from '@apollo/client';
+import {REGISTER_USER} from '../../services/auth';
+import {useState} from 'react';
+import {toast, ToastContainer} from 'react-toastify';
+import {connect} from 'react-redux';
+import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 
-const Register = (props) => {
+const UserType = {
+  Student: 'Student',
+  Regular: 'Regular',
+};
+
+const Register = ({handleGeneralErrors}) => {
+  const history = useHistory();
+  const [userType, setUserType] = useState(UserType.Student);
+  const [agreement, setAgreement] = useState(false);
+  const checkBoxChange = (e) => {
+    const val = e.target.checked;
+    setAgreement(val);
+  };
+
   const toggleRegularTab = () => {
     document.querySelector('.regular-tab').classList.add('active');
     document.querySelector('.student-tab').classList.remove('active');
+    setUserType(UserType.Regular);
   };
   const toggleStudentTab = () => {
     document.querySelector('.student-tab').classList.add('active');
     document.querySelector('.regular-tab').classList.remove('active');
+    setUserType(UserType.Student);
+  };
+  const [formData, setFormData] = useState();
+
+  const [addUser, {loading}] = useMutation(REGISTER_USER, {
+    update(proxy, result) {
+      console.log(result);
+      if (result.data.signUp.token) {
+        localStorage.setItem('token', result.data.signUp.token);
+        localStorage.setItem('user', JSON.stringify(result.data.signUp.user));
+        localStorage.setItem('registerStatus', 'complete1');
+        history.push('/register-step-two');
+      }
+    },
+    onError(err) {
+      handleGeneralErrors(err);
+    },
+    variables: formData,
+  });
+
+  const onFinish = (values) => {
+    console.log(values);
+    if (userType === '') {
+      toast.error('Please you need to select a user type to proceed');
+    } else if (agreement === false) {
+      toast.error('Please you need to agree with our policy to proceed');
+    } else if (values.password !== values.confirmPassword) {
+      toast.error('Password do not match!');
+    } else {
+      const data = {
+        ...values,
+        userType: userType,
+      };
+      console.log(data);
+      setFormData(data);
+      addUser();
+    }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
   };
   return (
     <div className="register-wrapper one">
+      <ToastContainer />
       <Sidebar />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
+            Need help?{' '}
+            <span
+              className="text-blue click ml-2"
+              data-toggle="modal"
+              data-target="#helpModal"
+            >
+              Click here
+            </span>
           </div>
           <div className="px">
             <div className="title-space row">
@@ -45,10 +115,10 @@ const Register = (props) => {
                   <div>
                     <p>Regular Account</p>
                     <div className="detail-two">
-                      Lorem ipsum dolor sit amet, <br /> adipiscing elit.
+                    Not a student? or <br /> not paying school related bills
                     </div>
                   </div>
-                  <div className="detail">Lorem ipsum dolor sit ame.</div>
+                  <div className="detail">This option is for you</div>
                 </div>
                 <div
                   className="each d-flex align-items-center student-tab"
@@ -60,16 +130,23 @@ const Register = (props) => {
                   <div>
                     <p>Student Account</p>
                     <div className="detail-two">
-                      Lorem ipsum dolor sit amet, <br /> adipiscing elit.
+                    Seeking to study or currently <br/> studying in Canada? 
                     </div>
                   </div>
-                  <div className="detail">Lorem ipsum dolor sit ame.</div>
+                  <div className="detail">This option is for you</div>
                 </div>
               </div>
             </div>
-            <div className="my-5">
-              <p className="font-bold">Fill with your details</p>
-              <form>
+            <Form
+              name="basic"
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+            >
+              <div className="my-5">
+                <p className="font-bold">Fill with your details</p>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
@@ -80,11 +157,20 @@ const Register = (props) => {
                           data-inline="false"
                         ></span>
                       </span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="First name"
-                      />
+                      <Form.Item
+                        name="firstName"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your first name!',
+                          },
+                        ]}
+                      >
+                        <Input
+                          placeholder="First name"
+                          className="form-control"
+                        />
+                      </Form.Item>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -96,11 +182,20 @@ const Register = (props) => {
                           data-inline="false"
                         ></span>
                       </span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Last name"
-                      />
+                      <Form.Item
+                        name="lastName"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your last name!',
+                          },
+                        ]}
+                      >
+                        <Input
+                          placeholder="Last Name"
+                          className="form-control"
+                        />
+                      </Form.Item>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -112,11 +207,21 @@ const Register = (props) => {
                           data-inline="false"
                         ></span>
                       </span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Email"
-                      />
+                      <Form.Item
+                        name="email"
+                        rules={[
+                          {
+                            type: 'email',
+                            message: 'The input is not valid E-mail!',
+                          },
+                          {
+                            required: true,
+                            message: 'Please input your email!',
+                          },
+                        ]}
+                      >
+                        <Input placeholder="Email" className="form-control" />
+                      </Form.Item>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -128,11 +233,20 @@ const Register = (props) => {
                           data-inline="false"
                         ></span>
                       </span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Referral Code (if you have one)"
-                      />
+
+                      <Form.Item
+                        name="referralCode"
+                        rules={[
+                          {
+                            required: false,
+                          },
+                        ]}
+                      >
+                        <Input
+                          placeholder="Referral Code (if you have one)"
+                          className="form-control"
+                        />
+                      </Form.Item>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -144,11 +258,20 @@ const Register = (props) => {
                           data-inline="false"
                         ></span>
                       </span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Password"
-                      />
+                      <Form.Item
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your password!',
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          placeholder="Password"
+                          className="form-control"
+                        />
+                      </Form.Item>
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -160,48 +283,67 @@ const Register = (props) => {
                           data-inline="false"
                         ></span>
                       </span>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Confirm Password"
-                      />
+                      <Form.Item
+                        name="confirmPassword"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your password!',
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          placeholder="Confirm Password"
+                          className="form-control"
+                        />
+                      </Form.Item>
                     </div>
                   </div>
                 </div>
-              </form>
-              <div className="d-flex">
-                <div className="agreement-check">
-                  <label className="check-container">
-                    <input type="checkbox" check />
-                    <span className="checkmark"></span>
-                  </label>
-                  <div className="ml-5">
-                    I agree with the{' '}
-                    <span className="text-blue">Privacy Policy</span> and the{' '}
-                    <span className="text-blue">Terms and Conditions</span>{' '}
+                <div className="d-flex">
+                  <div className="agreement-check">
+                    <label className="check-container">
+                      <input
+                        type="checkbox"
+                        onChange={(e) => checkBoxChange(e)}
+                      />
+                      <span className="checkmark"></span>
+                    </label>
+                    <div className="ml-5">
+                      I agree with the
+                      <span className="text-blue">Privacy Policy</span> and the
+                      <span className="text-blue">Terms and Conditions</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="pt-space">
-              <div className="d-flex flex-wrap align-items-end justify-content-end">
-                <div className="agreement-check text-grey mr-2">
-                  Already have a login?{' '}
-                  <Link to='/' className="text-blue click">Sign in here</Link>
+              <div className="pt-space">
+                <div className="d-flex flex-wrap align-items-end justify-content-end">
+                  <div className="agreement-check text-grey mr-2">
+                    Already have a login?{' '}
+                    <Link to="/" className="text-blue click">
+                      Sign in here
+                    </Link>
+                  </div>
+                  <Form.Item className='mb-0'>
+                    <button type="submit" className="btn btn-blue btn-lg">
+                      Create account
+                      {loading && (
+                        <span className="ml-4">
+                          <Spin />
+                        </span>
+                      )}
+                    </button>
+                  </Form.Item>
                 </div>
-                <Link to="/show-mail">
-                  <button className="btn btn-blue btn-lg">
-                    Create account
-                  </button>
-                </Link>
               </div>
-            </div>
+            </Form>
           </div>
         </div>
       </section>
-      <NeedHelp/>
+      <NeedHelp />
     </div>
   );
 };
 
-export default Register;
+export default connect(null, {handleGeneralErrors})(Register);

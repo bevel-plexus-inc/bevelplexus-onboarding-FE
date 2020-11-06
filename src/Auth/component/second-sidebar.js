@@ -4,12 +4,11 @@ import checkmark from '../../assets/img/check.png';
 import '../../styles/sidebar.scss';
 import {Link} from 'react-router-dom';
 
-export const SecondSidebar = ({sideProgress}) => {
+export const SecondSidebar = ({sideProgress, sideLink}) => {
   const [isOpen, setisOpen] = useState(false);
   const sidebarToggle = () => {
     setisOpen(!isOpen);
   };
-  console.log(sideProgress);
   return (
     <div>
       <div className="side-wrapper">
@@ -38,19 +37,17 @@ export const SecondSidebar = ({sideProgress}) => {
             </div>
             <div className="mt-5 text-white">
               <div className="side-links">
-                <a href=''>
+                <Link to="#">
                   <img src={checkmark} alt="" className="check-mark" />
                   Personal info
-                </a>
+                </Link>
                 <Link
-                  to="/register-step-two"
+                  to="#"
                   className={sideProgress === 'two' ? 'active' : ''}
                 >
                   {sideProgress === 'three' ? (
                     <img src={checkmark} alt="" className="check-mark" />
                   ) : sideProgress === 'four' ? (
-                    <img src={checkmark} alt="" className="check-mark" />
-                  ) : sideProgress === 'five' ? (
                     <img src={checkmark} alt="" className="check-mark" />
                   ) : (
                     <span className="number">2</span>
@@ -58,24 +55,31 @@ export const SecondSidebar = ({sideProgress}) => {
                   Phone Verification
                 </Link>
                 <Link
-                  to="/register-step-three"
+                  to="#"
                   className={sideProgress === 'three' ? 'active' : ''}
                 >
                   {sideProgress === 'four' ? (
                     <img src={checkmark} alt="" className="check-mark" />
-                  ) : sideProgress === 'five' ? (
-                    <img src={checkmark} alt="" className="check-mark" />
                   ) : (
                     <span className="number">3</span>
                   )}
-                  School information
+                  {sideLink === 'regular' ? (
+                    <span>Address</span>
+                  ) : (
+                    <span>School information</span>
+                  )}
                 </Link>
                 <Link
-                  to="/register-step-five"
-                  className={sideProgress === 'five' ? 'active' : ''}
+                  to="#"
+                  className={sideProgress === 'four' ? 'active' : ''}
                 >
                   <span className="number">4</span>
-                  Documents
+
+                  {sideLink === 'regular' ? (
+                    <span>Verification</span>
+                  ) : (
+                    <span>Documents</span>
+                  )}
                 </Link>
               </div>
             </div>

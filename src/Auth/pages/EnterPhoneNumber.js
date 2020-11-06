@@ -1,19 +1,83 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import 'react-phone-number-input/style.css';
 // import PhoneInput from 'react-phone-number-input';
-import { Sidebar } from '../component/sidebar';
+import {Sidebar} from '../component/sidebar';
 import NeedHelp from '../component/needHelp';
+import {REQUEST_RESET_PASSWORD} from '../../services/auth';
+import {useMutation} from '@apollo/client';
+import {setAlert} from '../../services/Redux/Actions/Alert';
+import {connect} from 'react-redux';
+import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
+import {Spin} from 'antd';
+import {countryCodes} from '../../services/country';
 
-const EnterPhoneNumber = () => {
-  // const [value, setValue] = useState();
+const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
+  const userId = JSON.parse(localStorage.getItem('user')).id;
+  const [prefix, setPrefix] = useState('');
+  const [numb, setNumb] = useState('');
+  const [formData, setFormData] = useState({
+    phoneNumber: `${prefix}${numb}`,
+    userId: userId,
+  });
+  const onPrefixChange = (e) => {
+    setPrefix(e.target.value);
+    setFormData({
+      phoneNumber: `${e.target.value}${numb}`,
+      userId: userId,
+    });
+  };
+  const onNumberChange = (e) => {
+    setNumb(e.target.value);
+    setFormData({
+      phoneNumber: `${prefix}${e.target.value}`,
+      userId: userId,
+    });
+  };
+
+  const [resetPasswordRequest, {loading}] = useMutation(
+    REQUEST_RESET_PASSWORD,
+    {
+      update(proxy, result) {
+        console.log(result);
+        if (result.data.resetPasswordRequest.message) {
+          setAlert(result.data.resetPasswordRequest.message);
+          history.push({pathname: '/verify-code', state: {formData}});
+        }
+      },
+      onError(err) {
+        console.log(err);
+        handleGeneralErrors(err);
+      },
+    }
+  );
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    if (prefix === '') {
+      setAlert('Please select your country code', 'error');
+      return;
+    } else if (numb === '') {
+      setAlert('Please Enter your Phone Number', 'error');
+    } else {
+      console.log(formData);
+      resetPasswordRequest({variables: formData});
+    }
+  };
   return (
     <div className="register-wrapper">
-    <Sidebar />
+      <Sidebar />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
+            Need help?{' '}
+            <span
+              className="text-blue click ml-2"
+              data-toggle="modal"
+              data-target="#helpModal"
+            >
+              Click here
+            </span>
           </div>
           <div className="px">
             <div className="d-body">
@@ -22,7 +86,8 @@ const EnterPhoneNumber = () => {
                   <div className="col-lg-7 col-md-8">
                     <p className="font22 font-bold mb-2">Enter Phone Number</p>
                     <p className="text-grey">
-                    Input your phone number. We'll send you a reset code to you.
+                      Input your phone number. We'll send you a reset code to
+                      you.
                     </p>
                   </div>
                 </div>
@@ -30,19 +95,8 @@ const EnterPhoneNumber = () => {
                   <form>
                     <div className="row">
                       <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
-                        <div className="form-group mr-3">
-                          {/* <span className="phone-input-icon">
-                            <span
-                              className="iconify"
-                              data-icon="bi:phone"
-                              data-inline="false"
-                            ></span>
-                          </span>
-                          <PhoneInput
-                            placeholder="Phone Number"
-                            value={value}
-                            onChange={setValue}
-                          /> */}
+                      <div className="form-group mr-3">
+                          
                           <div className="phone-input-wrapper">
                             <div className="prefix-number">
                               <span className="input-icon">
@@ -52,9 +106,23 @@ const EnterPhoneNumber = () => {
                                   data-inline="false"
                                 ></span>
                               </span>
-                              <select className="form-control">
-                                <option value="">+234</option>
-                                <option value="">+234</option>
+                              <select
+                                className="form-control"
+                                name="prefix"
+                                value={prefix}
+                                onChange={(e) => onPrefixChange(e)}
+                              >
+                                <option value="+234">+234</option>
+                              {countryCodes.map((each) => {
+                                return (
+                                  <option
+                                    key={each.name}
+                                    value={each.code}
+                                  >
+                                    {each.code}
+                                  </option>
+                                );
+                              })}
                               </select>
                             </div>
                             <div className="full-number">
@@ -65,16 +133,28 @@ const EnterPhoneNumber = () => {
                                   data-inline="false"
                                 ></span>
                               </div>
-                              <input type="number" className="form-control" />
+                              <input
+                                type="number"
+                                className="form-control"
+                                name="numb"
+                                value={numb}
+                                onChange={(e) => onNumberChange(e)}
+                              />
                             </div>
                           </div>
                         </div>
 
-                        <Link to="/verify-code">
-                          <button className="btn btn-blue btn-lg mt-4">
-                            Send Code
-                          </button>
-                        </Link>
+                        <button
+                          className="btn btn-blue btn-lg mt-4"
+                          onClick={(e) => submitForm(e)}
+                        >
+                          Send Code
+                          {loading && (
+                            <span className="ml-4">
+                              <Spin />
+                            </span>
+                          )}
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -84,18 +164,16 @@ const EnterPhoneNumber = () => {
                 <div className="d-flex flex-wrap align-items-center justify-content-between font-bold text-grey agreement-check">
                   <div>PREVIOUS</div>
                   <div className="mr-2">SKIP FOR NOW</div>
-                  <Link to="/register-step-three">
                     <button className="btn btn-grey btn-lg">Next</button>
-                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <NeedHelp/>
+      <NeedHelp />
     </div>
   );
 };
 
-export default EnterPhoneNumber;
+export default connect(null, {setAlert, handleGeneralErrors})(EnterPhoneNumber);

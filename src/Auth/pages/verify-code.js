@@ -1,14 +1,100 @@
 import React, {useState} from 'react';
 import {Sidebar} from '../component/sidebar';
-import {Link} from 'react-router-dom';
-import VerificationInput from 'react-verification-input';
+import ReactCodeInput from 'react-verification-code-input';
 import NeedHelp from '../component/needHelp';
+import {useEffect} from 'react';
+import {setAlert} from '../../services/Redux/Actions/Alert';
+import {connect} from 'react-redux';
+import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
+import {Spin} from 'antd';
+import {useMutation} from '@apollo/client';
+import {REQUEST_RESET_PASSWORD, VALIDATE_RESET_OTP} from '../../services/auth';
 
-const VerifyCode = () => {
+const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
+  const formData = location.state.formData;
+  console.log(formData);
   const [iserror, setiserror] = useState(false);
+  const [code, setCode] = useState('');
+
+  useEffect(() => {
+    StartTimer();
+  }, []);
+
+  const [resetPasswordRequest, {loadingg}] = useMutation(
+    REQUEST_RESET_PASSWORD,
+    {
+      update(proxy, result) {
+        console.log(result);
+        if (result.data.resetPasswordRequest.message) {
+          setAlert(result.data.resetPasswordRequest.message);
+          StartTimer();
+        }
+      },
+      onError(err) {
+        console.log(err);
+        handleGeneralErrors(err);
+      },
+    }
+  );
+
+  const [validateResetOTP, {loading}] = useMutation(VALIDATE_RESET_OTP, {
+    update(proxy, result) {
+      console.log(result);
+      if (result.data.validateResetOTP.message) {
+        setAlert(result.data.validateResetOTP.message);
+        history.push({pathname: `/reset-password/${code}`});
+      }
+    },
+    onError(err) {
+      console.log(err);
+      setiserror(true);
+      handleGeneralErrors(err);
+    },
+  });
+
+  const onCodeChange = (e) => {
+    console.log(e);
+    setCode(e);
+  };
+  const resendCode = (e) => {
+    e.preventDefault();
+    setiserror(false);
+    resetPasswordRequest({variables: formData});
+  };
   const submitCode = (e) => {
     e.preventDefault();
-    setiserror(true);
+    let payloadEmail = '';
+    let payloadPhone = '';
+    let payload = {};
+    if (formData.email != null) {
+      payloadEmail = formData.email;
+    } else if (formData.phoneNumber != null) {
+      payloadPhone = formData.phoneNumber;
+    }
+    payload = {
+      email: payloadEmail,
+      phoneNumber: payloadPhone,
+      otp: code,
+    };
+    console.log(payload);
+    validateResetOTP({variables: payload});
+  };
+
+  let fiveMin = 60 * 5;
+
+  const StartTimer = () => {
+    const Timer = setInterval(() => {
+      fiveMin--;
+      let mins = Math.floor(fiveMin / 60);
+      let secs = Math.floor(fiveMin % 60);
+      secs < 10 ? (secs = `0${secs}`) : (secs = secs);
+      if (document.querySelector('.timeResult') != null) {
+        document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
+      }
+      if (fiveMin < 1) {
+        clearInterval(Timer);
+      }
+    }, 1000);
   };
 
   return (
@@ -17,7 +103,14 @@ const VerifyCode = () => {
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
+            Need help?{' '}
+            <span
+              className="text-blue click ml-2"
+              data-toggle="modal"
+              data-target="#helpModal"
+            >
+              Click here
+            </span>
           </div>
           <div className="px">
             <div className="d-body">
@@ -26,9 +119,9 @@ const VerifyCode = () => {
                   <div className="col-lg-12">
                     <p className="font22 font-bold mb-2">Verify your Number</p>
                     <p className="text-grey">
-                      Enter the 6-digit code that has been sent to{' '}
+                      Enter the 4-digit code that has been sent to{' '}
                       <span className="font-bold text-black">
-                        +65 35326483.
+                        {formData.phoneNumber}
                       </span>{' '}
                       <span className="font14 text-blue click">
                         Change number
@@ -47,30 +140,44 @@ const VerifyCode = () => {
                               : 'verify-input mr-3 p-4'
                           }
                         >
-                          <VerificationInput length={5} />
+                          <ReactCodeInput
+                            type={'text'}
+                            fields={6}
+                            onChange={(e) => onCodeChange(e)}
+                          />
                         </div>
                         {iserror ? (
                           <div className="my-3 text-grey">
                             The code typed was{' '}
-                            <span className="text-red">wrong</span>. A new code
-                            was sent.
+                            <span className="text-red">wrong</span>. Please
+                            retry
                           </div>
                         ) : (
                           <div className="my-3 text-grey">
                             The OTP will be expired in{' '}
-                            <span className="text-black">5:59 </span>
+                            <span className="text-black timeResult"> </span>
                           </div>
                         )}
 
-                        <Link
-                          to="/reset-password"
+                        <button
                           className="btn btn-blue btn-lg mt-4"
+                          onClick={(e) => submitCode(e)}
                         >
                           Verify Number
-                        </Link>
+                          {loading && (
+                            <span className="ml-4">
+                              <Spin />
+                            </span>
+                          )}
+                        </button>
                         <div className="mt-5 text-grey">
                           Didn't received the code?{' '}
-                          <span className="text-blue click">Resend it</span>
+                          <span
+                            className="text-blue click"
+                            onClick={(e) => resendCode(e)}
+                          >
+                            Resend it
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -81,9 +188,9 @@ const VerifyCode = () => {
           </div>
         </div>
       </section>
-      <NeedHelp/>
+      <NeedHelp />
     </div>
   );
 };
 
-export default VerifyCode;
+export default connect(null, {setAlert, handleGeneralErrors})(VerifyCode);

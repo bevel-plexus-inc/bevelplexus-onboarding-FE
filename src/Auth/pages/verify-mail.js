@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {  useState } from 'react';
 import {Sidebar} from '../component/sidebar';
 import mailBox from '../../assets/img/mailBox.svg';
 import {Link} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
 
 const ShowMail = () => {
+
+  const email = JSON.parse(localStorage.getItem('user')).email
+  
   return (
     <div className="register-wrapper one">
       <Sidebar />
@@ -18,13 +21,13 @@ const ShowMail = () => {
               <div className="title-space">
                 <p className="font22 font-bold mb-2">You’ve got Mail!</p>
                 <p className="text-grey">
-                  We have sent a verification email to s*********@gmail.com{' '}
+                  We have sent a verification email to {email} 
                   <br />
                   Please click the link sent to your email to continue
                 </p>
               </div>
               <div className="pt-5 row">
-                <div className="col-lg-6 col-md-7 col-sm-12 mx-auto">
+                <div className="col-lg-6 col-md-7 col-sm-12 mx-auto text-center">
                   <img src={mailBox} alt="" className="w-100" />
                   <div className="agreement-check text-grey mt-5">
                     Didn't receive the email?

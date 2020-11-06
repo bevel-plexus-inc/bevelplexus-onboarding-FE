@@ -1,19 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Sidebar} from '../component/sidebar';
-import regular from '../../assets/img/user-regular.svg';
-import student from '../../assets/img/user-student.svg';
 import {Link} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
+import { Form, Input, Spin} from 'antd';
+import {LOGIN} from '../../services/auth';
+import {useMutation} from '@apollo/client';
+import {setAlert} from '../../services/Redux/Actions/Alert';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
 
-const Login = () => {
+const Login = ({setAlert, handleGeneralErrors}) => {
+  const [formData, setFormData] = useState();
+  const [loginUser, {loading}] = useMutation(LOGIN, {
+    update(proxy, result) {
+      setAlert('Welcome', 'success')
+      console.log(result);
+      if (result.data.login.token) {
+        localStorage.setItem('token', result.data.login.token);
+        localStorage.setItem('user', JSON.stringify(result.data.login.user))
+      }
+    },
+    onError(err) {
+    handleGeneralErrors(err)
+    },
+    variables: formData,
+  });
+  const onFinish = (values) => {
+    console.log(values);
+    setFormData(values);
+    loginUser();
+  };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
     <div className="register-wrapper one">
       <Sidebar />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help? <span className="text-blue click ml-2" data-toggle="modal" data-target="#helpModal">Click here</span>
+            Need help?{' '}
+            <span
+              className="text-blue click ml-2"
+              data-toggle="modal"
+              data-target="#helpModal"
+            >
+              Click here
+            </span>
           </div>
           <div className="px body-centered">
             <div className="row">
@@ -25,7 +60,16 @@ const Login = () => {
                     affordable and seamless as possible.
                   </p>
                 </div>
-                <form className='pt-5'>
+
+                <Form
+                  name="basic"
+                  initialValues={{
+                    remember: true,
+                  }}
+                  className="pt-5"
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                >
                   <div className="form-group">
                     <span className="input-icon">
                       <span
@@ -34,21 +78,46 @@ const Login = () => {
                         data-inline="false"
                       ></span>
                     </span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Email"
-                    />
+
+                    <Form.Item
+                      name="email"
+                      rules={[
+                        {
+                          type: 'email',
+                          message: 'The input is not valid E-mail!',
+                        },
+                        {
+                          required: true,
+                          message: 'Please input your email!',
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Email" className="form-control" />
+                    </Form.Item>
                   </div>
                   <div className="form-group">
                     <span className="input-icon">
-                    <span className="iconify" data-icon="la:key-solid" data-inline="false"></span>
+                      <span
+                        className="iconify"
+                        data-icon="la:key-solid"
+                        data-inline="false"
+                      ></span>
                     </span>
-                    <input
-                      type="password"
-                      className="form-control"
-                      placeholder="Password"
-                    />
+
+                    <Form.Item
+                      name="password"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input your password!',
+                        },
+                      ]}
+                    >
+                      <Input.Password
+                        placeholder="Password"
+                        className="form-control"
+                      />
+                    </Form.Item>
                   </div>
 
                   <div className="d-flex flex-wrap align-items-end justify-content-end">
@@ -56,23 +125,46 @@ const Login = () => {
                       Forgot password?
                     </Link>
                   </div>
-
-                  <button className="btn btn-blue btn-lg my-5">Sign In</button>
-                </form>
-                <div>
-                  Dont have an account?
-                  <Link to="/register" className="text-blue click ml-2">
-                    Sign Up
-                  </Link>
-                </div>
+                  <Form.Item>
+                    {loading ? (
+                      <button
+                        type="submit"
+                        className="btn btn-blue btn-lg my-5"
+                        disabled
+                      >
+                        Sign In
+                        <span className="pl-4">
+                          <Spin />
+                        </span>
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="btn btn-blue btn-lg my-5"
+                      >
+                        Sign In
+                      </button>
+                    )}
+                  </Form.Item>
+                  <div>
+                    Dont have an account?
+                    <Link to="/register" className="text-blue click ml-2">
+                      Sign Up
+                    </Link>
+                  </div>
+                </Form>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <NeedHelp/>
+      <NeedHelp />
     </div>
   );
 };
+Login.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  handleGeneralErrors: PropTypes.func.isRequired,
+};
 
-export default Login;
+export default connect(null, {setAlert, handleGeneralErrors})(Login);
