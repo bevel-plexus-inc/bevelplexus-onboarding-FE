@@ -15,7 +15,7 @@ import {countryCodes} from '../../services/country';
 const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
   const userId = JSON.parse(localStorage.getItem('user')).id;
   if(userId === null){
-    setAlert('Please register first')
+    setAlert('Please you need to register first')
   }
   const [prefix, setPrefix] = useState('');
   const [numb, setNumb] = useState('');
