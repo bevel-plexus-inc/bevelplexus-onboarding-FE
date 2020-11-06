@@ -12,6 +12,9 @@ import {Input, Spin, Form} from 'antd';
 
 const EnterMail = ({setAlert, handleGeneralErrors}) => {
   const userId = JSON.parse(localStorage.getItem('user')).id;
+  if(userId === null){
+    setAlert('Please register first')
+  }
   const [mailSent, setMailSent] = useState(false);
   const [formData, setFormData] = useState({});
 
