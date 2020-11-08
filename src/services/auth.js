@@ -91,8 +91,10 @@ export const VALIDATE_RESET_OTP = gql`
 `;
 
 export const RESET_PASSWORD = gql`
-  mutation resetPassword($password: String, $email: String,, $formToken: String!) {
-    resetPassword(password: $password, email: $email, formToken :$formToken) {
+  mutation resetPassword($password: String!, $formToken: String!) {
+    resetPassword(
+      input: {password: $password, formToken :$formToken}
+      ) {
       message
       identifier
     }

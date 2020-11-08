@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Sidebar} from '../component/sidebar';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
 import { Form, Input, Spin} from 'antd';
 import {LOGIN} from '../../services/auth';
@@ -10,7 +10,10 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
 
-const Login = ({setAlert, handleGeneralErrors}) => {
+const Login = ({setAlert, handleGeneralErrors, history}) => {
+  const search = useLocation().search;
+  const redirect_url = new URLSearchParams(search).get('redirect_url');
+  console.log(redirect_url)
   const [formData, setFormData] = useState();
   const [loginUser, {loading}] = useMutation(LOGIN, {
     update(proxy, result) {
@@ -19,6 +22,11 @@ const Login = ({setAlert, handleGeneralErrors}) => {
       if (result.data.login.token) {
         localStorage.setItem('token', result.data.login.token);
         localStorage.setItem('user', JSON.stringify(result.data.login.user))
+      }
+      if(redirect_url === null){
+        history.push({pathname: '/transaction'});
+      }else{
+        history.push({pathname: `${redirect_url}`});
       }
     },
     onError(err) {

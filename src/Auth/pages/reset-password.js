@@ -34,7 +34,6 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
       let payload = {
         password: values.password,
         formToken: tokenParam,
-        email: ''
       };
       console.log(payload)
       setFormData(payload);
