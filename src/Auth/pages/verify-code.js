@@ -42,7 +42,8 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
       console.log(result);
       if (result.data.validateResetOTP.message) {
         setAlert(result.data.validateResetOTP.message);
-        history.push({pathname: `/reset-password/${code}`});
+        console.log(result)
+        history.push({pathname: `/reset-password/${result.data.validateResetOTP.identifier}`});
       }
     },
     onError(err) {
