@@ -210,7 +210,7 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
                   Already have a login?{' '}
                   <span className="text-blue click">Sign in here</span>
                 </div>
-                <Link to="/register-step-four">
+                <Link to="/transaction">
                   <button className="btn btn-blue btn-lg">Next</button>
                 </Link>
               </div>

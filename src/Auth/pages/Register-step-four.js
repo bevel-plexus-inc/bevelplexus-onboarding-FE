@@ -49,7 +49,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     registerID({variables:payload});
   };
 
-  const [registerEnrollment, {loading2}] = useMutation(verifyEnrollment, {
+  const [registerEnrollment, {loadingg}] = useMutation(verifyEnrollment, {
     update(proxy, result) {
       console.log(result);
       setpercentageFile2(100);
@@ -216,7 +216,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        {percentageFile2 <= 0 && !loading2 ? (
+                        {percentageFile2 <= 0 && !loadingg ? (
                           <>
                             <label
                               className="btn btn-upload"
@@ -240,7 +240,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               {percentageFile2}%
                             </div>
                           </div>
-                        ) : percentageFile2 === 'error' && !loading2 ? (
+                        ) : percentageFile2 === 'error' && !loadingg ? (
                           <>
                             <label
                               className="btn btn-outline-red"
@@ -276,7 +276,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         ) : (
                           <></>
                         )}
-                        {loading2 && (
+                        {loadingg && (
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
@@ -298,7 +298,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                   Already have a login?{' '}
                   <span className="text-blue click">Sign in here</span>
                 </div>
-                <Link to="/register-step-four">
+                <Link to="/transaction">
                   <button className="btn btn-blue btn-lg">Next</button>
                 </Link>
               </div>
