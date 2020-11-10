@@ -32,7 +32,7 @@ import GlobalAlert from './globalComponent/GlobalAlert';
 
 // Initialize apollo and set authorization token
 const httpLink = createHttpLink({
-  uri: 'http://3.84.143.48:5000/graphql',
+  uri: 'https://bp-user.herokuapp.com/graphql',
 });
 
 const authLink = setContext((_, {headers}) => {
