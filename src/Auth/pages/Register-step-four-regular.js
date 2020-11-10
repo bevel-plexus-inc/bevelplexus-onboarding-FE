@@ -10,10 +10,10 @@ import {VerifyIdentity} from '../../services/auth';
 
 const RegisterStepFourRegular = ({handleGeneralErrors}) => {
   const history = useHistory();
-  
-  const registerStatus = localStorage.getItem('registerStatus')
-  if(registerStatus !== 'complete3'){
-    history.goBack()
+
+  const registerStatus = localStorage.getItem('registerStatus');
+  if (registerStatus !== 'complete3') {
+    history.goBack();
   }
   const userId = JSON.parse(localStorage.getItem('user')).id;
   const [percentageFile, setpercentageFile] = useState(0);
@@ -50,18 +50,47 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
     },
     onError(err) {
       console.log(err);
+      console.log(err.graphQLErrors);
       setpercentageFile('error');
       handleGeneralErrors(err);
     },
   });
 
   const uploadFile = (e) => {
-    let payload = {
-      file: e.target.files[0],
-      userId: userId,
+    let file = e.target.files[0]
+    let fileUpload;
+
+    const create_blob = (file, callback) => {
+      var reader = new FileReader();
+      reader.onload= () => {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(file);
     };
-    console.log(payload);
-    registerID({variables:payload});
+    create_blob(file, (blob_string) => {
+      console.log(blob_string);
+      fileUpload = blob_string
+      let payload = {
+        file: fileUpload,
+        userId: userId,
+      };
+      registerID({variables: payload});
+      console.log(payload);
+    });
+
+    // var r = new FileReader();
+    // r.readAsBinaryString(file);
+    // r.onload = function(){ 
+    //   console.log(r.result); 
+    // };
+
+
+    // let payload = {
+    //   file: fileUpload,
+    //   userId: userId,
+    // };
+    // registerID({variables: payload});
+    // console.log(payload);
   };
 
   // const uploadFile = (e) => {
@@ -72,7 +101,7 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
   //   });
   //   console.log(formData)
   //   registerID();
-   
+
   // };
 
   return (
@@ -126,7 +155,7 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        {percentageFile <= 0 && !loading? (
+                        {percentageFile <= 0 && !loading ? (
                           <>
                             <label
                               className="btn btn-upload"
@@ -164,8 +193,10 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
                               id="chooseFile1"
                               onChange={uploadFile}
                             />
-                              <p className="mb-0 font12">
-                              <span className="text-red mr-1">An error occured,</span>
+                            <p className="mb-0 font12">
+                              <span className="text-red mr-1">
+                                An error occured,
+                              </span>
                               please re-upload.
                             </p>
                           </>
@@ -187,7 +218,7 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
                         ) : (
                           <></>
                         )}
-                        { loading  && (
+                        {loading && (
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
@@ -196,7 +227,7 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
                               {50}%
                             </div>
                           </div>
-                        ) }
+                        )}
                       </div>
                     </div>
                   </div>

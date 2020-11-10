@@ -6,7 +6,7 @@ import { setAlert } from '../services/Redux/Actions/Alert';
 export const handleGeneralErrors = (errors, history) => (dispatch) => {
   console.log(errors);
   if (errors.graphQLErrors.length < 1) {
-    dispatch(setAlert('Please connect to the internet', 'error'));
+    dispatch(setAlert('An error occured, could not process your request', 'error'));
     return;
   } else {
     console.log(errors.graphQLErrors);
