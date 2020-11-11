@@ -19,7 +19,7 @@ const UserType = {
 
 const Register = ({handleGeneralErrors}) => {
   const history = useHistory();
-  const [userType, setUserType] = useState(UserType.Student);
+  const [userType, setUserType] = useState('');
   const [agreement, setAgreement] = useState(false);
   const checkBoxChange = (e) => {
     const val = e.target.checked;
@@ -56,6 +56,9 @@ const Register = ({handleGeneralErrors}) => {
 
   const onFinish = (values) => {
     console.log(values);
+    if(values.referralCode === undefined){
+      values.referralCode = ''
+    }
     if (userType === '') {
       toast.error('Please you need to select a user type to proceed');
     } else if (agreement === false) {
