@@ -329,7 +329,7 @@ const Register = ({handleGeneralErrors}) => {
                     </Link>
                   </div>
                   <Form.Item className='mb-0'>
-                    <button type="submit" className="btn btn-blue btn-lg">
+                    <button type="submit" className="btn btn-blue btn-lg" disabled={loading}>
                       Create account
                       {loading && (
                         <span className="ml-4">

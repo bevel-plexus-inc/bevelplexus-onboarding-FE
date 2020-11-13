@@ -1,62 +1,102 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SecondSidebar} from '../component/second-sidebar';
 import {Link} from 'react-router-dom';
 import ReactCodeInput from 'react-verification-code-input';
 import NeedHelp from '../component/needHelp';
-import {AUTHENTICATE_PHONE_NUMBER} from '../../services/auth';
+import {AUTHENTICATE_PHONE_NUMBER, VERIFY_PHONE} from '../../services/auth';
 import {setAlert} from '../../services/Redux/Actions/Alert';
 import {useMutation} from '@apollo/client';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {connect} from 'react-redux';
 import {Spin} from 'antd';
 
-const RegisterVerifyCode = ({location, handleGeneralErrors, setAlert, history}) => {
-  const userdetails = JSON.parse(localStorage.getItem('user'))
+const RegisterVerifyCode = ({
+  location,
+  handleGeneralErrors,
+  setAlert,
+  history,
+}) => {
   const formData = location.state.formData;
-  console.log(formData);
-  const userDetails = JSON.parse(localStorage.getItem('user'))
-  console.log(userDetails)
+  const userDetails = JSON.parse(localStorage.getItem('user'));
+  console.log(userDetails);
   const [iserror, setiserror] = useState(false);
-  const [code, setCode] = useState("")
+  const [code, setCode] = useState('');
+
+  
+  useEffect(() => {
+    StartTimer();
+  }, []);
+
   const onCodeChange = (e) => {
-    console.log(e)
+    console.log(e);
     setCode(e);
   };
+
+  const [verifyPhoneNumber, {loading}] = useMutation(VERIFY_PHONE, {
+    update(proxy, result) {
+      console.log(result);
+      if (result.data.verifyPhoneNumber.message) {
+        setAlert(result.data.verifyPhoneNumber.message);
+        console.log(result);
+        localStorage.setItem('registerStatus', 'complete2');
+        clearInterval(StartTimer);
+        if (userDetails.userType === 'Regular') {
+          history.push('/register-step-three-regular');
+        } else {
+          history.push('/register-step-three');
+        }
+      }
+    },
+    onError(err) {
+      console.log(err);
+      setiserror(true);
+      handleGeneralErrors(err);
+    },
+  });
+
   const submitCode = (e) => {
     e.preventDefault();
-    console.log(userdetails)
-    if(userDetails.userType == 'Regular'){
-      localStorage.setItem('registerStatus', 'complete2');
-      history.push('/register-step-three-regular');
-      clearInterval(StartTimer)
-    }else{
-      localStorage.setItem('registerStatus', 'complete2');
-      history.push('/register-step-three');
-      clearInterval(StartTimer)
-    }
-    // setiserror(true);
+    let payload = {
+      phoneNumber: formData.phoneNumber,
+      token: code,
+    };
+    console.log(payload);
+    verifyPhoneNumber({variables: payload});
+
+    // localStorage.setItem('registerStatus', 'complete2');
+    // clearInterval(StartTimer);
+    // if (userDetails.userType === 'Regular') {
+    //   history.push('/register-step-three-regular');
+    // } else {
+    //   history.push('/register-step-three');
+    // }
   };
+ 
   let fiveMin = 60 * 5;
 
-  const StartTimer = setInterval(() => {
-    fiveMin--;
-    let mins = Math.floor(fiveMin / 60);
-    let secs = Math.floor(fiveMin % 60);
-    secs < 10 ? (secs = `0${secs}`) : (secs = secs);
-    if (document.querySelector('.timeResult') != null) {
-      document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
-      if (fiveMin < 1) {
-        clearInterval(StartTimer);
+  const StartTimer = () => {
+    const Timer = setInterval(() => {
+      fiveMin--;
+      let mins = Math.floor(fiveMin / 60);
+      let secs = Math.floor(fiveMin % 60);
+      secs < 10 ? (secs = `0${secs}`) : (secs = secs);
+      if (document.querySelector('.timeResult') != null) {
+        document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
       }
-    }
-  }, 1000);
-  const [authenticatePhoneNumber, {loading}] = useMutation(
+      if (fiveMin < 1) {
+        clearInterval(Timer);
+      }
+    }, 1000);
+  };
+
+  const [authenticatePhoneNumber, {loadin}] = useMutation(
     AUTHENTICATE_PHONE_NUMBER,
     {
       update(proxy, result) {
         console.log(result);
         if (result.data.authenticatePhoneNumber) {
           setAlert(result.data.authenticatePhoneNumber.message);
+          StartTimer();
         }
       },
       onError(err) {
@@ -115,12 +155,16 @@ const RegisterVerifyCode = ({location, handleGeneralErrors, setAlert, history}) 
                               : 'verify-input mr-3 p-4'
                           }
                         >
-                          <ReactCodeInput fields={6} onChange={(e)=>onCodeChange(e)}/>
+                          <ReactCodeInput
+                            type={'text'}
+                            fields={6}
+                            onChange={(e) => onCodeChange(e)}
+                          />
                         </div>
-                        {iserror ? ( 
+                        {iserror ? (
                           <div className="my-3 text-grey">
                             The code typed was{' '}
-                            <span className="text-red">wrong</span>.  Please
+                            <span className="text-red">wrong</span>. Please
                             retry
                           </div>
                         ) : (
@@ -130,7 +174,10 @@ const RegisterVerifyCode = ({location, handleGeneralErrors, setAlert, history}) 
                           </div>
                         )}
 
-                        <button className="btn btn-blue btn-lg mt-4" onClick={(e) => submitCode(e)}>
+                        <button
+                          className="btn btn-blue btn-lg mt-4"
+                          onClick={(e) => submitCode(e)}
+                        >
                           Verify Number
                         </button>
                         <div className="mt-5 text-grey">
@@ -150,13 +197,6 @@ const RegisterVerifyCode = ({location, handleGeneralErrors, setAlert, history}) 
                       </div>
                     </div>
                   </form>
-                </div>
-              </div>
-              <div className="mt-auto mb-5">
-                <div className="d-flex flex-wrap align-items-center justify-content-between font-bold text-grey agreement-check">
-                  <div>PREVIOUS</div>
-                  <div className="mr-2">SKIP FOR NOW</div>
-                    <button className="btn btn-grey btn-lg">Next</button>
                 </div>
               </div>
             </div>

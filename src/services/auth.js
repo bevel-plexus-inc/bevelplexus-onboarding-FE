@@ -77,13 +77,15 @@ export const REQUEST_RESET_PASSWORD = gql`
   }
 `;
 
-
 export const VALIDATE_RESET_OTP = gql`
-  mutation validateResetOTP($otp: String!, $email: String,, $phoneNumber: String) {
+  mutation validateResetOTP(
+    $otp: String!
+    $email: String
+    $phoneNumber: String
+  ) {
     validateResetOTP(
-      input: {otp: $otp, email: $email, phoneNumber :$phoneNumber}
-      
-      ) {
+      input: {otp: $otp, email: $email, phoneNumber: $phoneNumber}
+    ) {
       message
       identifier
     }
@@ -92,19 +94,27 @@ export const VALIDATE_RESET_OTP = gql`
 
 export const RESET_PASSWORD = gql`
   mutation resetPassword($password: String!, $formToken: String!) {
-    resetPassword(
-      input: {password: $password, formToken :$formToken}
-      ) {
+    resetPassword(input: {password: $password, formToken: $formToken}) {
       message
       identifier
     }
   }
 `;
 
-
 export const VERIFY_MAIL = gql`
   mutation verifyEmail($email: String!, $token: String!) {
     verifyEmail(emailVerificationArgs: {email: $email, token: $token}) {
+      message
+      identifier
+    }
+  }
+`;
+
+export const VERIFY_PHONE = gql`
+  mutation verifyPhoneNumber($phoneNumber: String!, $token: String!) {
+    verifyPhoneNumber(
+      phoneVerificationArgs: {phoneNumber: $phoneNumber, token: $token}
+    ) {
       message
       identifier
     }

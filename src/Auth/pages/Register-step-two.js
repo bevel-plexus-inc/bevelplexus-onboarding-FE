@@ -149,6 +149,7 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                         <button
                           className="btn btn-blue btn-lg mt-4"
                           onClick={(e) => submitForm(e)}
+                          disabled={loading}
                         >
                           Send Code
                           {loading && (
@@ -163,9 +164,7 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                 </div>
               </div>
               <div className="mt-auto mb-5">
-                <div className="d-flex flex-wrap align-items-center justify-content-between font-bold text-grey agreement-check">
-                  <div>PREVIOUS</div>
-                  <div className="mr-2">SKIP FOR NOW</div>
+                <div className="text-right">
                     <button className="btn btn-grey btn-lg">Next</button>
                 </div>
               </div>

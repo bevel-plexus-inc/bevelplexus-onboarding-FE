@@ -57,6 +57,21 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
   });
 
   const uploadFile = (e) => {
+
+    if(e.target.validity.valid){
+    // let file = e.target.files[0]
+    console.log(e.target.value)
+    const file = new Blob([e.target.value], { type: 'text/plain' });
+    let payload = {
+      file: file,
+      userId: userId,
+    };
+    console.log(payload);
+    registerID({variables: payload});
+  }
+
+
+
     // const create_blob = (file, callback) => {
     //   var reader = new FileReader();
     //   reader.onload= () => {
@@ -75,20 +90,20 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
     //   console.log(payload);
     // });
 
-    let file = e.target.files[0]
-    let fileUpload;
-    var r = new FileReader();
-    r.readAsBinaryString(file);
-    r.onload = function(){ 
-      console.log(r.result); 
-      fileUpload = r.result
-      let payload = {
-        file: fileUpload,
-        userId: userId,
-      };
-      registerID({variables: payload});
-      console.log(payload);
-    };
+    // let file = e.target.files[0]
+    // let fileUpload;
+    // var r = new FileReader();
+    // r.readAsBinaryString(file);
+    // r.onload = function(){ 
+    //   console.log(r.result); 
+    //   fileUpload = r.result
+    //   let payload = {
+    //     file: fileUpload,
+    //     userId: userId,
+    //   };
+    //   registerID({variables: payload});
+    //   console.log(payload);
+    // };
 
     // let file = e.target.files[0]
     // let fileUpload = new FormData()

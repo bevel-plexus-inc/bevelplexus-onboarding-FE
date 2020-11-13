@@ -326,7 +326,7 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                     Already have a login?
                     <span className="text-blue click">Sign in here</span>
                   </div>
-                  <button className="btn btn-blue btn-lg" type="submit">
+                  <button className="btn btn-blue btn-lg" type="submit" disabled={loading}>
                     Next
                     {loading && (
                       <span className="ml-4">
