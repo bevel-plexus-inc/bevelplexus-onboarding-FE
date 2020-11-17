@@ -20,9 +20,9 @@ import RegisterVerifyCode from './Auth/pages/Register-verify-cod';
 import {
   ApolloClient,
   ApolloProvider,
-  createHttpLink,
   InMemoryCache,
 } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 import {setContext} from '@apollo/client/link/context';
 
 //Redux
@@ -31,7 +31,7 @@ import store from './services/Redux/store';
 import GlobalAlert from './globalComponent/GlobalAlert';
 
 // Initialize apollo and set authorization token
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: 'https://bp-user.herokuapp.com/graphql',
 });
 

@@ -194,7 +194,7 @@ export const AddRegularAccountDetails = gql`
 
 export const VerifyIdentity = gql`
   mutation verifyIdentity($userId: String!, $file: Upload!) {
-    verifyIdentity(userId: $userId, file: $file) {
+    verifyIdentity(file: $file, userId: $userId) {
       id
       userId
       isIdentityVerified
@@ -210,7 +210,7 @@ export const VerifyIdentity = gql`
 `;
 export const verifyEnrollment = gql`
   mutation verifyEnrollment($userId: String!, $file: Upload!) {
-    verifyEnrollment(userId: $userId, file: $file) {
+    verifyEnrollment(file: $file, userId: $userId) {
       id
       userId
       isIdentityVerified
