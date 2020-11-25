@@ -14,27 +14,17 @@ import PhoneInput from 'react-phone-number-input';
 const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
   const history = useHistory();
   const userId = JSON.parse(localStorage.getItem('user')).id;
-  const [prefix, setPrefix] = useState('');
-  const [numb, setNumb] = useState('');
   const [formData, setFormData] = useState({
     phoneNumber: '',
     userId: userId,
   });
   const {phoneNumber} = formData;
-  const onPrefixChange = (e) => {
-    setPrefix(e.target.value);
-    setFormData({
-      phoneNumber: `${e.target.value}${numb}`,
-      userId: userId,
-    });
-  };
   const onNumberChange = (e) => {
     console.log(e);
-    // setNumb(e.target.value);
-    // setFormData({
-    //   phoneNumber: `${prefix}${e.target.value}`,
-    //   userId: userId,
-    // });
+    setFormData({
+      phoneNumber: `${e}`,
+      userId: userId,
+    });
   };
 
   const [authenticatePhoneNumber, {loading}] = useMutation(
@@ -56,10 +46,7 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (prefix === '') {
-      setAlert('Please select your country code', 'error');
-      return;
-    } else if (numb === '') {
+    if (formData.phoneNumber === '') {
       setAlert('Please Enter your Phone Number', 'error');
     } else {
       console.log(formData);
