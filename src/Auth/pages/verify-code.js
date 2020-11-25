@@ -15,6 +15,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
   console.log(formData);
   const [iserror, setiserror] = useState(false);
   const [code, setCode] = useState('');
+  const [showResend, setShowResend] = useState(false);
 
   useEffect(() => {
     StartTimer();
@@ -42,8 +43,10 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
       console.log(result);
       if (result.data.validateResetOTP.message) {
         setAlert(result.data.validateResetOTP.message);
-        console.log(result)
-        history.push({pathname: `/reset-password/${result.data.validateResetOTP.identifier}`});
+        console.log(result);
+        history.push({
+          pathname: `/reset-password/${result.data.validateResetOTP.identifier}`,
+        });
       }
     },
     onError(err) {
@@ -84,6 +87,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
   let fiveMin = 60 * 5;
 
   const StartTimer = () => {
+    setShowResend(false);
     const Timer = setInterval(() => {
       fiveMin--;
       let mins = Math.floor(fiveMin / 60);
@@ -93,6 +97,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
         document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
       }
       if (fiveMin < 1) {
+        setShowResend(true);
         clearInterval(Timer);
       }
     }, 1000);
@@ -171,15 +176,18 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
                             </span>
                           )}
                         </button>
-                        <div className="mt-5 text-grey">
-                          Didn't received the code?{' '}
-                          <span
-                            className="text-blue click"
-                            onClick={(e) => resendCode(e)}
-                          >
-                            Resend it
-                          </span>
-                        </div>
+                        {showResend && (
+                          <div className="mt-5 text-grey">
+                            Didn't received the code?{' '}
+                            <span
+                              className="text-blue click"
+                              data-toggle="modal"
+                              data-target="#questionModal"
+                            >
+                              Resend it
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </form>
@@ -190,6 +198,52 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
         </div>
       </section>
       <NeedHelp />
+      {/* <!-- Modal --> */}
+      <div
+        class="modal fade"
+        id="questionModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="questionModalTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="d-flex justify-content-between p-4">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                Resend Code
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              Are you sure you want to resend this code? <br/> Click 'No' to cancel.
+            </div>
+            <div class="d-flex justify-content-center p-4">
+              <button
+                type="button"
+                class="btn btn-outline-red btn-md mr-3"
+                data-dismiss="modal"
+              >
+                No
+              </button>
+              <button
+                type="button"
+                class="btn btn-blue btn-md"
+                onClick={(e) => resendCode(e)}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

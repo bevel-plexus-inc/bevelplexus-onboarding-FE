@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import logo from '../../assets/img/logo-white.svg';
 import '../../styles/sidebar.scss';
 
@@ -24,14 +25,16 @@ export const Sidebar = () => {
         <section className={isOpen ? 'sidebar sidebar-isOpen' : 'sidebar'}>
           <div className="sidebar-wrapper">
             <div className="d-flex align-items-center">
-              <div className="mr-3 text-white font24">
+              {/* <div className="mr-3 text-white font24">
                 <span
                   className="iconify"
                   data-icon="dashicons:arrow-left-alt"
                   data-inline="false"
                 ></span>
-              </div>
-              <img src={logo} alt="" />
+              </div> */}
+              <Link to="/">
+                <img src={logo} alt="" />
+              </Link>
             </div>
             <div className="pt-space text-white">
               <h3 className="font38 font-bold mb-4">

@@ -17,13 +17,10 @@ import EnterMail from './Auth/pages/EnterMail';
 import RegisterStepFourRegular from './Auth/pages/Register-step-four-regular';
 import RegisterStepTwo from './Auth/pages/Register-step-two';
 import RegisterVerifyCode from './Auth/pages/Register-verify-cod';
-import {
-  ApolloClient,
-  ApolloProvider,
-  createHttpLink,
-  InMemoryCache,
-} from '@apollo/client';
+import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
+import {createUploadLink} from 'apollo-upload-client';
+import EmailVerification from './Auth/pages/email-verification';
 
 //Redux
 import {Provider} from 'react-redux';
@@ -31,7 +28,7 @@ import store from './services/Redux/store';
 import GlobalAlert from './globalComponent/GlobalAlert';
 
 // Initialize apollo and set authorization token
-const httpLink = createHttpLink({
+const httpLink = createUploadLink({
   uri: 'https://bp-user.herokuapp.com/graphql',
 });
 
@@ -71,6 +68,7 @@ const Main = withRouter(({location}) => {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/show-mail" component={ShowMail} />
+        <Route exact path="/verify-email/:email/:code" component={EmailVerification} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/enter-number" component={EnterPhoneNumber} />
         <Route exact path="/enter-mail" component={EnterMail} />

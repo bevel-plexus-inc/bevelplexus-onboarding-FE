@@ -10,10 +10,6 @@ import {countryISO3} from '../../services/country';
 
 const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
 
-  const registerStatus = localStorage.getItem('registerStatus')
-  if(registerStatus !== 'complete2'){
-    history.goBack()
-  }
   const userDetails = JSON.parse(localStorage.getItem('user'));
   const userId = userDetails.id;
   const [countryIso3Code, setCountryIso3Code] = useState('');
@@ -34,7 +30,6 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
           'regularDetail',
           JSON.stringify(result.data.addRegularAccountDetails)
         );
-        localStorage.setItem('registerStatus', 'complete3');
         history.push('/register-step-four-regular');
       }
     },

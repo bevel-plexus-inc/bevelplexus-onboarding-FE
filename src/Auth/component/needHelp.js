@@ -27,6 +27,8 @@ const NeedHelp = () => {
             <div className="modal-body text-center">
                 <p className="font22">How Can We Help?</p>
                 <p className="text-grey">We typically respond as soon as possible</p>
+                <input type="text" placeholder='Full Name' className='form-control mb-1'/>
+                <input type="email" placeholder='Emaill Address' className='form-control mb-1'/>
                 <textarea rows="4" placeholder='Message Us' className='form-control mb-4'></textarea>
                 <button
                 type="button"

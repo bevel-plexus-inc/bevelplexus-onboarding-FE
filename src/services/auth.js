@@ -44,7 +44,34 @@ export const LOGIN = gql`
         id
         firstName
         lastName
+        email
+        isAdmin
         userType
+        studentAccountDetail {
+          studentNumber
+          studentEmail
+          country
+          countryIso3Code
+          school
+          yearOfGraduation
+          course
+          dateOfBirth
+        }
+        regularAccountDetail {
+          address
+          city
+          postalCode
+          country
+          countryIso3Code
+        }
+        userVerification {
+          isIdentityVerified
+          identityDocumentUrl
+          isSchoolEnrollmentVerified
+          enrollmentDocumentUrl
+          isPhoneNumberVerified
+          isEmailVerified
+        }
       }
     }
   }
@@ -193,8 +220,8 @@ export const AddRegularAccountDetails = gql`
 `;
 
 export const VerifyIdentity = gql`
-  mutation verifyIdentity($userId: String!, $file: Upload!) {
-    verifyIdentity(userId: $userId, file: $file) {
+  mutation verifyIdentity($file: Upload, $userId: String!) {
+    verifyIdentity(file: $file, userId: $userId) {
       id
       userId
       isIdentityVerified
@@ -211,6 +238,43 @@ export const VerifyIdentity = gql`
 export const verifyEnrollment = gql`
   mutation verifyEnrollment($userId: String!, $file: Upload!) {
     verifyEnrollment(userId: $userId, file: $file) {
+      id
+      userId
+      isIdentityVerified
+      identityDocumentUrl
+      isSchoolEnrollmentVerified
+      enrollmentDocumentUrl
+      isPhoneNumberVerified
+      isEmailVerified
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+
+// export const GetUserVerification = gql`
+//   query getUserVerification($userId: String!) {
+//     getUserVerification(userId: $userId) {
+//       id
+//       userId
+//       isIdentityVerified
+//       identityDocumentUrl
+//       isSchoolEnrollmentVerified
+//       enrollmentDocumentUrl
+//       isPhoneNumberVerified
+//       isEmailVerified
+//       createdAt
+//       updatedAt
+//       deletedAt
+
+//     }
+//   }
+// `;
+
+export const GetUserVerification = gql`
+  query getUserVerification($userId: String!) {
+    getUserVerification(userId: $userId) {
       id
       userId
       isIdentityVerified

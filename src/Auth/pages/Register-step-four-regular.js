@@ -1,141 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import identity from '../../assets/img/identity.svg';
-import {Link, useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {SecondSidebar} from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
-import {useMutation} from '@apollo/client';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {connect} from 'react-redux';
-import {VerifyIdentity} from '../../services/auth';
 
-const RegisterStepFourRegular = ({handleGeneralErrors}) => {
-  const history = useHistory();
-
-  const registerStatus = localStorage.getItem('registerStatus');
-  if (registerStatus !== 'complete3') {
-    history.goBack();
-  }
-  const userId = JSON.parse(localStorage.getItem('user')).id;
-  const [percentageFile, setpercentageFile] = useState(0);
-  // const [formData, setFormData] = useState({
-  //   file: '',
-  //   userId: userId,
-  // });
-
-  // const [registerID, {loading}] = useMutation(VerifyIdentity, {
-
-  //   update(proxy, result) {
-  //     console.log(result);
-  //     setpercentageFile(100);
-  //     setTimeout(() => {
-  //       setpercentageFile('complete');
-  //     }, 1000);
-  //   },
-  //   onError(err) {
-  //     console.log(err);
-  //     setpercentageFile('error');
-  //     handleGeneralErrors(err);
-  //   },
-  //   variables: formData,
-  // });
-
-  const [registerID, {loading}] = useMutation(VerifyIdentity, {
-    update(proxy, result) {
-      console.log(result);
-      setpercentageFile(100);
-      localStorage.setItem('registerStatus', 'complete4');
-      setTimeout(() => {
-        setpercentageFile('complete');
-      }, 1000);
-    },
-    onError(err) {
-      console.log(err);
-      console.log(err.graphQLErrors);
-      setpercentageFile('error');
-      handleGeneralErrors(err);
-    },
-  });
-
-  const uploadFile = (e) => {
-
-    if(e.target.validity.valid){
-    // let file = e.target.files[0]
-    console.log(e.target.value)
-    const file = new Blob([e.target.value], { type: 'text/plain' });
-    let payload = {
-      file: file,
-      userId: userId,
-    };
-    console.log(payload);
-    registerID({variables: payload});
-  }
-
-
-
-    // const create_blob = (file, callback) => {
-    //   var reader = new FileReader();
-    //   reader.onload= () => {
-    //     callback(reader.result);
-    //   };
-    //   reader.readAsDataURL(file);
-    // };
-    // create_blob(file, (blob_string) => {
-    //   console.log(blob_string);
-    //   fileUpload = blob_string
-    //   let payload = {
-    //     file: fileUpload,
-    //     userId: userId,
-    //   };
-    //   registerID({variables: payload});
-    //   console.log(payload);
-    // });
-
-    // let file = e.target.files[0]
-    // let fileUpload;
-    // var r = new FileReader();
-    // r.readAsBinaryString(file);
-    // r.onload = function(){ 
-    //   console.log(r.result); 
-    //   fileUpload = r.result
-    //   let payload = {
-    //     file: fileUpload,
-    //     userId: userId,
-    //   };
-    //   registerID({variables: payload});
-    //   console.log(payload);
-    // };
-
-    // let file = e.target.files[0]
-    // let fileUpload = new FormData()
-    // fileUpload.append('file', file)
-    // let payload = {
-    //   file: fileUpload,
-    //   userId: userId,
-    // };
-    // registerID({variables: payload});
-    // console.log(payload);
-
-    // let file = e.target.files[0]
-    // let fileUpload;
-    // let payload = {
-    //   file: fileUpload,
-    //   userId: userId,
-    // };
-    // registerID({variables: payload});
-    // console.log(payload);
-  };
-
-  // const uploadFile = (e) => {
-  //   console.log(e.target.files[0]);
-  //   setFormData({
-  //     file: e.target.files[0],
-  //     userId: userId,
-  //   });
-  //   console.log(formData)
-  //   registerID();
-
-  // };
-
+const RegisterStepFourRegular = () => {
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'four'} sideLink={'regular'} />
@@ -163,7 +34,6 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
             </div>
             <div className="my-5">
               <div className=" file-upload-container">
-                {/* <div className="col-xl-9 col-lg-10 mx-auto"> */}
                 <div className="row ">
                   <div className="col-md-6 my-3 mx-auto">
                     <div className="p-4 file-upload-wrapper box-shadow border-radius text-center">
@@ -187,84 +57,13 @@ const RegisterStepFourRegular = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        {percentageFile <= 0 && !loading ? (
-                          <>
-                            <label
-                              className="btn btn-upload"
-                              htmlFor="chooseFile1"
-                            >
-                              Choose file
-                            </label>
-                            <input
-                              type="file"
-                              name="chooseFile1"
-                              id="chooseFile1"
-                              onChange={uploadFile}
-                            />
-                          </>
-                        ) : percentageFile > 0 ? (
-                          <div className="progress-container">
-                            <div
-                              className="progress-inner text-center"
-                              style={{width: `${percentageFile}%`}}
-                            >
-                              {percentageFile}%
-                            </div>
-                          </div>
-                        ) : percentageFile === 'error' && !loading ? (
-                          <>
-                            <label
-                              className="btn btn-outline-red"
-                              htmlFor="chooseFile1"
-                            >
-                              Choose file
-                            </label>
-                            <input
-                              type="file"
-                              name="chooseFile1"
-                              id="chooseFile1"
-                              onChange={uploadFile}
-                            />
-                            <p className="mb-0 font12">
-                              <span className="text-red mr-1">
-                                An error occured,
-                              </span>
-                              please re-upload.
-                            </p>
-                          </>
-                        ) : percentageFile === 'complete' ? (
-                          <>
-                            <button className="btn btn-green">
-                              File Uploaded
-                              <span
-                                className="iconify ml-2"
-                                data-icon="noto-v1:check-mark-button"
-                                data-inline="false"
-                              ></span>
-                            </button>
-                            <p className="mb-0 font12">
-                              Thank you, document well{' '}
-                              <span className="text-green">received!</span>
-                            </p>
-                          </>
-                        ) : (
-                          <></>
-                        )}
-                        {loading && (
-                          <div className="progress-container">
-                            <div
-                              className="progress-inner text-center"
-                              style={{width: `${50}%`}}
-                            >
-                              {50}%
-                            </div>
-                          </div>
-                        )}
+                        <label className="btn btn-upload">
+                          Click to Verify
+                        </label>
                       </div>
                     </div>
                   </div>
                 </div>
-                {/* </div> */}
               </div>
             </div>
             <div className="pt-space">

@@ -18,17 +18,15 @@ const RegisterVerifyCode = ({
 }) => {
   const formData = location.state.formData;
   const userDetails = JSON.parse(localStorage.getItem('user'));
-  console.log(userDetails);
   const [iserror, setiserror] = useState(false);
   const [code, setCode] = useState('');
+  const [showResend, setShowResend] = useState(false);
 
-  
   useEffect(() => {
     StartTimer();
   }, []);
 
   const onCodeChange = (e) => {
-    console.log(e);
     setCode(e);
   };
 
@@ -37,8 +35,6 @@ const RegisterVerifyCode = ({
       console.log(result);
       if (result.data.verifyPhoneNumber.message) {
         setAlert(result.data.verifyPhoneNumber.message);
-        console.log(result);
-        localStorage.setItem('registerStatus', 'complete2');
         clearInterval(StartTimer);
         if (userDetails.userType === 'Regular') {
           history.push('/register-step-three-regular');
@@ -60,21 +56,13 @@ const RegisterVerifyCode = ({
       phoneNumber: formData.phoneNumber,
       token: code,
     };
-    console.log(payload);
     verifyPhoneNumber({variables: payload});
-
-    // localStorage.setItem('registerStatus', 'complete2');
-    // clearInterval(StartTimer);
-    // if (userDetails.userType === 'Regular') {
-    //   history.push('/register-step-three-regular');
-    // } else {
-    //   history.push('/register-step-three');
-    // }
   };
- 
+
   let fiveMin = 60 * 5;
 
   const StartTimer = () => {
+    setShowResend(false);
     const Timer = setInterval(() => {
       fiveMin--;
       let mins = Math.floor(fiveMin / 60);
@@ -84,6 +72,7 @@ const RegisterVerifyCode = ({
         document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
       }
       if (fiveMin < 1) {
+        setShowResend(true);
         clearInterval(Timer);
       }
     }, 1000);
@@ -180,6 +169,7 @@ const RegisterVerifyCode = ({
                         >
                           Verify Number
                         </button>
+                        {showResend && (
                         <div className="mt-5 text-grey">
                           Didn't received the code?{' '}
                           <span
@@ -194,6 +184,7 @@ const RegisterVerifyCode = ({
                             )}
                           </span>
                         </div>
+                        )}
                       </div>
                     </div>
                   </form>

@@ -10,12 +10,7 @@ import {connect} from 'react-redux';
 import {VerifyIdentity, verifyEnrollment} from '../../services/auth';
 
 const RegisterStepFourStud = ({handleGeneralErrors}) => {
-  const history = useHistory();
-  
-  const registerStatus = localStorage.getItem('registerStatus')
-  if(registerStatus !== 'complete3'){
-    history.goBack()
-  }
+
   const userId = JSON.parse(localStorage.getItem('user')).id;
   const [percentageFile, setpercentageFile] = useState(0);
   const [percentageFile2, setpercentageFile2] = useState(0);
@@ -24,36 +19,11 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     userId: userId,
   });
 
-  const [registerID, {loading}] = useMutation(VerifyIdentity, {
-    update(proxy, result) {
-      console.log(result);
-      setpercentageFile(100);
-      localStorage.setItem('registerStatus', 'complete4');
-      setTimeout(() => {
-        setpercentageFile('complete');
-      }, 1000);
-    },
-    onError(err) {
-      console.log(err);
-      setpercentageFile('error');
-      handleGeneralErrors(err);
-    },
-  });
-
-  const uploadFile = (e) => {
-    let payload = {
-      file: e.target.files[0],
-      userId: userId,
-    };
-    console.log(payload);
-    registerID({variables:payload});
-  };
-
-  const [registerEnrollment, {loadingg}] = useMutation(verifyEnrollment, {
+ 
+  const [registerEnrollment, {loading}] = useMutation(verifyEnrollment, {
     update(proxy, result) {
       console.log(result);
       setpercentageFile2(100);
-      localStorage.setItem('registerStatus', 'complete4');
       setTimeout(() => {
         setpercentageFile2('complete');
       }, 1000);
@@ -66,13 +36,15 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     variables: formData,
   });
 
-  const uploadFile2 = (e) => {
-    let payload = {
-      file: e.target.files[0],
-      userId: userId,
-    };
-    console.log(payload);
-    registerEnrollment({variables:payload});
+  const uploadFile = ({ target: { validity, files: [file] }}) => {
+    if (validity.valid) {
+      let payload = {
+        file: file,
+        userId: userId,
+      };
+      console.log(payload);
+      registerEnrollment({variables: payload});
+    }
   };
 
   return (
@@ -125,7 +97,12 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        {percentageFile <= 0 && !loading ? (
+                        <label
+                          className="btn btn-upload"
+                        >
+                          Click to Verify
+                        </label>
+                        {/* {percentageFile <= 0 && !loading ? (
                           <>
                             <label
                               className="btn btn-upload"
@@ -185,8 +162,8 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                           </>
                         ) : (
                           <></>
-                        )}
-                        {loading && (
+                        )} 
+                         {loading && (
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
@@ -195,7 +172,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               {50}%
                             </div>
                           </div>
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>
@@ -216,7 +193,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        {percentageFile2 <= 0 && !loadingg ? (
+                        {percentageFile2 <= 0 && !loading ? (
                           <>
                             <label
                               className="btn btn-upload"
@@ -228,7 +205,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               type="file"
                               name="chooseFile2"
                               id="chooseFile2"
-                              onChange={uploadFile2}
+                              onChange={uploadFile}
                             />
                           </>
                         ) : percentageFile2 > 0 ? (
@@ -240,7 +217,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               {percentageFile2}%
                             </div>
                           </div>
-                        ) : percentageFile2 === 'error' && !loadingg ? (
+                        ) : percentageFile2 === 'error' && !loading ? (
                           <>
                             <label
                               className="btn btn-outline-red"
@@ -252,10 +229,13 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                               type="file"
                               name="chooseFile2"
                               id="chooseFile2"
-                              onChange={uploadFile2}
+                              onChange={uploadFile}
                             />
-                           <p className="mb-0 font12">
-                              <span className="text-red mr-1">An error occured,</span> please re-upload.
+                            <p className="mb-0 font12">
+                              <span className="text-red mr-1">
+                                An error occured,
+                              </span>{' '}
+                              please re-upload.
                             </p>
                           </>
                         ) : percentageFile2 === 'complete' ? (
@@ -276,7 +256,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         ) : (
                           <></>
                         )}
-                        {loadingg && (
+                        {loading && (
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
