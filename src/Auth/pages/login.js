@@ -24,8 +24,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
         localStorage.setItem('user', JSON.stringify(result.data.login.user));
       }
       if (redirect_url === null) {
-        // history.push({pathname: `transaction`});
-        if (returnVal.userType === 'Regular') {
+        if (returnVal.userType === 'Student') {
           if (!returnVal.userVerification?.isEmailVerified) {
             history.push({pathname: `/show-mail`});
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
