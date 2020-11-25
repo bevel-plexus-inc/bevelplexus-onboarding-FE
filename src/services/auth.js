@@ -44,7 +44,34 @@ export const LOGIN = gql`
         id
         firstName
         lastName
+        email
+        isAdmin
         userType
+        studentAccountDetail {
+          studentNumber
+          studentEmail
+          country
+          countryIso3Code
+          school
+          yearOfGraduation
+          course
+          dateOfBirth
+        }
+        regularAccountDetail {
+          address
+          city
+          postalCode
+          country
+          countryIso3Code
+        }
+        userVerification {
+          isIdentityVerified
+          identityDocumentUrl
+          isSchoolEnrollmentVerified
+          enrollmentDocumentUrl
+          isPhoneNumberVerified
+          isEmailVerified
+        }
       }
     }
   }
@@ -77,13 +104,15 @@ export const REQUEST_RESET_PASSWORD = gql`
   }
 `;
 
-
 export const VALIDATE_RESET_OTP = gql`
-  mutation validateResetOTP($otp: String!, $email: String,, $phoneNumber: String) {
+  mutation validateResetOTP(
+    $otp: String!
+    $email: String
+    $phoneNumber: String
+  ) {
     validateResetOTP(
-      input: {otp: $otp, email: $email, phoneNumber :$phoneNumber}
-      
-      ) {
+      input: {otp: $otp, email: $email, phoneNumber: $phoneNumber}
+    ) {
       message
       identifier
     }
@@ -91,18 +120,28 @@ export const VALIDATE_RESET_OTP = gql`
 `;
 
 export const RESET_PASSWORD = gql`
-  mutation resetPassword($password: String, $email: String,, $formToken: String!) {
-    resetPassword(password: $password, email: $email, formToken :$formToken) {
+  mutation resetPassword($password: String!, $formToken: String!) {
+    resetPassword(input: {password: $password, formToken: $formToken}) {
       message
       identifier
     }
   }
 `;
 
-
 export const VERIFY_MAIL = gql`
   mutation verifyEmail($email: String!, $token: String!) {
     verifyEmail(emailVerificationArgs: {email: $email, token: $token}) {
+      message
+      identifier
+    }
+  }
+`;
+
+export const VERIFY_PHONE = gql`
+  mutation verifyPhoneNumber($phoneNumber: String!, $token: String!) {
+    verifyPhoneNumber(
+      phoneVerificationArgs: {phoneNumber: $phoneNumber, token: $token}
+    ) {
       message
       identifier
     }
@@ -181,8 +220,8 @@ export const AddRegularAccountDetails = gql`
 `;
 
 export const VerifyIdentity = gql`
-  mutation verifyIdentity($userId: String!, $file: Upload!) {
-    verifyIdentity(userId: $userId, file: $file) {
+  mutation verifyIdentity($file: Upload, $userId: String!) {
+    verifyIdentity(file: $file, userId: $userId) {
       id
       userId
       isIdentityVerified
@@ -199,6 +238,43 @@ export const VerifyIdentity = gql`
 export const verifyEnrollment = gql`
   mutation verifyEnrollment($userId: String!, $file: Upload!) {
     verifyEnrollment(userId: $userId, file: $file) {
+      id
+      userId
+      isIdentityVerified
+      identityDocumentUrl
+      isSchoolEnrollmentVerified
+      enrollmentDocumentUrl
+      isPhoneNumberVerified
+      isEmailVerified
+      createdAt
+      updatedAt
+      deletedAt
+    }
+  }
+`;
+
+// export const GetUserVerification = gql`
+//   query getUserVerification($userId: String!) {
+//     getUserVerification(userId: $userId) {
+//       id
+//       userId
+//       isIdentityVerified
+//       identityDocumentUrl
+//       isSchoolEnrollmentVerified
+//       enrollmentDocumentUrl
+//       isPhoneNumberVerified
+//       isEmailVerified
+//       createdAt
+//       updatedAt
+//       deletedAt
+
+//     }
+//   }
+// `;
+
+export const GetUserVerification = gql`
+  query getUserVerification($userId: String!) {
+    getUserVerification(userId: $userId) {
       id
       userId
       isIdentityVerified

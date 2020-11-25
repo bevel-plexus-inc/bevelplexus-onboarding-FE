@@ -19,7 +19,7 @@ const UserType = {
 
 const Register = ({handleGeneralErrors}) => {
   const history = useHistory();
-  const [userType, setUserType] = useState(UserType.Student);
+  const [userType, setUserType] = useState('');
   const [agreement, setAgreement] = useState(false);
   const checkBoxChange = (e) => {
     const val = e.target.checked;
@@ -44,8 +44,7 @@ const Register = ({handleGeneralErrors}) => {
       if (result.data.signUp.token) {
         localStorage.setItem('token', result.data.signUp.token);
         localStorage.setItem('user', JSON.stringify(result.data.signUp.user));
-        localStorage.setItem('registerStatus', 'complete1');
-        history.push('/register-step-two');
+        history.push('/show-mail');
       }
     },
     onError(err) {
@@ -56,6 +55,9 @@ const Register = ({handleGeneralErrors}) => {
 
   const onFinish = (values) => {
     console.log(values);
+    if (values.referralCode === undefined) {
+      values.referralCode = '';
+    }
     if (userType === '') {
       toast.error('Please you need to select a user type to proceed');
     } else if (agreement === false) {
@@ -115,7 +117,7 @@ const Register = ({handleGeneralErrors}) => {
                   <div>
                     <p>Regular Account</p>
                     <div className="detail-two">
-                    Not a student? or <br /> not paying school related bills
+                      Not a student? or <br /> not paying school related bills
                     </div>
                   </div>
                   <div className="detail">This option is for you</div>
@@ -130,7 +132,7 @@ const Register = ({handleGeneralErrors}) => {
                   <div>
                     <p>Student Account</p>
                     <div className="detail-two">
-                    Seeking to study or currently <br/> studying in Canada? 
+                      Seeking to study or currently <br /> studying in Canada?
                     </div>
                   </div>
                   <div className="detail">This option is for you</div>
@@ -265,6 +267,30 @@ const Register = ({handleGeneralErrors}) => {
                             required: true,
                             message: 'Please input your password!',
                           },
+                          {
+                            min: 6,
+                            message: 'Minimum of 6 characters',
+                          },
+                          {
+                            pattern: new RegExp(/([A-Z])/),
+                            message:
+                              'Please ensure your password contains a capital letter',
+                          },
+                          {
+                            pattern: new RegExp(/([!@#$&*])/),
+                            message:
+                              'Please ensure your password contains a special character',
+                          },
+                          {
+                            pattern: new RegExp(/([0-9])/),
+                            message:
+                              'Please ensure your password contains a number',
+                          },
+                          {
+                            pattern: new RegExp(/([a-z])/),
+                            message:
+                              'Please ensure your password contains a small letter',
+                          },
                         ]}
                       >
                         <Input.Password
@@ -311,8 +337,23 @@ const Register = ({handleGeneralErrors}) => {
                     </label>
                     <div className="ml-5">
                       I agree with the
-                      <span className="text-blue">Privacy Policy</span> and the
-                      <span className="text-blue">Terms and Conditions</span>
+                      <a
+                        href="https://bevelplexus.com/privacy-policy/"
+                        target="_blanc"
+                        className="text-blue"
+                      >
+                        {' '}
+                        Privacy Policy
+                      </a>{' '}
+                      and the
+                      <a
+                        href="https://bevelplexus.com/terms-conditions/"
+                        target="_blanc"
+                        className="text-blue"
+                      >
+                        {' '}
+                        Terms and Conditions
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -325,8 +366,12 @@ const Register = ({handleGeneralErrors}) => {
                       Sign in here
                     </Link>
                   </div>
-                  <Form.Item className='mb-0'>
-                    <button type="submit" className="btn btn-blue btn-lg">
+                  <Form.Item className="mb-0">
+                    <button
+                      type="submit"
+                      className="btn btn-blue btn-lg"
+                      disabled={loading}
+                    >
                       Create account
                       {loading && (
                         <span className="ml-4">

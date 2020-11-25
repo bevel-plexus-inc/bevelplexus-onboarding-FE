@@ -10,10 +10,6 @@ import {countryISO3} from '../../services/country';
 
 const RegisterStepThree = ({handleGeneralErrors, history}) => {
   
-  const registerStatus = localStorage.getItem('registerStatus')
-  if(registerStatus !== 'complete2'){
-    history.goBack()
-  }
   const userId = JSON.parse(localStorage.getItem('user')).id;
   const [countryIso3Code, setCountryIso3Code] = useState('');
   const [dob, setdob] = useState();
@@ -34,7 +30,6 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
       console.log(result);
       if (result.data.addStudentAccountDetails) {
         localStorage.setItem('studentDetail', JSON.stringify(result.data.addStudentAccountDetails));
-        localStorage.setItem('registerStatus', 'complete3');
       history.push('/register-step-four');
       }
     },
@@ -326,7 +321,7 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                     Already have a login?
                     <span className="text-blue click">Sign in here</span>
                   </div>
-                  <button className="btn btn-blue btn-lg" type="submit">
+                  <button className="btn btn-blue btn-lg" type="submit" disabled={loading}>
                     Next
                     {loading && (
                       <span className="ml-4">

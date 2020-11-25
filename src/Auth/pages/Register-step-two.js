@@ -1,6 +1,6 @@
 import {Spin} from 'antd';
 import React, {useState} from 'react';
-import { useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
 import {SecondSidebar} from '../component/second-sidebar';
 import {connect} from 'react-redux';
@@ -8,58 +8,45 @@ import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {useMutation} from '@apollo/client';
 import {AUTHENTICATE_PHONE_NUMBER} from '../../services/auth';
 import {setAlert} from '../../services/Redux/Actions/Alert';
-import { countryCodes } from '../../services/country';
+import {countryCodes} from '../../services/country';
+import PhoneInput from 'react-phone-number-input';
 
 const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
   const history = useHistory();
-  
-  const registerStatus = localStorage.getItem('registerStatus')
-  if(registerStatus !== 'complete1'){
-    history.goBack()
-  }
   const userId = JSON.parse(localStorage.getItem('user')).id;
-  const [prefix, setPrefix] = useState('');
-  const [numb, setNumb] = useState('');
   const [formData, setFormData] = useState({
-    phoneNumber: `${prefix}${numb}`,
+    phoneNumber: '',
     userId: userId,
   });
-
-  const onPrefixChange = (e) => {
-    setPrefix(e.target.value);
-    setFormData({
-      phoneNumber: `${e.target.value}${numb}`,
-      userId: userId,
-    });
-  };
+  const {phoneNumber} = formData;
   const onNumberChange = (e) => {
-    setNumb(e.target.value);
+    console.log(e);
     setFormData({
-      phoneNumber: `${prefix}${e.target.value}`,
+      phoneNumber: `${e}`,
       userId: userId,
     });
   };
 
-  const [authenticatePhoneNumber, {loading}] = useMutation(AUTHENTICATE_PHONE_NUMBER, {
-    update(proxy, result) {
-      console.log(result);
-      if (result.data.authenticatePhoneNumber) {
-        setAlert(result.data.authenticatePhoneNumber.message);
-        history.push({pathname: '/register-verify-code', state: {formData}});
-      }
-    },
-    onError(err) {
-      handleGeneralErrors(err);
-    },
-    variables: formData,
-  });
+  const [authenticatePhoneNumber, {loading}] = useMutation(
+    AUTHENTICATE_PHONE_NUMBER,
+    {
+      update(proxy, result) {
+        console.log(result);
+        if (result.data.authenticatePhoneNumber) {
+          setAlert(result.data.authenticatePhoneNumber.message);
+          history.push({pathname: '/register-verify-code', state: {formData}});
+        }
+      },
+      onError(err) {
+        handleGeneralErrors(err);
+      },
+      variables: formData,
+    }
+  );
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (prefix === '') {
-      setAlert('Please select your country code', 'error');
-      return;
-    } else if (numb === '') {
+    if (formData.phoneNumber === '') {
       setAlert('Please Enter your Phone Number', 'error');
     } else {
       console.log(formData);
@@ -98,8 +85,19 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                     <div className="row">
                       <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
                         <div className="form-group mr-3">
-                          
-                          <div className="phone-input-wrapper">
+                          <div className="phone-input-icon">
+                            <span
+                              className="iconify"
+                              data-icon="bi:phone"
+                              data-inline="false"
+                            ></span>
+                          </div>
+                          <PhoneInput
+                            placeholder="Enter phone number"
+                            value={phoneNumber}
+                            onChange={onNumberChange}
+                          />
+                          {/* <div className="phone-input-wrapper">
                             <div className="prefix-number">
                               <span className="input-icon">
                                 <span
@@ -115,16 +113,13 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                                 onChange={(e) => onPrefixChange(e)}
                               >
                                 <option value="+234">+234</option>
-                              {countryCodes.map((each) => {
-                                return (
-                                  <option
-                                    key={each.name}
-                                    value={each.code}
-                                  >
-                                    {each.code}
-                                  </option>
-                                );
-                              })}
+                                {countryCodes.map((each) => {
+                                  return (
+                                    <option key={each.name} value={each.code}>
+                                      {each.code}
+                                    </option>
+                                  );
+                                })}
                               </select>
                             </div>
                             <div className="full-number">
@@ -144,11 +139,13 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                               />
                             </div>
                           </div>
+                         */}
                         </div>
 
                         <button
                           className="btn btn-blue btn-lg mt-4"
                           onClick={(e) => submitForm(e)}
+                          disabled={loading}
                         >
                           Send Code
                           {loading && (
@@ -163,10 +160,8 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                 </div>
               </div>
               <div className="mt-auto mb-5">
-                <div className="d-flex flex-wrap align-items-center justify-content-between font-bold text-grey agreement-check">
-                  <div>PREVIOUS</div>
-                  <div className="mr-2">SKIP FOR NOW</div>
-                    <button className="btn btn-grey btn-lg">Next</button>
+                <div className="text-right">
+                  <button className="btn btn-grey btn-lg">Next</button>
                 </div>
               </div>
             </div>

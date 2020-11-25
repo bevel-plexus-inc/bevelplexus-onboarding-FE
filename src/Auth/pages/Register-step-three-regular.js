@@ -10,10 +10,6 @@ import {countryISO3} from '../../services/country';
 
 const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
 
-  const registerStatus = localStorage.getItem('registerStatus')
-  if(registerStatus !== 'complete2'){
-    history.goBack()
-  }
   const userDetails = JSON.parse(localStorage.getItem('user'));
   const userId = userDetails.id;
   const [countryIso3Code, setCountryIso3Code] = useState('');
@@ -23,7 +19,8 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
     console.log(val);
     const result = countryISO3.find((each) => each.Name === val);
     console.log(result);
-    setCountryIso3Code(result.Code);
+    result && setCountryIso3Code(result.Code)
+    
   };
   const [register, {loading}] = useMutation(AddRegularAccountDetails, {
     update(proxy, result) {
@@ -33,7 +30,6 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
           'regularDetail',
           JSON.stringify(result.data.addRegularAccountDetails)
         );
-        localStorage.setItem('registerStatus', 'complete3');
         history.push('/register-step-four-regular');
       }
     },
@@ -217,7 +213,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                     Already have a login?{' '}
                     <span className="text-blue click">Sign in here</span>
                   </div>
-                  <button className="btn btn-blue btn-lg" type="submit">
+                  <button className="btn btn-blue btn-lg" type="submit" disabled={loading}>
                     Next
                     {loading && (
                       <span className="ml-4">

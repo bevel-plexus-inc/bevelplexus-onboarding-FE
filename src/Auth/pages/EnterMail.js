@@ -10,8 +10,11 @@ import {connect} from 'react-redux';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {Input, Spin, Form} from 'antd';
 
-const EnterMail = ({setAlert, handleGeneralErrors}) => {
+const EnterMail = ({setAlert, handleGeneralErrors, history}) => {
   const userId = JSON.parse(localStorage.getItem('user')).id;
+  if(userId === null){
+    setAlert('Please you need to register first')
+  }
   const [mailSent, setMailSent] = useState(false);
   const [formData, setFormData] = useState({});
 
@@ -19,12 +22,12 @@ const EnterMail = ({setAlert, handleGeneralErrors}) => {
     REQUEST_RESET_PASSWORD,
     {
       update(proxy, result) {
-        // setAlert('Please check your mail', 'success');
         console.log(result);
-        setAlert(result.data.resetPasswordRequest.message, 'success');
         if (result.data.resetPasswordRequest) {
           setMailSent(true);
         }
+        setAlert(result.data.resetPasswordRequest.message, 'success');
+        
       },
       onError(err) {
         console.log(err);
@@ -47,6 +50,10 @@ const EnterMail = ({setAlert, handleGeneralErrors}) => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
+
+  const goToNext = () =>{
+    history.push({pathname: '/verify-code', state: {formData}});
+  }
   return (
     <div className="register-wrapper">
       <Sidebar />
@@ -106,13 +113,9 @@ const EnterMail = ({setAlert, handleGeneralErrors}) => {
                           </Form.Item>
                         </div>
                         {mailSent ? (
-                          <button className="btn btn-green btn-lg mt-4">
+                          <button className="btn btn-green btn-lg mt-4" >
                             Link Sent
-                            {loading && (
-                              <span className="pl-4">
-                                <Spin />
-                              </span>
-                            )}
+                            
                           </button>
                         ) : (
                           <button
@@ -129,7 +132,7 @@ const EnterMail = ({setAlert, handleGeneralErrors}) => {
                         )}
 
                         <p className="text-grey mt-5">
-                          Didn't receive the link?
+                          Didn't receive the Otp?
                           <span
                             className="click ml-2 text-blue"
                             onClick={resetPasswordRequest}
@@ -143,10 +146,8 @@ const EnterMail = ({setAlert, handleGeneralErrors}) => {
                 </div>
               </div>
               <div className="mt-auto mb-5">
-                <div className="d-flex flex-wrap align-items-center justify-content-between font-bold text-grey agreement-check">
-                  <div>PREVIOUS</div>
-                  <div className="mr-2">SKIP FOR NOW</div>
-                    <button className="btn btn-grey btn-lg">Next</button>
+                <div className="text-right">
+                    <button className="btn btn-blue btn-lg" onClick={goToNext} disabled={!mailSent}>Next</button>
                 </div>
               </div>
             </div>

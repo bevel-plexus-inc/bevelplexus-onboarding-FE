@@ -26,24 +26,27 @@ export const SecondSidebar = ({sideProgress, sideLink}) => {
         <section className={isOpen ? 'sidebar sidebar-isOpen' : 'sidebar'}>
           <div className="sidebar-wrapper">
             <div className="d-flex align-items-center">
-              <div className="mr-3 text-white font24">
+              {/* <div className="mr-3 text-white font24">
                 <span
                   className="iconify"
                   data-icon="dashicons:arrow-left-alt"
                   data-inline="false"
                 ></span>
-              </div>
-              <img src={logo} alt="" />
+              </div> */}
+              <Link to="/">
+                <img src={logo} alt="" />
+              </Link>
             </div>
             <div className="mt-5 text-white">
               <div className="side-links">
-                <Link to="#">
+                <div className="each-link">
                   <img src={checkmark} alt="" className="check-mark" />
                   Personal info
-                </Link>
-                <Link
-                  to="#"
-                  className={sideProgress === 'two' ? 'active' : ''}
+                </div>
+                <div
+                  className={
+                    sideProgress === 'two' ? 'each-link active' : 'each-link'
+                  }
                 >
                   {sideProgress === 'three' ? (
                     <img src={checkmark} alt="" className="check-mark" />
@@ -53,10 +56,11 @@ export const SecondSidebar = ({sideProgress, sideLink}) => {
                     <span className="number">2</span>
                   )}
                   Phone Verification
-                </Link>
-                <Link
-                  to="#"
-                  className={sideProgress === 'three' ? 'active' : ''}
+                </div>
+                <div
+                  className={
+                    sideProgress === 'three' ? 'each-link active' : 'each-link'
+                  }
                 >
                   {sideProgress === 'four' ? (
                     <img src={checkmark} alt="" className="check-mark" />
@@ -68,10 +72,11 @@ export const SecondSidebar = ({sideProgress, sideLink}) => {
                   ) : (
                     <span>School information</span>
                   )}
-                </Link>
-                <Link
-                  to="#"
-                  className={sideProgress === 'four' ? 'active' : ''}
+                </div>
+                <div
+                  className={
+                    sideProgress === 'four' ? 'each-link active' : 'each-link'
+                  }
                 >
                   <span className="number">4</span>
 
@@ -80,7 +85,7 @@ export const SecondSidebar = ({sideProgress, sideLink}) => {
                   ) : (
                     <span>Documents</span>
                   )}
-                </Link>
+                </div>
               </div>
             </div>
           </div>

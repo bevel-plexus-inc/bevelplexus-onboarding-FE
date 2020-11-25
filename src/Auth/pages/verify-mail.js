@@ -31,7 +31,8 @@ const ShowMail = () => {
                   <img src={mailBox} alt="" className="w-100" />
                   <div className="agreement-check text-grey mt-5">
                     Didn't receive the email?
-                    <span className="text-blue click ml-2">Resend Now</span>
+                    <span className="text-blue click ml-2" data-toggle="modal"
+                              data-target="#questionModal">Resend Now</span>
                   </div>
                 </div>
               </div>
@@ -45,6 +46,53 @@ const ShowMail = () => {
         </div>
       </section>
       <NeedHelp/>
+
+         {/* <!-- Modal --> */}
+         <div
+        className="modal fade"
+        id="questionModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="questionModalTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="d-flex justify-content-between p-4">
+              <h5 className="modal-title" id="exampleModalLongTitle">
+                Resend Code
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body text-center">
+              Are you sure you want to resend this code? <br/> Click 'No' to cancel.
+            </div>
+            <div className="d-flex justify-content-center p-4">
+              <button
+                type="button"
+                className="btn btn-outline-red btn-md mr-3"
+                data-dismiss="modal"
+              >
+                No
+              </button>
+              <button
+                type="button"
+                className="btn btn-blue btn-md"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+   
     </div>
   );
 };

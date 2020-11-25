@@ -1,28 +1,64 @@
 import React, {useState} from 'react';
 import {Sidebar} from '../component/sidebar';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
-import { Form, Input, Spin} from 'antd';
+import {Form, Input, Spin} from 'antd';
 import {LOGIN} from '../../services/auth';
 import {useMutation} from '@apollo/client';
 import {setAlert} from '../../services/Redux/Actions/Alert';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
+import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 
-const Login = ({setAlert, handleGeneralErrors}) => {
+const Login = ({setAlert, handleGeneralErrors, history}) => {
+  const search = useLocation().search;
+  const redirect_url = new URLSearchParams(search).get('redirect_url');
   const [formData, setFormData] = useState();
   const [loginUser, {loading}] = useMutation(LOGIN, {
     update(proxy, result) {
-      setAlert('Welcome', 'success')
-      console.log(result);
+      // setAlert('Welcome', 'success');
+      const returnVal = result.data.login.user;
+      console.log(result.data);
       if (result.data.login.token) {
         localStorage.setItem('token', result.data.login.token);
-        localStorage.setItem('user', JSON.stringify(result.data.login.user))
+        localStorage.setItem('user', JSON.stringify(result.data.login.user));
+      }
+      if (redirect_url === null) {
+        if (returnVal.userType === 'Student') {
+          if (!returnVal.userVerification?.isEmailVerified) {
+            history.push({pathname: `/show-mail`});
+          } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
+            history.push({pathname: `/register-step-two`});
+          } else if (returnVal.regularAccountDetail === null) {
+            history.push({pathname: `/register-step-three`});
+          } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
+            history.push({pathname: `/register-step-four`});
+          } else if (!returnVal.userVerification?.isIdentityVerified) {
+            history.push({pathname: `/register-step-four`});
+          } else {
+            history.push({pathname: `/transaction`});
+          }
+        } else {
+          if (!returnVal.userVerification?.isEmailVerified) {
+            history.push({pathname: `/show-mail`});
+          } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
+            history.push({pathname: `/register-step-two`});
+          } else if (returnVal.studentAccountDetail === null) {
+            history.push({pathname: `/register-step-three-regular`});
+          } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
+            history.push({pathname: `/register-step-four-regular`});
+          } else if (!returnVal.userVerification?.isIdentityVerified) {
+            history.push({pathname: `/register-step-four-regular`});
+          } else {
+            history.push({pathname: `/transaction`});
+          }
+        }
+      } else {
+        history.push({pathname: `${redirect_url}`});
       }
     },
     onError(err) {
-    handleGeneralErrors(err)
+      handleGeneralErrors(err);
     },
     variables: formData,
   });
