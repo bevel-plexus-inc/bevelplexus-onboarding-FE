@@ -1,6 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Form, Input, Spin} from 'antd';
+import {LOGIN} from '../../services/auth';
+import {useMutation} from '@apollo/client';
+import {setAlert} from '../../services/Redux/Actions/Alert';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 
-const NeedHelp = () => {
+const NeedHelp = ({setAlert, handleGeneralErrors}) => {
+  const [formData, setFormData] = useState();
+  const [postMessage, {loading}] = useMutation(LOGIN, {
+    update(proxy, result) {
+      console.log(result.data);
+      setAlert('Message Sent', 'success');
+    },
+    onError(err) {
+      handleGeneralErrors(err);
+    },
+    variables: formData,
+  });
+
+  const onFinish = (values) => {
+    console.log(values);
+    setFormData(values);
+    // postMessage();
+  };
+
+ 
   return (
     <div className="need-help-modal">
       <div
@@ -14,7 +40,6 @@ const NeedHelp = () => {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="px-3 py-2 text-right">
-              
               <button
                 type="button"
                 className="close"
@@ -25,19 +50,70 @@ const NeedHelp = () => {
               </button>
             </div>
             <div className="modal-body text-center">
-                <p className="font22">How Can We Help?</p>
-                <p className="text-grey">We typically respond as soon as possible</p>
-                <input type="text" placeholder='Full Name' className='form-control mb-1'/>
-                <input type="email" placeholder='Emaill Address' className='form-control mb-1'/>
-                <textarea rows="4" placeholder='Message Us' className='form-control mb-4'></textarea>
-                <button
-                type="button"
-                className="btn btn-blue btn-md"
+              <p className="font22">How Can We Help?</p>
+              <p className="text-grey">
+                We typically respond as soon as possible
+              </p>
+              <Form
+                name="basic"
+                initialValues={{
+                  remember: true,
+                }}
+                onFinish={onFinish}
               >
-                Send
-              </button>
+                <Form.Item
+                  name="name"
+                  className="mb-2"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter your name!',
+                    },
+                  ]}
+                >
+                  <input
+                    type="text"
+                    placeholder="Full Name"
+                    className="form-control"
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="email"
+                  className="mb-2"
+                  rules={[
+                    {
+                      type: 'email',
+                      message: 'This is not valid E-mail!',
+                    },
+                    {
+                      required: true,
+                      message: 'Please enter your email!',
+                    },
+                  ]}
+                >
+                  <Input placeholder="Email Address" className="form-control" />
+                </Form.Item>
+                <Form.Item
+                  name="message"
+                  className="mb-4"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please type in your message',
+                    },
+                  ]}
+                >
+                  <textarea
+                    rows="4"
+                    placeholder="Message Us"
+                    className="form-control"
+                  ></textarea>
+                </Form.Item>
+                <button type="submit" className="btn btn-blue btn-md">
+                  Send
+                </button>
+              </Form>
             </div>
-            
           </div>
         </div>
       </div>
@@ -45,4 +121,4 @@ const NeedHelp = () => {
   );
 };
 
-export default NeedHelp;
+export default connect(null, {setAlert, handleGeneralErrors})(NeedHelp);
