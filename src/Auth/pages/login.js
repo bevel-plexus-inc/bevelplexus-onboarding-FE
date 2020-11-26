@@ -29,7 +29,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
             history.push({pathname: `/show-mail`});
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
             history.push({pathname: `/register-step-two`});
-          } else if (returnVal.regularAccountDetail === null) {
+          } else if (returnVal.studentAccountDetail === null) {
             history.push({pathname: `/register-step-three`});
           } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
             history.push({pathname: `/register-step-four`});
@@ -43,7 +43,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
             history.push({pathname: `/show-mail`});
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
             history.push({pathname: `/register-step-two`});
-          } else if (returnVal.studentAccountDetail === null) {
+          } else if (returnVal.regularAccountDetail === null) {
             history.push({pathname: `/register-step-three-regular`});
           } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
             history.push({pathname: `/register-step-four-regular`});
@@ -62,6 +62,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
     },
     variables: formData,
   });
+
   const onFinish = (values) => {
     console.log(values);
     setFormData(values);
@@ -120,7 +121,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
                       rules={[
                         {
                           type: 'email',
-                          message: 'The input is not valid E-mail!',
+                          message: 'This is not valid E-mail!',
                         },
                         {
                           required: true,
