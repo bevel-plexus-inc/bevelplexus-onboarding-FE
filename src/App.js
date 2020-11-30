@@ -26,6 +26,7 @@ import EmailVerification from './Auth/pages/email-verification';
 import {Provider} from 'react-redux';
 import store from './services/Redux/store';
 import GlobalAlert from './globalComponent/GlobalAlert';
+import VerifyIdentity from './Auth/pages/Verify-Identity';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
@@ -71,6 +72,7 @@ const Main = withRouter(({location}) => {
         <Route exact path="/verify-email/:email/:code" component={EmailVerification} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/enter-number" component={EnterPhoneNumber} />
+        <Route exact path="/verify-identity" component={VerifyIdentity} />
         <Route exact path="/enter-mail" component={EnterMail} />
         <Route exact path="/reset-password/:id" component={ResetPassword} />
         <Route exact path="/register" component={Register} />
