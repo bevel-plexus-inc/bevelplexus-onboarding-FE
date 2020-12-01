@@ -29,11 +29,11 @@ const ShowMail = () => {
               <div className="pt-5 row">
                 <div className="col-lg-6 col-md-7 col-sm-12 mx-auto text-center">
                   <img src={mailBox} alt="" className="w-100" />
-                  <div className="agreement-check text-grey mt-5">
+                  {/* <div className="agreement-check text-grey mt-5">
                     Didn't receive the email?
                     <span className="text-blue click ml-2" data-toggle="modal"
                               data-target="#questionModal">Resend Now</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

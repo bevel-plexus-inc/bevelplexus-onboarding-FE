@@ -97,11 +97,13 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
+                        <a href='/verify-identity'>
                         <label
                           className="btn btn-upload"
                         >
                           Click to Verify
                         </label>
+                        </a>
                         {/* {percentageFile <= 0 && !loading ? (
                           <>
                             <label

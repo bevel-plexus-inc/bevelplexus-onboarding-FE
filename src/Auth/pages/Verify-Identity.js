@@ -1,13 +1,18 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {Sidebar} from '../component/sidebar';
 
- const VerifyIdentity = () => {
+const VerifyIdentity = () => {
  
   return (
-      <div>
-        <div id="vouched-element" style={{height : "100%"}}></div>
-      </div>    
+    <>
+      <body className="register-wrapper">
+        <Sidebar />
+        <section className="main-auth-content">
+          <div id="vouched-element" style={{height: '100vh'}}></div>
+        </section>
+      </body>
+    </>
   );
 };
 
