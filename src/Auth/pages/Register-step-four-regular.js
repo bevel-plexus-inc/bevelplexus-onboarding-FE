@@ -57,9 +57,11 @@ const RegisterStepFourRegular = () => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        <label className="btn btn-upload">
-                          Click to Verify
-                        </label>
+                        <a href="/verify-identity">
+                          <label className="btn btn-upload">
+                            Click to Verify
+                          </label>
+                        </a>
                       </div>
                     </div>
                   </div>
@@ -70,7 +72,9 @@ const RegisterStepFourRegular = () => {
               <div className="d-flex flex-wrap align-items-end justify-content-end">
                 <div className="agreement-check text-grey mr-2">
                   Already have a login?{' '}
-                  <Link to='/' className="text-blue click">Sign in here</Link>
+                  <Link to="/" className="text-blue click">
+                    Sign in here
+                  </Link>
                 </div>
                 <Link to="/transaction">
                   <button className="btn btn-blue btn-lg">Next</button>

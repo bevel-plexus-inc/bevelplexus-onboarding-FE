@@ -26,7 +26,10 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      
+      <!-- <div id="vouched-element" style='height: 100%;'></div> -->
+    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -44,5 +47,102 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script src="https://static.vouched.id/widget/vouched-2.0.0.js"></script>
+    <script type="text/javascript">
+      (function () {
+        var vouched = Vouched({
+          appId: 'nuIbrjutl~#lpmpfGC1F8~cc~YjyKX',
+          crossDevice: true,
+          crossDeviceQRCode: false,
+          callbackURL:'https://bp-user.herokuapp.com/verify/response',
+          onSubmit: ({stage, attempts, job}) => {
+            console.log('submit', {stage, attempts, job});
+          },
+          onCamera: ({hasCamera, hasPermission}) => {
+            console.log('onCamera', {hasCamera, hasPermission});
+          },
+          onInit: ({token}) => {
+            // if crossDevice is true, a web token is created during initialization for
+            // session handoffs to other devices
+            console.log('initialization');
+          },
+          onDone: (job) => {
+            // token used to query jobs
+            console.log('Scanning complete', {token: job.token});
+            // query the job with the token
+            fetch(`/yourapi/idv?job_token=${job.token}`);
+          },
+          stepTitles: {
+            FrontId: 'Upload ID',
+            Face: 'Upload Headshot',
+            Done: 'Finished',
+          },
+          content: {
+            cameraButton: 'Take a Photo',
+            crossDeviceTitle: 'Identity Verification',
+            crossDeviceInstructions:
+              'We need to verify your identity. This requires government-issued photo ID as well as selfie. Please follow the instructions below to continue the verification process on your phone',
+            crossDeviceSuccess:
+              'Verification is complete, continue on your desktop',
+            review: 'Verification complete',
+            upperSuccess: 'Your photo uploads are complete!',
+            success: 'Please close this window to return your online visit.',
+            lowerSuccess: 'Thank you.',
+            upperIdInstructions:
+              'Before you start please have an approved Government ID (e.g. Passport / Driving License) in your hand.',
+            lowerIdInstructions: 'Please take a photo of your ID now',
+            upperFaceInstructions: 'Time to take a photo.',
+            lowerFaceInstructions:
+              'Please take a clear picture of your face, and make sure it does not include:',
+            upperFailure: 'Try Again',
+            verifyFail: 'Sorry for the inconvenience',
+            lowerFailure:
+              "The photo you shared can't be used for validation. Please take another picture, making sure the image of your face or your ID is clear.",
+          },
+          theme: {
+            name: 'verbose',
+            font: 'Open Sans',
+            fontColor: '#015eff',
+            iconLabelColor: '#015eff',
+            bgColor: '#FFF',
+            baseColor: '#015eff',
+            navigationDisabledBackground: '#015eff6b',
+            navigationDisabledText: '#a3d7ee',
+            logo: {
+              src: 'https://static.vouched.id/customers/blocktriangle/logo.jpg',
+              style: {
+                maxWidth: 150,
+                marginBottom: 30,
+              },
+            },
+            navigationActiveText: '#015eff',
+            iconColor: '#f6f5f3',
+            iconBackground: '#62ACDE',
+          },
+        });
+        vouched.mount('#vouched-element');
+      })();
+
+      // const utils = require('@vouched/client').utils;
+
+      // const userPhotoBase64 = await utils.imageToBase64(
+      //   '/opt/app/tests/data/selfie.png'
+      // );
+      // const idPhotoBase64 = await utils.imageToBase64(
+      //   '/opt/app/tests/data/id.jpg'
+      // );
+      // const job = await client.submit({
+      //   userPhoto: userPhotoBase64,
+      //   idPhoto: idPhotoBase64,
+      //   type: 'id-verification',
+      //   firstName: 'Janice',
+      //   properties: [
+      //     {name: 'internal_id', value: 'iid'},
+      //     {name: 'internal_username', value: 'bob'},
+      //   ],
+      //   dob: '06/22/1990',
+      //   lastName: 'Way',
+      // });
+    </script>
   </body>
 </html>
