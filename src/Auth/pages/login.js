@@ -18,7 +18,6 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
     update(proxy, result) {
       // setAlert('Welcome', 'success');
       const returnVal = result.data.login.user;
-      console.log(result.data);
       if (result.data.login.token) {
         localStorage.setItem('token', result.data.login.token);
         localStorage.setItem('user', JSON.stringify(result.data.login.user));
@@ -64,14 +63,10 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
   });
 
   const onFinish = (values) => {
-    console.log(values);
     setFormData(values);
     loginUser();
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className="register-wrapper one">
       <Sidebar />
@@ -105,7 +100,6 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
                   }}
                   className="pt-5"
                   onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
                 >
                   <div className="form-group">
                     <span className="input-icon">

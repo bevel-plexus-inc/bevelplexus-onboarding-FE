@@ -12,7 +12,6 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
   const [form] = Form.useForm();
   const [postMessage, {loading}] = useMutation(RequestHelp, {
     update(proxy, result) {
-      console.log(result.data);
       setAlert('Message Sent', 'success');
       document.querySelector('.close').click();
       form.resetFields();
@@ -25,7 +24,6 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
   });
 
   const onFinish = (values) => {
-    console.log(values);
     setFormData(values);
     postMessage();
   };

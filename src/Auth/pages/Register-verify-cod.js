@@ -145,7 +145,7 @@ const RegisterVerifyCode = ({
                           }
                         >
                           <ReactCodeInput
-                            type={'text'}
+                            type={'number'}
                             fields={6}
                             onChange={(e) => onCodeChange(e)}
                           />

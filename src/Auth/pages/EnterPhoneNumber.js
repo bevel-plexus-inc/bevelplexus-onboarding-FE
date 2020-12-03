@@ -33,7 +33,6 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
   //   });
   // };
   const onNumberChange = (e) => {
-    console.log(e);
     setFormData({
       phoneNumber: `${e}`,
       userId: userId,
@@ -44,7 +43,6 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
     REQUEST_RESET_PASSWORD,
     {
       update(proxy, result) {
-        console.log(result);
         if (result.data.resetPasswordRequest.message) {
           setAlert(result.data.resetPasswordRequest.message);
           history.push({pathname: '/verify-code', state: {formData}});
@@ -62,7 +60,6 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
     if (formData.phoneNumber === '') {
       setAlert('Please Enter your Phone Number', 'error');
     } else {
-      console.log(formData);
       resetPasswordRequest({variables: formData});
     }
   };
