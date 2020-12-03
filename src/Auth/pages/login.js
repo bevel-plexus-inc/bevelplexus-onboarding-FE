@@ -19,6 +19,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
       // setAlert('Welcome', 'success');
       const returnVal = result.data.login.user;
       if (result.data.login.token) {
+        localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.login.token);
         localStorage.setItem('user', JSON.stringify(result.data.login.user));
       }
