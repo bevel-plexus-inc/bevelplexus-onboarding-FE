@@ -27,7 +27,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      
       <!-- <div id="vouched-element" style='height: 100%;'></div> -->
     </div>
 
@@ -50,11 +49,14 @@
     <script src="https://static.vouched.id/widget/vouched-2.0.0.js"></script>
     <script type="text/javascript">
       (function () {
+        let userdetails = JSON.parse(localStorage.getItem('user'));
+        let userID = userdetails.id;
+        let token = localStorage.getItem('token');
         var vouched = Vouched({
           appId: 'nuIbrjutl~#lpmpfGC1F8~cc~YjyKX',
           crossDevice: true,
           crossDeviceQRCode: false,
-          callbackURL:'https://bp-user.herokuapp.com/verify/response',
+          callbackURL: `https://bp-user.herokuapp.com/verify/response/${userID}`,
           onSubmit: ({stage, attempts, job}) => {
             console.log('submit', {stage, attempts, job});
           },
@@ -69,6 +71,59 @@
           onDone: (job) => {
             // token used to query jobs
             console.log('Scanning complete', {token: job.token});
+            let content = {
+              query: `{
+                getUserVerification(userId: "${userID}") {
+                  id
+                  userId
+                  isIdentityVerified
+                  identityDocumentUrl
+                  isSchoolEnrollmentVerified
+                  enrollmentDocumentUrl
+                  isPhoneNumberVerified
+                  isEmailVerified
+                  createdAt
+                  updatedAt
+                  deletedAt
+                  }
+                }
+              `,
+            };
+            let body = JSON.stringify(content);
+            fetch('https://bp-user.herokuapp.com/graphql', {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: body,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                if ((userdetails.userType = 'Student')) {
+                  if (data.data.getUserVerification.isIdentityVerified) {
+                    console.log('route now');
+                    localStorage.setItem('VerifyIdentity', 'success');
+                    window.location.href = '/register-step-four';
+                  } else {
+                    console.log('failed but route sha');
+                    localStorage.setItem('VerifyIdentity', 'failed');
+                    window.location.href = '/register-step-four';
+                  }
+                } else {
+                  if (data.data.getUserVerification.isIdentityVerified) {
+                    console.log('route now');
+                    localStorage.setItem('VerifyIdentity', 'success');
+                    window.location.href = '/register-step-four-regular';
+                  } else {
+                    console.log('failed but route sha');
+                    localStorage.setItem('VerifyIdentity', 'failed');
+                    window.location.href = '/register-step-four-regular';
+                  }
+                }
+              });
+          
             // query the job with the token
             fetch(`/yourapi/idv?job_token=${job.token}`);
           },
@@ -108,13 +163,6 @@
             baseColor: '#015eff',
             navigationDisabledBackground: '#015eff6b',
             navigationDisabledText: '#a3d7ee',
-            logo: {
-              src: 'https://static.vouched.id/customers/blocktriangle/logo.jpg',
-              style: {
-                maxWidth: 150,
-                marginBottom: 30,
-              },
-            },
             navigationActiveText: '#015eff',
             iconColor: '#f6f5f3',
             iconBackground: '#62ACDE',
@@ -122,27 +170,9 @@
         });
         vouched.mount('#vouched-element');
       })();
+      // const GetUserProgess = () => {
 
-      // const utils = require('@vouched/client').utils;
-
-      // const userPhotoBase64 = await utils.imageToBase64(
-      //   '/opt/app/tests/data/selfie.png'
-      // );
-      // const idPhotoBase64 = await utils.imageToBase64(
-      //   '/opt/app/tests/data/id.jpg'
-      // );
-      // const job = await client.submit({
-      //   userPhoto: userPhotoBase64,
-      //   idPhoto: idPhotoBase64,
-      //   type: 'id-verification',
-      //   firstName: 'Janice',
-      //   properties: [
-      //     {name: 'internal_id', value: 'iid'},
-      //     {name: 'internal_username', value: 'bob'},
-      //   ],
-      //   dob: '06/22/1990',
-      //   lastName: 'Way',
-      // });
+      // };
     </script>
   </body>
 </html>

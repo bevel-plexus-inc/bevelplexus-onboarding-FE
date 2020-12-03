@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import identity from '../../assets/img/identity.svg';
 import enrollment from '../../assets/img/enrollment.svg';
 import {Link, useHistory} from 'react-router-dom';
@@ -8,9 +8,18 @@ import {useMutation} from '@apollo/client';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {connect} from 'react-redux';
 import {VerifyIdentity, verifyEnrollment} from '../../services/auth';
+import FailedModal from '../component/FailedModal';
+import SuccessModal from '../component/SuccessModal';
 
 const RegisterStepFourStud = ({handleGeneralErrors}) => {
-
+  const verifyId = localStorage.getItem('VerifyIdentity');
+  useEffect(() => {
+    if (verifyId && verifyId == 'success') {
+      document.querySelector('.successModal').click();
+    } else if (verifyId && verifyId == 'failed') {
+      document.querySelector('.failedModal').click();
+    }
+  }, []);
   const userId = JSON.parse(localStorage.getItem('user')).id;
   const [percentageFile, setpercentageFile] = useState(0);
   const [percentageFile2, setpercentageFile2] = useState(0);
@@ -19,7 +28,6 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     userId: userId,
   });
 
- 
   const [registerEnrollment, {loading}] = useMutation(verifyEnrollment, {
     update(proxy, result) {
       console.log(result);
@@ -36,7 +44,12 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     variables: formData,
   });
 
-  const uploadFile = ({ target: { validity, files: [file] }}) => {
+  const uploadFile = ({
+    target: {
+      validity,
+      files: [file],
+    },
+  }) => {
     if (validity.valid) {
       let payload = {
         file: file,
@@ -97,84 +110,11 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        <a href='/verify-identity'>
-                        <label
-                          className="btn btn-upload"
-                        >
-                          Click to Verify
-                        </label>
+                        <a href="/verify-identity">
+                          <label className="btn btn-upload">
+                            Click to Verify
+                          </label>
                         </a>
-                        {/* {percentageFile <= 0 && !loading ? (
-                          <>
-                            <label
-                              className="btn btn-upload"
-                              htmlFor="chooseFile1"
-                            >
-                              Choose file
-                            </label>
-                            <input
-                              type="file"
-                              name="chooseFile1"
-                              id="chooseFile1"
-                              onChange={uploadFile}
-                            />
-                          </>
-                        ) : percentageFile > 0 ? (
-                          <div className="progress-container">
-                            <div
-                              className="progress-inner text-center"
-                              style={{width: `${percentageFile}%`}}
-                            >
-                              {percentageFile}%
-                            </div>
-                          </div>
-                        ) : percentageFile === 'error' && !loading ? (
-                          <>
-                            <label
-                              className="btn btn-outline-red"
-                              htmlFor="chooseFile1"
-                            >
-                              Choose file
-                            </label>
-                            <input
-                              type="file"
-                              name="chooseFile1"
-                              id="chooseFile1"
-                              onChange={uploadFile}
-                            />
-                            <p className="mb-0 font12">
-                              <span className="text-red mr-1">An error occured,</span>
-                              please re-upload.
-                            </p>
-                          </>
-                        ) : percentageFile === 'complete' ? (
-                          <>
-                            <button className="btn btn-green">
-                              File Uploaded
-                              <span
-                                className="iconify ml-2"
-                                data-icon="noto-v1:check-mark-button"
-                                data-inline="false"
-                              ></span>
-                            </button>
-                            <p className="mb-0 font12">
-                              Thank you, document well{' '}
-                              <span className="text-green">received!</span>
-                            </p>
-                          </>
-                        ) : (
-                          <></>
-                        )} 
-                         {loading && (
-                          <div className="progress-container">
-                            <div
-                              className="progress-inner text-center"
-                              style={{width: `${50}%`}}
-                            >
-                              {50}%
-                            </div>
-                          </div>
-                        )} */}
                       </div>
                     </div>
                   </div>
@@ -278,7 +218,9 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
               <div className="d-flex flex-wrap align-items-end justify-content-end">
                 <div className="agreement-check text-grey mr-2">
                   Already have a login?{' '}
-                  <Link to='/' className="text-blue click">Sign in here</Link>
+                  <Link to="/" className="text-blue click">
+                    Sign in here
+                  </Link>
                 </div>
                 <Link to="/transaction">
                   <button className="btn btn-blue btn-lg">Next</button>
@@ -289,6 +231,10 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
         </div>
       </section>
       <NeedHelp />
+      <FailedModal/>
+      <SuccessModal/>
+      <span className='failedModal' data-toggle="modal" data-target="#failedModal"></span>
+      <span className='successModal' data-toggle="modal" data-target="#successModal"></span>
     </div>
   );
 };

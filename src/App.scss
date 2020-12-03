@@ -191,7 +191,7 @@ select {
   /* Create a custom checkbox */
   .checkmark {
     position: absolute;
-    top:11px;
+    top: 11px;
     left: 0;
     height: 25px;
     width: 25px;
@@ -239,7 +239,6 @@ select {
   }
 }
 
-
 input[type='number'] {
   /* Firefox */
   -moz-appearance: textfield;
@@ -258,19 +257,32 @@ input[type='number'] {
   justify-content: center;
 }
 
-.ant-picker{
+.ant-picker {
   .ant-picker-suffix {
     display: none;
   }
 }
-.need-help-modal{
+.need-help-modal {
   .modal-dialog {
     max-width: 100%;
     width: 423px;
     height: 358px;
   }
 }
-.ant-form, h1, h2, h3, h4, h5, h6 {
+.ant-form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: inherit !important;
 }
 
+.responseModal {
+  .modal-dialog {
+    max-width: 100%;
+    width: 370px;
+    height: 320px;
+  }
+}
