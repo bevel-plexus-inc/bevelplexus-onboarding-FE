@@ -73,18 +73,13 @@
             console.log('Scanning complete', {token: job.token});
             let content = {
               query: `{
-                getUserVerification(userId: "${userID}") {
+                getUserKyc(userId: "${userID}") {
                   id
                   userId
-                  isIdentityVerified
-                  identityDocumentUrl
-                  isSchoolEnrollmentVerified
-                  enrollmentDocumentUrl
-                  isPhoneNumberVerified
-                  isEmailVerified
-                  createdAt
-                  updatedAt
-                  deletedAt
+                  status
+                  jobId
+                  result
+                  isVerified
                   }
                 }
               `,
@@ -101,29 +96,30 @@
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
+                if(data.errors){
+                 alert(data.errors[0].message)
+                }
                 setTimeout(function () {
                   if ((userdetails.userType = 'Student')) {
-                    if (data.data.getUserVerification.isIdentityVerified) {
-                      console.log('route now');
+                    if (data.data.getUserKyc.isVerified) {
+                      localStorage.setItem('tempEnrollmentVerified', true)
                       localStorage.setItem('VerifyIdentity', 'success');
                       window.location.href = '/register-step-four';
                     } else {
-                      console.log('failed but route sha');
                       localStorage.setItem('VerifyIdentity', 'failed');
                       window.location.href = '/register-step-four';
                     }
                   } else {
-                    if (data.data.getUserVerification.isIdentityVerified) {
-                      console.log('route now');
+                    if (data.data.getUserKyc.isVerified) {
+                      localStorage.setItem('tempEnrollmentVerified', true)
                       localStorage.setItem('VerifyIdentity', 'success');
                       window.location.href = '/register-step-four-regular';
                     } else {
-                      console.log('failed but route sha');
                       localStorage.setItem('VerifyIdentity', 'failed');
                       window.location.href = '/register-step-four-regular';
                     }
                   }
-                }, 2000);
+                }, 4000);
               });
 
             // query the job with the token
