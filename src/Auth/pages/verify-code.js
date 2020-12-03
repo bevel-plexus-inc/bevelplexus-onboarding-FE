@@ -12,7 +12,7 @@ import {REQUEST_RESET_PASSWORD, VALIDATE_RESET_OTP} from '../../services/auth';
 
 const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
   const formData = location.state.formData;
-  console.log(formData);
+  
   const [iserror, setiserror] = useState(false);
   const [code, setCode] = useState('');
   const [showResend, setShowResend] = useState(false);
@@ -25,7 +25,6 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
     REQUEST_RESET_PASSWORD,
     {
       update(proxy, result) {
-        console.log(result);
         if (result.data.resetPasswordRequest.message) {
           setAlert(result.data.resetPasswordRequest.message);
           StartTimer();
@@ -40,10 +39,8 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
 
   const [validateResetOTP, {loading}] = useMutation(VALIDATE_RESET_OTP, {
     update(proxy, result) {
-      console.log(result);
       if (result.data.validateResetOTP.message) {
         setAlert(result.data.validateResetOTP.message);
-        console.log(result);
         history.push({
           pathname: `/reset-password/${result.data.validateResetOTP.identifier}`,
         });
@@ -57,7 +54,6 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
   });
 
   const onCodeChange = (e) => {
-    console.log(e);
     setCode(e);
   };
   const resendCode = (e) => {
@@ -80,7 +76,6 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
       phoneNumber: payloadPhone,
       otp: code,
     };
-    console.log(payload);
     validateResetOTP({variables: payload});
   };
 
@@ -147,7 +142,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
                           }
                         >
                           <ReactCodeInput
-                            type={'text'}
+                            type={'number'}
                             fields={6}
                             onChange={(e) => onCodeChange(e)}
                           />

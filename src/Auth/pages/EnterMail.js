@@ -22,7 +22,6 @@ const EnterMail = ({setAlert, handleGeneralErrors, history}) => {
     REQUEST_RESET_PASSWORD,
     {
       update(proxy, result) {
-        console.log(result);
         if (result.data.resetPasswordRequest) {
           setMailSent(true);
         }
@@ -38,7 +37,6 @@ const EnterMail = ({setAlert, handleGeneralErrors, history}) => {
   );
 
   const onFinish = (values) => {
-    console.log(values);
     const data = {
       email: values.email,
       userId: userId,
@@ -47,9 +45,7 @@ const EnterMail = ({setAlert, handleGeneralErrors, history}) => {
     resetPasswordRequest();
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+ 
 
   const goToNext = () =>{
     history.push({pathname: '/verify-code', state: {formData}});
@@ -81,7 +77,7 @@ const EnterMail = ({setAlert, handleGeneralErrors, history}) => {
                   </div>
                 </div>
                 <div className="my-5">
-                  <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
+                  <Form onFinish={onFinish} >
                     <div className="row">
                       <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
                         <div className="form-group">
