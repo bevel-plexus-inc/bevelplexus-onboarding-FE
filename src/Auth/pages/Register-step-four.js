@@ -12,6 +12,9 @@ import FailedModal from '../component/FailedModal';
 import SuccessModal from '../component/SuccessModal';
 
 const RegisterStepFourStud = ({handleGeneralErrors}) => {
+  const userDetails = JSON.parse(localStorage.getItem('user'));
+  const enrollmentVerified = userDetails.userVerification.isIdentityVerified;
+  const tempEnrollmentVerified = localStorage.getItem('tempEnrollmentVerified');
   const verifyId = localStorage.getItem('VerifyIdentity');
   useEffect(() => {
     if (verifyId && verifyId == 'success') {
@@ -110,11 +113,22 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        <a href="/verify-identity">
-                          <label className="btn btn-upload">
-                            Click to Verify
-                          </label>
-                        </a>
+                        {enrollmentVerified || tempEnrollmentVerified ? (
+                          <button className="btn btn-green">
+                            Verified
+                            <span
+                              className="iconify ml-2"
+                              data-icon="noto-v1:check-mark-button"
+                              data-inline="false"
+                            ></span>
+                          </button>
+                        ) : (
+                          <a href="/verify-identity">
+                            <label className="btn btn-upload">
+                              Click to Verify
+                            </label>
+                          </a>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -231,10 +245,18 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
         </div>
       </section>
       <NeedHelp />
-      <FailedModal/>
-      <SuccessModal/>
-      <span className='failedModal' data-toggle="modal" data-target="#failedModal"></span>
-      <span className='successModal' data-toggle="modal" data-target="#successModal"></span>
+      <FailedModal />
+      <SuccessModal />
+      <span
+        className="failedModal"
+        data-toggle="modal"
+        data-target="#failedModal"
+      ></span>
+      <span
+        className="successModal"
+        data-toggle="modal"
+        data-target="#successModal"
+      ></span>
     </div>
   );
 };
