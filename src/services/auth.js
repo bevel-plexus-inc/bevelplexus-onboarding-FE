@@ -45,7 +45,6 @@ export const LOGIN = gql`
         firstName
         lastName
         email
-        isAdmin
         userType
         studentAccountDetail {
           studentNumber
@@ -253,24 +252,12 @@ export const verifyEnrollment = gql`
   }
 `;
 
-// export const GetUserVerification = gql`
-//   query getUserVerification($userId: String!) {
-//     getUserVerification(userId: $userId) {
-//       id
-//       userId
-//       isIdentityVerified
-//       identityDocumentUrl
-//       isSchoolEnrollmentVerified
-//       enrollmentDocumentUrl
-//       isPhoneNumberVerified
-//       isEmailVerified
-//       createdAt
-//       updatedAt
-//       deletedAt
+export const RequestHelp = gql`
+  mutation requestHelp($message: String!, $email: String!, $name: String!) {
+    requestHelp(message: $message, email: $email, name: $name) 
+  }
+`;
 
-//     }
-//   }
-// `;
 
 export const GetUserVerification = gql`
   query getUserVerification($userId: String!) {

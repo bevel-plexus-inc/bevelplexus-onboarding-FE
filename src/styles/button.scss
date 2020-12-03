@@ -63,3 +63,17 @@
   height: 45px;
   font-size: 15px;
 }
+.btn-upload {
+  color: #4a4b65;
+  border: #4a4b65 solid 1px;
+  background: white;
+  font-weight: 700;
+  font-size: 15px;
+  width: 100%;
+  padding: 0.6rem 2rem !important;
+  cursor: pointer;
+  &:hover {
+    background: lighten($color: #4a4b65, $amount: 60%);
+    color: #495057;
+  }
+}

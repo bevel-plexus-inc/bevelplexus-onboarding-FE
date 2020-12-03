@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Form, Input, Spin} from 'antd';
-import {LOGIN} from '../../services/auth';
+import {RequestHelp} from '../../services/auth';
 import {useMutation} from '@apollo/client';
 import {setAlert} from '../../services/Redux/Actions/Alert';
 import {connect} from 'react-redux';
@@ -9,10 +9,14 @@ import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 
 const NeedHelp = ({setAlert, handleGeneralErrors}) => {
   const [formData, setFormData] = useState();
-  const [postMessage, {loading}] = useMutation(LOGIN, {
+  const [form] = Form.useForm();
+  const [postMessage, {loading}] = useMutation(RequestHelp, {
     update(proxy, result) {
       console.log(result.data);
       setAlert('Message Sent', 'success');
+      document.querySelector('.close').click();
+      form.resetFields();
+      setFormData();
     },
     onError(err) {
       handleGeneralErrors(err);
@@ -23,10 +27,9 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
   const onFinish = (values) => {
     console.log(values);
     setFormData(values);
-    // postMessage();
+    postMessage();
   };
 
- 
   return (
     <div className="need-help-modal">
       <div
@@ -55,6 +58,7 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
                 We typically respond as soon as possible
               </p>
               <Form
+                form={form}
                 name="basic"
                 initialValues={{
                   remember: true,
@@ -109,8 +113,17 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
                     className="form-control"
                   ></textarea>
                 </Form.Item>
-                <button type="submit" className="btn btn-blue btn-md">
+                <button
+                  type="submit"
+                  className="btn btn-blue btn-md"
+                  disabled={loading}
+                >
                   Send
+                  {loading && (
+                    <span className="ml-4">
+                      <Spin />
+                    </span>
+                  )}
                 </button>
               </Form>
             </div>
