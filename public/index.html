@@ -101,29 +101,31 @@
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
-                if ((userdetails.userType = 'Student')) {
-                  if (data.data.getUserVerification.isIdentityVerified) {
-                    console.log('route now');
-                    localStorage.setItem('VerifyIdentity', 'success');
-                    window.location.href = '/register-step-four';
+                setTimeout(function () {
+                  if ((userdetails.userType = 'Student')) {
+                    if (data.data.getUserVerification.isIdentityVerified) {
+                      console.log('route now');
+                      localStorage.setItem('VerifyIdentity', 'success');
+                      window.location.href = '/register-step-four';
+                    } else {
+                      console.log('failed but route sha');
+                      localStorage.setItem('VerifyIdentity', 'failed');
+                      window.location.href = '/register-step-four';
+                    }
                   } else {
-                    console.log('failed but route sha');
-                    localStorage.setItem('VerifyIdentity', 'failed');
-                    window.location.href = '/register-step-four';
+                    if (data.data.getUserVerification.isIdentityVerified) {
+                      console.log('route now');
+                      localStorage.setItem('VerifyIdentity', 'success');
+                      window.location.href = '/register-step-four-regular';
+                    } else {
+                      console.log('failed but route sha');
+                      localStorage.setItem('VerifyIdentity', 'failed');
+                      window.location.href = '/register-step-four-regular';
+                    }
                   }
-                } else {
-                  if (data.data.getUserVerification.isIdentityVerified) {
-                    console.log('route now');
-                    localStorage.setItem('VerifyIdentity', 'success');
-                    window.location.href = '/register-step-four-regular';
-                  } else {
-                    console.log('failed but route sha');
-                    localStorage.setItem('VerifyIdentity', 'failed');
-                    window.location.href = '/register-step-four-regular';
-                  }
-                }
+                }, 2000);
               });
-          
+
             // query the job with the token
             fetch(`/yourapi/idv?job_token=${job.token}`);
           },
