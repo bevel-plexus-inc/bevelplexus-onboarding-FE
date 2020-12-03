@@ -10,7 +10,7 @@ import {setAlert} from '../../services/Redux/Actions/Alert';
 import {connect} from 'react-redux';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {Spin} from 'antd';
-import {countryCodes} from '../../services/country';
+import PhoneInput from 'react-phone-number-input';
 
 const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
   const userId = JSON.parse(localStorage.getItem('user')).id;
@@ -23,17 +23,19 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
     phoneNumber: `${prefix}${numb}`,
     userId: userId,
   });
-  const onPrefixChange = (e) => {
-    setPrefix(e.target.value);
-    setFormData({
-      phoneNumber: `${e.target.value}${numb}`,
-      userId: userId,
-    });
-  };
+ 
+  const {phoneNumber} = formData;
+  // const onPrefixChange = (e) => {
+  //   setPrefix(e.target.value);
+  //   setFormData({
+  //     phoneNumber: `${e.target.value}${numb}`,
+  //     userId: userId,
+  //   });
+  // };
   const onNumberChange = (e) => {
-    setNumb(e.target.value);
+    console.log(e);
     setFormData({
-      phoneNumber: `${prefix}${e.target.value}`,
+      phoneNumber: `${e}`,
       userId: userId,
     });
   };
@@ -57,10 +59,7 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (prefix === '') {
-      setAlert('Please select your country code', 'error');
-      return;
-    } else if (numb === '') {
+    if (formData.phoneNumber === '') {
       setAlert('Please Enter your Phone Number', 'error');
     } else {
       console.log(formData);
@@ -99,8 +98,12 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
                     <div className="row">
                       <div className="col-xl-8 col-lg-10 col-md-10 mx-auto text-center">
                       <div className="form-group mr-3">
-                          
-                          <div className="phone-input-wrapper">
+                      <PhoneInput
+                            placeholder="Enter phone number"
+                            value={phoneNumber}
+                            onChange={onNumberChange}
+                          />
+                          {/* <div className="phone-input-wrapper">
                             <div className="prefix-number">
                               <span className="input-icon">
                                 <span
@@ -144,7 +147,8 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
                                 onChange={(e) => onNumberChange(e)}
                               />
                             </div>
-                          </div>
+                          </div> */}
+                          
                         </div>
 
                         <button

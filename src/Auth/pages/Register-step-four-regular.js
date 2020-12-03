@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import identity from '../../assets/img/identity.svg';
 import {Link} from 'react-router-dom';
 import {SecondSidebar} from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {connect} from 'react-redux';
+import FailedModal from '../component/FailedModal';
+import SuccessModal from '../component/SuccessModal';
 
 const RegisterStepFourRegular = () => {
+  const verifyId = localStorage.getItem('VerifyIdentity');
+  useEffect(() => {
+    if (verifyId && verifyId == 'success') {
+      document.querySelector('.successModal').click();
+    } else if (verifyId && verifyId == 'failed') {
+      document.querySelector('.failedModal').click();
+    }
+  }, []);
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'four'} sideLink={'regular'} />
@@ -85,6 +95,10 @@ const RegisterStepFourRegular = () => {
         </div>
       </section>
       <NeedHelp />
+      <FailedModal/>
+      <SuccessModal/>
+      <span className='failedModal' data-toggle="modal" data-target="#failedModal"></span>
+      <span className='successModal' data-toggle="modal" data-target="#successModal"></span>
     </div>
   );
 };

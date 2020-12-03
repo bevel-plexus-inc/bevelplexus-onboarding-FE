@@ -8,7 +8,6 @@ import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {useMutation} from '@apollo/client';
 import {AUTHENTICATE_PHONE_NUMBER} from '../../services/auth';
 import {setAlert} from '../../services/Redux/Actions/Alert';
-import {countryCodes} from '../../services/country';
 import PhoneInput from 'react-phone-number-input';
 
 const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
