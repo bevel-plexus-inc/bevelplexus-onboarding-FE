@@ -49,7 +49,7 @@ const ShowMail = ({handleGeneralErrors, setAlert}) => {
           <div className="px d-body">
             <div>
               <div className="title-space">
-                <p className="font22 font-bold mb-2">You’ve got Mail!</p>
+                <p className="font22 font-bold mb-2">You’ve got a Mail!</p>
                 <p className="text-grey">
                   We have sent a verification email to {email}
                   <br />
