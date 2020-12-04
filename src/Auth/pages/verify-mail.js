@@ -17,7 +17,7 @@ const ShowMail = ({handleGeneralErrors, setAlert}) => {
     update(proxy, result) {
       console.log(result)
       if (result.data.resentEmailOTP.message) {
-        setAlert(result.data.resentEmailOTP.message);
+        setAlert(result.data.resentEmailOTP.message, 'success');
       }
     },
     onError(err) {

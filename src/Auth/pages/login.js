@@ -31,8 +31,6 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
             history.push({pathname: `/register-step-two`});
           } else if (returnVal.studentAccountDetail === null) {
             history.push({pathname: `/register-step-three`});
-          } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
-            history.push({pathname: `/register-step-four`});
           } else if (!returnVal.userVerification?.isIdentityVerified) {
             history.push({pathname: `/register-step-four`});
           } else {
@@ -45,8 +43,6 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
             history.push({pathname: `/register-step-two`});
           } else if (returnVal.regularAccountDetail === null) {
             history.push({pathname: `/register-step-three-regular`});
-          } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
-            history.push({pathname: `/register-step-four-regular`});
           } else if (!returnVal.userVerification?.isIdentityVerified) {
             history.push({pathname: `/register-step-four-regular`});
           } else {
