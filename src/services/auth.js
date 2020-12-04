@@ -63,6 +63,9 @@ export const LOGIN = gql`
           country
           countryIso3Code
         }
+        userKyc {
+          isVerified
+        }
         userVerification {
           isIdentityVerified
           identityDocumentUrl
@@ -254,10 +257,9 @@ export const verifyEnrollment = gql`
 
 export const RequestHelp = gql`
   mutation requestHelp($message: String!, $email: String!, $name: String!) {
-    requestHelp(message: $message, email: $email, name: $name) 
+    requestHelp(message: $message, email: $email, name: $name)
   }
 `;
-
 
 export const GetUserVerification = gql`
   query getUserVerification($userId: String!) {
@@ -279,7 +281,7 @@ export const GetUserVerification = gql`
 
 export const ResentEmailOTP = gql`
   mutation resentEmailOTP($email: String!) {
-    resentEmailOTP( email: $email) {
+    resentEmailOTP(email: $email) {
       message
       identifier
     }

@@ -44,7 +44,7 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
     {
       update(proxy, result) {
         if (result.data.resetPasswordRequest.message) {
-          setAlert(result.data.resetPasswordRequest.message);
+          setAlert(result.data.resetPasswordRequest.message, 'success');
           history.push({pathname: '/verify-code', state: {formData}});
         }
       },

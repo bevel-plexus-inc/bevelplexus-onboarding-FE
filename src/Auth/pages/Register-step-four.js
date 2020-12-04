@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import identity from '../../assets/img/identity.svg';
 import enrollment from '../../assets/img/enrollment.svg';
 import {Link, useHistory} from 'react-router-dom';
-import {SecondSidebar} from '../component/second-sidebar';
+import SecondSidebar from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
 import {useMutation} from '@apollo/client';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';

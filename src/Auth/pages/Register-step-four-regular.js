@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import identity from '../../assets/img/identity.svg';
 import {Link} from 'react-router-dom';
-import {SecondSidebar} from '../component/second-sidebar';
+import SecondSidebar from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {connect} from 'react-redux';

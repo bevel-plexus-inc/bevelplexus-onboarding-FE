@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SecondSidebar} from '../component/second-sidebar';
+import SecondSidebar from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
 import {connect} from 'react-redux';
 import {Form, Input, Spin, DatePicker, Select} from 'antd';

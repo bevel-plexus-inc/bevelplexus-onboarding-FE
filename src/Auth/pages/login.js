@@ -18,6 +18,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
     update(proxy, result) {
       // setAlert('Welcome', 'success');
       const returnVal = result.data.login.user;
+      console.log(returnVal)
       if (result.data.login.token) {
         localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.login.token);
@@ -31,9 +32,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
             history.push({pathname: `/register-step-two`});
           } else if (returnVal.studentAccountDetail === null) {
             history.push({pathname: `/register-step-three`});
-          } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
-            history.push({pathname: `/register-step-four`});
-          } else if (!returnVal.userVerification?.isIdentityVerified) {
+          } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four`});
           } else {
             history.push({pathname: `/transaction`});
@@ -45,9 +44,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
             history.push({pathname: `/register-step-two`});
           } else if (returnVal.regularAccountDetail === null) {
             history.push({pathname: `/register-step-three-regular`});
-          } else if (!returnVal.userVerification?.isSchoolEnrollmentVerified) {
-            history.push({pathname: `/register-step-four-regular`});
-          } else if (!returnVal.userVerification?.isIdentityVerified) {
+          } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four-regular`});
           } else {
             history.push({pathname: `/transaction`});

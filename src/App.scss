@@ -286,3 +286,14 @@ h6 {
     height: 320px;
   }
 }
+.side-with-flex{
+  display: flex;
+  flex-direction: column;
+}
+.logout{
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: auto;
+}

@@ -2,7 +2,7 @@ import {Spin} from 'antd';
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
-import {SecondSidebar} from '../component/second-sidebar';
+import SecondSidebar from '../component/second-sidebar';
 import {connect} from 'react-redux';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {useMutation} from '@apollo/client';
@@ -32,7 +32,7 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
       update(proxy, result) {
         console.log(result);
         if (result.data.authenticatePhoneNumber) {
-          setAlert(result.data.authenticatePhoneNumber.message);
+          setAlert(result.data.authenticatePhoneNumber.message, 'success');
           history.push({pathname: '/register-verify-code', state: {formData}});
         }
       },
