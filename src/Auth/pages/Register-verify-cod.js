@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {SecondSidebar} from '../component/second-sidebar';
+import SecondSidebar from '../component/second-sidebar';
 import {Link} from 'react-router-dom';
 import ReactCodeInput from 'react-verification-code-input';
 import NeedHelp from '../component/needHelp';

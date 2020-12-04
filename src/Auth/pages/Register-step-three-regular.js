@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import NeedHelp from '../component/needHelp';
-import {SecondSidebar} from '../component/second-sidebar';
+import SecondSidebar from '../component/second-sidebar';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {Form, Input, Spin} from 'antd';
 import {connect} from 'react-redux';
