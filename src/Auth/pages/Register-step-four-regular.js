@@ -10,7 +10,7 @@ import SuccessModal from '../component/SuccessModal';
 
 const RegisterStepFourRegular = () => {
   const userDetails = JSON.parse(localStorage.getItem('user'));
-  const enrollmentVerified = userDetails?.userVerification.isIdentityVerified;
+  const enrollmentVerified = userDetails?.userVerification?.isIdentityVerified;
   const tempEnrollmentVerified = localStorage.getItem('tempEnrollmentVerified');
   const verifyId = localStorage.getItem('VerifyIdentity');
   useEffect(() => {
