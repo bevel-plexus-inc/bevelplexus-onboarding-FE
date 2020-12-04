@@ -276,3 +276,12 @@ export const GetUserVerification = gql`
     }
   }
 `;
+
+export const ResentEmailOTP = gql`
+  mutation resentEmailOTP($email: String!) {
+    resentEmailOTP( email: $email) {
+      message
+      identifier
+    }
+  }
+`;
