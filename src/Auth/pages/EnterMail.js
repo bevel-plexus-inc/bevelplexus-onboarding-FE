@@ -11,8 +11,8 @@ import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {Input, Spin, Form} from 'antd';
 
 const EnterMail = ({setAlert, handleGeneralErrors, history}) => {
-  const userId = JSON.parse(localStorage.getItem('user')).id;
-  if(userId === null){
+  const userId = JSON.parse(localStorage.getItem('user'))?.id;
+  if(!userId){
     setAlert('Please you need to register first')
   }
   const [mailSent, setMailSent] = useState(false);
