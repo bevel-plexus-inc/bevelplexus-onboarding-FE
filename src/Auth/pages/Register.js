@@ -42,6 +42,8 @@ const Register = ({handleGeneralErrors}) => {
     update(proxy, result) {
       console.log(result);
       if (result.data.signUp.token) {
+        localStorage.removeItem('tempEnrollmentVerified')
+        localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.signUp.token);
         localStorage.setItem('user', JSON.stringify(result.data.signUp.user));
         history.push('/show-mail');

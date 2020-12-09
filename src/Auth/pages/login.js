@@ -20,6 +20,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
       const returnVal = result.data.login.user;
       console.log(returnVal)
       if (result.data.login.token) {
+        localStorage.removeItem('tempEnrollmentVerified')
         localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.login.token);
         localStorage.setItem('user', JSON.stringify(result.data.login.user));
