@@ -30,7 +30,7 @@ import VerifyIdentity from './Auth/pages/Verify-Identity';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
-  uri: 'https://bp-user.herokuapp.com/graphql',
+  uri: `${process.env.REACT_APP_BASE_URL}`,
 });
 
 const authLink = setContext((_, {headers}) => {
