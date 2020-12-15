@@ -10,7 +10,7 @@ import { useMutation } from '@apollo/client';
 import { connect } from 'react-redux';
 import { ResentEmailOTP } from '../../services/auth';
 
-const ShowMail = ({handleGeneralErrors, setAlert}) => {
+const ShowMail = ({handleGeneralErrors, setAlert, history}) => {
   const email = JSON.parse(localStorage.getItem('user')).email;
 
   const [resentEmailOTP, {loading}] = useMutation(ResentEmailOTP, {
