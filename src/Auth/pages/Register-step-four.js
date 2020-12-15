@@ -237,7 +237,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                   </Link>
                 </div>
                 <Link to="/transaction">
-                  <button className="btn btn-blue btn-lg">Next</button>
+                  <button className="btn btn-blue btn-lg" disabled={!enrollmentVerified}>Next</button>
                 </Link>
               </div>
             </div>

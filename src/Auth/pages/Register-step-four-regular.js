@@ -100,9 +100,9 @@ const RegisterStepFourRegular = () => {
                     Sign in here
                   </Link>
                 </div>
-                <Link to="/transaction">
-                  <button className="btn btn-blue btn-lg">Next</button>
-                </Link>
+                  <Link to="/transaction">
+                    <button className="btn btn-blue btn-lg" disabled={!enrollmentVerified}>Next</button>
+                  </Link>
               </div>
             </div>
           </div>
