@@ -120,12 +120,9 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
                   <div className="col-lg-12">
                     <p className="font22 font-bold mb-2">Verify your Number</p>
                     <p className="text-grey">
-                      Enter the 4-digit code that has been sent to{' '}
+                      Enter the 6-digit code that has been sent to{' '}
                       <span className="font-bold text-black">
                         {formData.phoneNumber}
-                      </span>{' '}
-                      <span className="font14 text-blue click">
-                        Change number
                       </span>
                     </p>
                   </div>

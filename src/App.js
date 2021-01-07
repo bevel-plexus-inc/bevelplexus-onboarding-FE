@@ -27,6 +27,7 @@ import {Provider} from 'react-redux';
 import store from './services/Redux/store';
 import GlobalAlert from './globalComponent/GlobalAlert';
 import VerifyIdentity from './Auth/pages/Verify-Identity';
+import Notfound from './Auth/pages/404';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
@@ -103,6 +104,7 @@ const Main = withRouter(({location}) => {
           component={RegisterVerifyCode}
         />
         <Route exact path="/verify-code" component={VerifyCode} />
+        <Route component={Notfound} />
       </Switch>
     </>
   );
