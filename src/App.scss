@@ -286,14 +286,23 @@ h6 {
     height: 320px;
   }
 }
-.side-with-flex{
+.side-with-flex {
   display: flex;
   flex-direction: column;
 }
-.logout{
+.logout {
   color: white;
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
   margin-top: auto;
+}
+.notfound-wrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  align-items: center;
+  img {
+    max-width: 100%;
+  }
 }
