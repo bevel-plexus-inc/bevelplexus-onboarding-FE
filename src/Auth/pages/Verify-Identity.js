@@ -11,10 +11,8 @@ const VerifyIdentity = ({HandleGeneralErrors, setAlert}) => {
   const userId = JSON.parse(localStorage.getItem('user')).id;
 
   const GetUserProgess = () => {
-    console.log('I just tried')
     const {error, data} = useQuery(GetUserVerification, {
       onCompleted(data) {
-        console.log(data.getUserVerification);
         const detail = data.getUserVerification;
         if (detail.userType === 'Student') {
           history.push('/register-step-four');

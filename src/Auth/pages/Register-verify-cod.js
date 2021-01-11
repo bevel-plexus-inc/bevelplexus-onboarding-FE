@@ -32,7 +32,6 @@ const RegisterVerifyCode = ({
 
   const [verifyPhoneNumber, {loading}] = useMutation(VERIFY_PHONE, {
     update(proxy, result) {
-      console.log(result);
       if (result.data.verifyPhoneNumber.message) {
         setAlert(result.data.verifyPhoneNumber.message, 'success');
         clearInterval(StartTimer);
@@ -82,7 +81,6 @@ const RegisterVerifyCode = ({
     AUTHENTICATE_PHONE_NUMBER,
     {
       update(proxy, result) {
-        console.log(result);
         if (result.data.authenticatePhoneNumber) {
           setAlert(result.data.authenticatePhoneNumber.message, 'success');
           StartTimer();

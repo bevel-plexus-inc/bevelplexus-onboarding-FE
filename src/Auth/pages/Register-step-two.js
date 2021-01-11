@@ -19,7 +19,6 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
   });
   const {phoneNumber} = formData;
   const onNumberChange = (e) => {
-    console.log(e);
     setFormData({
       phoneNumber: `${e}`,
       userId: userId,
@@ -30,7 +29,6 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
     AUTHENTICATE_PHONE_NUMBER,
     {
       update(proxy, result) {
-        console.log(result);
         if (result.data.authenticatePhoneNumber) {
           setAlert(result.data.authenticatePhoneNumber.message, 'success');
           history.push({pathname: '/register-verify-code', state: {formData}});
@@ -48,7 +46,6 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
     if (formData.phoneNumber === '') {
       setAlert('Please Enter your Phone Number', 'error');
     } else {
-      console.log(formData);
       authenticatePhoneNumber();
     }
   };

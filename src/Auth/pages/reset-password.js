@@ -12,12 +12,9 @@ import {RESET_PASSWORD} from '../../services/auth';
 
 const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
   const tokenParam = match.params.id;
-  // const userDetails = JSON.parse(localStorage.getItem('user'))
-  // console.log(userDetails)
   const [formData, setFormData] = useState();
   const [resetPassword, {loading}] = useMutation(RESET_PASSWORD, {
     update(proxy, result) {
-      console.log(result);
       if (result.data.resetPassword.message) {
         setAlert(result.data.resetPassword.message, 'success');
         history.push({pathname: '/'});
@@ -35,15 +32,12 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
         password: values.password,
         formToken: tokenParam,
       };
-      console.log(payload)
       setFormData(payload);
       resetPassword({variables: payload});
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+
   return (
     <div className="register-wrapper one">
       <Sidebar />
@@ -75,7 +69,6 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
                   }}
                   className="pt-5"
                   onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
                 >
                   <div className="form-group">
                     <span className="input-icon">
