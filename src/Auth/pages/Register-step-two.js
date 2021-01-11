@@ -93,49 +93,6 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
                             value={phoneNumber}
                             onChange={onNumberChange}
                           />
-                          {/* <div className="phone-input-wrapper">
-                            <div className="prefix-number">
-                              <span className="input-icon">
-                                <span
-                                  className="iconify"
-                                  data-icon="ps:world"
-                                  data-inline="false"
-                                ></span>
-                              </span>
-                              <select
-                                className="form-control"
-                                name="prefix"
-                                value={prefix}
-                                onChange={(e) => onPrefixChange(e)}
-                              >
-                                <option value="+234">+234</option>
-                                {countryCodes.map((each) => {
-                                  return (
-                                    <option key={each.name} value={each.code}>
-                                      {each.code}
-                                    </option>
-                                  );
-                                })}
-                              </select>
-                            </div>
-                            <div className="full-number">
-                              <div className="input-icon">
-                                <span
-                                  className="iconify"
-                                  data-icon="bi:phone"
-                                  data-inline="false"
-                                ></span>
-                              </div>
-                              <input
-                                type="number"
-                                className="form-control"
-                                name="numb"
-                                value={numb}
-                                onChange={(e) => onNumberChange(e)}
-                              />
-                            </div>
-                          </div>
-                         */}
                         </div>
 
                         <button
