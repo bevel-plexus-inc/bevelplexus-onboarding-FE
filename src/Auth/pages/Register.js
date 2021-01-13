@@ -40,7 +40,6 @@ const Register = ({handleGeneralErrors}) => {
 
   const [addUser, {loading}] = useMutation(REGISTER_USER, {
     update(proxy, result) {
-      console.log(result);
       if (result.data.signUp.token) {
         localStorage.removeItem('tempEnrollmentVerified')
         localStorage.removeItem('VerifyIdentity')
@@ -56,7 +55,6 @@ const Register = ({handleGeneralErrors}) => {
   });
 
   const onFinish = (values) => {
-    console.log(values);
     if (values.referralCode === undefined) {
       values.referralCode = '';
     }
@@ -71,15 +69,11 @@ const Register = ({handleGeneralErrors}) => {
         ...values,
         userType: userType,
       };
-      console.log(data);
       setFormData(data);
       addUser();
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className="register-wrapper one">
       <ToastContainer />
@@ -147,7 +141,6 @@ const Register = ({handleGeneralErrors}) => {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
             >
               <div className="my-5">
                 <p className="font-bold">Fill with your details</p>

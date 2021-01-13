@@ -33,14 +33,12 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
 
   const [registerEnrollment, {loading}] = useMutation(verifyEnrollment, {
     update(proxy, result) {
-      console.log(result);
       setpercentageFile2(100);
       setTimeout(() => {
         setpercentageFile2('complete');
       }, 1000);
     },
     onError(err) {
-      console.log(err);
       setpercentageFile2('error');
       handleGeneralErrors(err);
     },
@@ -58,7 +56,6 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
         file: file,
         userId: userId,
       };
-      console.log(payload);
       registerEnrollment({variables: payload});
     }
   };

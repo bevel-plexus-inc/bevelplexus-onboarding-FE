@@ -17,15 +17,12 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
   const [formData, setFormData] = useState({});
   const selectChange = (e) => {
     const val = e.target.value;
-    console.log(val);
     const result = countryISO3.find((each) => each.Name === val);
-    console.log(result);
     result && setCountryIso3Code(result.Code)
     
   };
   const [register, {loading}] = useMutation(AddRegularAccountDetails, {
     update(proxy, result) {
-      console.log(result);
       if (result.data.addRegularAccountDetails) {
         localStorage.setItem(
           'regularDetail',
@@ -41,20 +38,16 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
   });
 
   const onFinish = (values) => {
-    console.log(values);
     const data = {
       ...values,
       userId: userId,
       countryIso3Code: countryIso3Code,
     };
-    console.log(data);
     setFormData(data);
     register();
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'three'} sideLink={'regular'} />
@@ -77,7 +70,6 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
             >
               <div className="title-space row">
                 <div className="col-lg-7 col-md-8">

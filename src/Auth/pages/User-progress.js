@@ -12,7 +12,6 @@ const UserProgress = ({handleGeneralErrors, setAlert}) => {
   const userId = userDetails.id;
   const {error, data} = useQuery(GetUserVerification, {
     onCompleted(data) {
-      console.log(data.getUserVerification);
       const detail = data.getUserVerification;
       if (!detail.isEmailVerified) {
         history.push({pathname: `/register`});

@@ -16,9 +16,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
   const [formData, setFormData] = useState();
   const [loginUser, {loading}] = useMutation(LOGIN, {
     update(proxy, result) {
-      // setAlert('Welcome', 'success');
       const returnVal = result.data.login.user;
-      console.log(returnVal)
       if (result.data.login.token) {
         localStorage.removeItem('tempEnrollmentVerified')
         localStorage.removeItem('VerifyIdentity')

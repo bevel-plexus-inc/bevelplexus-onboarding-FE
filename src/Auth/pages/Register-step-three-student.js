@@ -15,20 +15,16 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
   const [countryIso3Code, setCountryIso3Code] = useState('');
   const [dob, setdob] = useState();
   const dobChange = (e) => {
-    console.log(e);
     setdob(e);
   };
   const [formData, setFormData] = useState({});
   const selectChange = (e) => {
     const val = e.target.value;
-    console.log(val);
     const result = countryISO3.find(each =>each.Name === val );
-    console.log(result)
     setCountryIso3Code(result.Code)
   };
   const [register, {loading}] = useMutation(AddStudentAccountDetails, {
     update(proxy, result) {
-      console.log(result);
       if (result.data.addStudentAccountDetails) {
         localStorage.setItem('studentDetail', JSON.stringify(result.data.addStudentAccountDetails));
       history.push('/register-step-four');
@@ -41,20 +37,16 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
   });
 
   const onFinish = (values) => {
-    console.log(values);
     const data = {
       ...values,
       userId: userId,
       countryIso3Code: countryIso3Code,
     };
-    console.log(data);
     setFormData(data);
     register();
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+ 
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'three'} />
@@ -77,7 +69,6 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                 remember: true,
               }}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
             >
               <div className="title-space row">
                 <div className="col-lg-7 col-md-8">
