@@ -22,6 +22,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
         localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.login.token);
         localStorage.setItem('user', JSON.stringify(result.data.login.user));
+        localStorage.setItem('userId ', result.data.login.user.id);
       }
       if (redirect_url === null) {
         if (returnVal.userType === 'Student') {

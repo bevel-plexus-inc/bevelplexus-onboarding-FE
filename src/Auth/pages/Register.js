@@ -45,6 +45,7 @@ const Register = ({handleGeneralErrors}) => {
         localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.signUp.token);
         localStorage.setItem('user', JSON.stringify(result.data.signUp.user));
+        localStorage.setItem('userId ', result.data.signUp.user.id);
         history.push('/show-mail');
       }
     },
