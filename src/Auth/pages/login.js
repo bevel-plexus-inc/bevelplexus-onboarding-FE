@@ -34,7 +34,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four`});
           } else {
-            history.push({pathname: `/transaction`});
+            history.push({pathname: `/payment`});
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
@@ -46,7 +46,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four-regular`});
           } else {
-            history.push({pathname: `/transaction`});
+            history.push({pathname: `/payment`});
           }
         }
       } else {
