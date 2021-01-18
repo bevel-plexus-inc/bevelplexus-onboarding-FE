@@ -35,7 +35,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four`});
           } else {
-            history.push({pathname: `/payment`});
+            history.push({pathname: `/dashboard`});
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
@@ -47,7 +47,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four-regular`});
           } else {
-            history.push({pathname: `/payment`});
+            history.push({pathname: `/dashboard`});
           }
         }
       } else {
