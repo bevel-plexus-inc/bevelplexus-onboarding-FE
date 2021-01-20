@@ -22,6 +22,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
         localStorage.removeItem('VerifyIdentity')
         localStorage.setItem('token', result.data.login.token);
         localStorage.setItem('user', JSON.stringify(result.data.login.user));
+        localStorage.setItem('userId ', result.data.login.user.id);
       }
       if (redirect_url === null) {
         if (returnVal.userType === 'Student') {
@@ -34,7 +35,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four`});
           } else {
-            history.push({pathname: `/transaction`});
+            history.push({pathname: `/dashboard`});
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
@@ -46,7 +47,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four-regular`});
           } else {
-            history.push({pathname: `/transaction`});
+            history.push({pathname: `/dashboard`});
           }
         }
       } else {

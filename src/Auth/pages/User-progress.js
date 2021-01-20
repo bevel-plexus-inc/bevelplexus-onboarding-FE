@@ -29,7 +29,7 @@ const UserProgress = ({handleGeneralErrors, setAlert}) => {
         } else if (!detail.isIdentityVerified) {
           history.push({pathname: `/register-step-four`});
         } else {
-          history.push({pathname: `/transaction`});
+          history.push({pathname: `/dashboard`});
         }
       } else {
         if (!detail.isPhoneNumberVerified) {
@@ -45,7 +45,7 @@ const UserProgress = ({handleGeneralErrors, setAlert}) => {
         } else if (!detail.isIdentityVerified) {
           history.push({pathname: `/register-step-four-regular`});
         } else {
-          history.push({pathname: `/transaction`});
+          history.push({pathname: `/dashboard`});
         }
       }
     },
