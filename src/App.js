@@ -104,7 +104,7 @@ const Main = withRouter(({location}) => {
           component={RegisterVerifyCode}
         />
         <Route exact path="/verify-code" component={VerifyCode} />
-        <Route component={Notfound} />
+        {/* <Route component={Notfound} /> */}
       </Switch>
     </>
   );
