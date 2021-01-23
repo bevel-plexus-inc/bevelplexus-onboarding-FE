@@ -5,7 +5,7 @@ const Notfound = () => {
   return (
     <div className="notfound-wrapper">
       <div>
-        <img src={`${process.env.REACT_APP_BASEURL}/assets/img/404.png`} alt="" />
+        <img src={`/assets/img/404.png`} alt="" />
         <div className="text-center mt-4">
           <Link to="/">
             <button className='btn btn-blue'>Back to home</button>
