@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 
 const Login = ({setAlert, handleGeneralErrors, history}) => {
+  
   const search = useLocation().search;
   const redirect_url = new URLSearchParams(search).get('redirect_url');
   const [formData, setFormData] = useState();
@@ -35,7 +36,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four`});
           } else {
-            history.push({pathname: `/dashboard`});
+            window.location.href = 'https://www.app.bevelplexus.com/dashboard'
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
@@ -47,7 +48,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({pathname: `/register-step-four-regular`});
           } else {
-            history.push({pathname: `/dashboard`});
+            window.location.href = 'https://www.app.bevelplexus.com/dashboard'
           }
         }
       } else {
