@@ -10,7 +10,7 @@ import SuccessModal from '../component/SuccessModal';
 
 const RegisterStepFourRegular = () => {
   const userDetails = JSON.parse(localStorage.getItem('user'));
-  const enrollmentVerified = userDetails?.userVerification?.isIdentityVerified;
+  let enrollmentVerified = userDetails?.userVerification?.isIdentityVerified;
   const tempEnrollmentVerified = localStorage.getItem('tempEnrollmentVerified');
   const verifyId = localStorage.getItem('VerifyIdentity');
   useEffect(() => {
@@ -95,9 +95,11 @@ const RegisterStepFourRegular = () => {
             <div className="pt-space">
               <div className="d-flex flex-wrap align-items-end justify-content-end">
                 
+              {enrollmentVerified || tempEnrollmentVerified && (
                   <a href="https://app.bevelplexus.com/dashboard">
-                    <button className="btn btn-blue btn-lg" disabled={!enrollmentVerified}>Next</button>
+                    <button className="btn btn-blue btn-lg" >Next</button>
                   </a>
+              )}
               </div>
             </div>
           </div>
