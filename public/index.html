@@ -51,7 +51,12 @@
     <script type="text/javascript">
       (function () {
         let userdetails = JSON.parse(localStorage.getItem('user'));
-        let userID = userdetails.id;
+        let userID;
+        if(userdetails){
+           userID = userdetails.id;
+        } else{
+          return
+        }
         let token = localStorage.getItem('token');
         var vouched = Vouched({
           appId: 'nuIbrjutl~#lpmpfGC1F8~cc~YjyKX',
