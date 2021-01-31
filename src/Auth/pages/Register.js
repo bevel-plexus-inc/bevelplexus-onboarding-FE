@@ -273,9 +273,9 @@ const Register = ({handleGeneralErrors}) => {
                               'Please ensure your password contains a capital letter',
                           },
                           {
-                            pattern: new RegExp(/([!@#$&*])/),
+                            pattern: new RegExp(/([!%@#$&*])/),
                             message:
-                              'Please ensure your password contains a special character',
+                              'Please ensure your password contains at least one of these special characters: !%@#$&*',
                           },
                           {
                             pattern: new RegExp(/([0-9])/),

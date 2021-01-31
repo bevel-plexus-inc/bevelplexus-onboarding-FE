@@ -39,7 +39,7 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
 
 
   return (
-    <div className="register-wrapper one">
+    <div className="register-wrapper one reset-password-wrapper">
       <Sidebar />
       <section className="main-auth-content">
         <div>
@@ -78,20 +78,46 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
                         data-inline="false"
                       ></span>
                     </span>
+                    
                     <Form.Item
-                      name="newPassword"
-                      rules={[
-                        {
-                          required: true,
-                          message: 'Required!',
-                        },
-                      ]}
-                    >
-                      <Input.Password
-                        placeholder="New Password"
-                        className="form-control"
-                      />
-                    </Form.Item>
+                        name="newPassword"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input your password!',
+                          },
+                          {
+                            min: 6,
+                            message: 'Minimum of 6 characters',
+                          },
+                          {
+                            pattern: new RegExp(/([A-Z])/),
+                            message:
+                              'Please ensure your password contains a capital letter',
+                          },
+                          {
+                            pattern: new RegExp(/([!% @#$&*])/),
+                            message:
+                              'Please ensure your password contains at least one of these special characters: !%@#$&*',
+                          },
+                          {
+                            pattern: new RegExp(/([0-9])/),
+                            message:
+                              'Please ensure your password contains a number',
+                          },
+                          {
+                            pattern: new RegExp(/([a-z])/),
+                            message:
+                              'Please ensure your password contains a small letter',
+                          },
+                        ]}
+                      >
+                        <Input.Password
+                          placeholder="New Password"
+                          className="form-control"
+                        />
+                      </Form.Item>
+                    
                   </div>
                   <div className="form-group">
                     <span className="input-icon">

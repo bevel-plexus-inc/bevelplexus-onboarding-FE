@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import failed from '../../assets/img/fail.png';
 
 const FailedModal = () => {
@@ -50,4 +49,4 @@ const FailedModal = () => {
   );
 };
 
-export default connect(null, {})(FailedModal);
+export default (FailedModal);

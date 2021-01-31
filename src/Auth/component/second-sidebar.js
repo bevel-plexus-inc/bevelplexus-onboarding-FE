@@ -1,21 +1,25 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import logo from '../../assets/img/logo-white.svg';
 import checkmark from '../../assets/img/check.png';
 import '../../styles/sidebar.scss';
-import {Link, useHistory} from 'react-router-dom';
-import {logoutService} from '../../services/auth';
-import {connect} from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const SecondSidebar = ({sideProgress, sideLink, logoutService}) => {
+const SecondSidebar = ({ sideProgress, sideLink }) => {
   const history = useHistory();
   const [isOpen, setisOpen] = useState(false);
   const sidebarToggle = () => {
     setisOpen(!isOpen);
   };
-  const logout = () => {
-    logoutService();
-    history.push({pathname: `/`});
+
+
+  const login = () => {
+    console.log(localStorage.getItem('token'))
+    console.log(localStorage.getItem('user'))
+    console.log(localStorage.getItem('userId '))
+    window.location.href = 'https://app.bevelplexus.com/dashboard'
   };
+
   return (
     <div>
       <div className="side-wrapper">
@@ -61,8 +65,8 @@ const SecondSidebar = ({sideProgress, sideLink, logoutService}) => {
                     ) : sideProgress === 'four' ? (
                       <img src={checkmark} alt="" className="check-mark" />
                     ) : (
-                      <span className="number">2</span>
-                    )}
+                          <span className="number">2</span>
+                        )}
                     Phone Verification
                   </div>
                   <div
@@ -75,13 +79,13 @@ const SecondSidebar = ({sideProgress, sideLink, logoutService}) => {
                     {sideProgress === 'four' ? (
                       <img src={checkmark} alt="" className="check-mark" />
                     ) : (
-                      <span className="number">3</span>
-                    )}
+                        <span className="number">3</span>
+                      )}
                     {sideLink === 'regular' ? (
                       <span>Address</span>
                     ) : (
-                      <span>School information</span>
-                    )}
+                        <span>School information</span>
+                      )}
                   </div>
                   <div
                     className={
@@ -93,22 +97,24 @@ const SecondSidebar = ({sideProgress, sideLink, logoutService}) => {
                     {sideLink === 'regular' ? (
                       <span>Verification</span>
                     ) : (
-                      <span>Documents</span>
-                    )}
+                        <span>Documents</span>
+                      )}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="logout d-flex align-items-center" onClick={logout}>
-              <span className="mr-2">
-                <span
-                  class="iconify"
-                  data-icon="codicon:debug-reverse-continue"
-                  data-inline="false"
-                ></span>
-              </span>
-              <span className="mt-1">Continue Later</span>
-            </div>
+            {sideProgress != 'two' &&
+              <div className="logout d-flex align-items-center" onClick={login}>
+                <span className="mr-2">
+                  <span
+                    className="iconify"
+                    data-icon="codicon:debug-reverse-continue"
+                    data-inline="false"
+                  ></span>
+                </span>
+                <span className="mt-1">Continue Later</span>
+              </div>
+            }
           </div>
         </section>
       </div>
@@ -116,4 +122,4 @@ const SecondSidebar = ({sideProgress, sideLink, logoutService}) => {
   );
 };
 
-export default connect(null, {logoutService})(SecondSidebar);
+export default (SecondSidebar);

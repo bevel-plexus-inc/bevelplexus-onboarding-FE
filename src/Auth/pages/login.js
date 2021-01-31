@@ -9,9 +9,10 @@ import {setAlert} from '../../services/Redux/Actions/Alert';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
+import ErrorModal from '../component/ErrorModal';
 
 const Login = ({setAlert, handleGeneralErrors, history}) => {
-  
+  const [ErrorMessage, setErrorMessage] = useState('')
   const search = useLocation().search;
   const redirect_url = new URLSearchParams(search).get('redirect_url');
   const [formData, setFormData] = useState();
@@ -56,7 +57,9 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
       }
     },
     onError(err) {
-      handleGeneralErrors(err);
+      // handleGeneralErrors(err);
+      setErrorMessage(err.graphQLErrors[0].message)
+      document.querySelector('.errorModal').click()
     },
     variables: formData,
   });
@@ -189,6 +192,12 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
         </div>
       </section>
       <NeedHelp />
+      <ErrorModal message = {ErrorMessage}/>
+      <span
+        className="errorModal"
+        data-toggle="modal"
+        data-target="#errorModal"
+      ></span>
     </div>
   );
 };
