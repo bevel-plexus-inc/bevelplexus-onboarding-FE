@@ -70,45 +70,35 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
                   className="pt-5"
                   onFinish={onFinish}
                 >
-                  <div className="form-group">
-                    <span className="input-icon">
-                      <span
-                        className="iconify"
-                        data-icon="la:key-solid"
-                        data-inline="false"
-                      ></span>
-                    </span>
-                    
-                    <Form.Item
+                  <div className="form-group pass-wrapper">
+                      <span className="input-icon">
+                        <span
+                          className="iconify"
+                          data-icon="la:key-solid"
+                          data-inline="false"
+                        ></span>
+                      </span>
+                     
+                      <Form.Item
                         name="newPassword"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input your password!',
                           },
                           {
                             min: 6,
-                            message: 'Minimum of 6 characters',
                           },
                           {
                             pattern: new RegExp(/([A-Z])/),
-                            message:
-                              'Please ensure your password contains a capital letter',
                           },
                           {
-                            pattern: new RegExp(/([!% @#$&*])/),
-                            message:
-                              'Please ensure your password contains at least one of these special characters: !%@#$&*',
+                            pattern: new RegExp(/([!%@#$&*])/),
                           },
                           {
                             pattern: new RegExp(/([0-9])/),
-                            message:
-                              'Please ensure your password contains a number',
                           },
                           {
                             pattern: new RegExp(/([a-z])/),
-                            message:
-                              'Please ensure your password contains a small letter',
                           },
                         ]}
                       >
@@ -117,8 +107,11 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
                           className="form-control"
                         />
                       </Form.Item>
-                    
-                  </div>
+                      <div className='font10 text-left'>
+                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*'.
+                    </div>
+                    </div>
+
                   <div className="form-group">
                     <span className="input-icon">
                       <span
@@ -132,7 +125,7 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
                       rules={[
                         {
                           required: true,
-                          message: 'Required!',
+                          message: 'Please confirm your password!',
                         },
                       ]}
                     >
