@@ -285,7 +285,7 @@ const Register = ({ handleGeneralErrors }) => {
                         />
                       </Form.Item>
                       <div className='font10'>
-                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*'.
+                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*.
                     </div>
                     </div>
 
