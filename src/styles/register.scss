@@ -53,7 +53,6 @@
       .PhoneInputInternationalIconGlobe {
         color: #015eff;
       }
-      
     }
     .phone-input-icon {
       color: #015eff;
@@ -99,7 +98,7 @@
       padding: 15px;
       display: none;
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         right: 56px;
         top: -10px;
@@ -401,7 +400,7 @@
           padding: 15px;
           display: none;
           &:before {
-            content: '';
+            content: "";
             position: absolute;
             left: 45%;
             top: -10px;
@@ -486,6 +485,14 @@
     .full-number {
       width: 70%;
       position: relative;
+    }
+  }
+  .pass-wrapper {
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+    .ant-form-item-explain.ant-form-item-explain-error {
+      display: none !important;
     }
   }
 }

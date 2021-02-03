@@ -1,23 +1,23 @@
 import React from 'react';
-import {Sidebar} from '../component/sidebar';
+import { Sidebar } from '../component/sidebar';
 import regular from '../../assets/img/user-regular.svg';
 import student from '../../assets/img/user-student.svg';
-import {Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
-import {Form, Input, Spin} from 'antd';
-import {useMutation} from '@apollo/client';
-import {REGISTER_USER} from '../../services/auth';
-import {useState} from 'react';
-import {toast, ToastContainer} from 'react-toastify';
-import {connect} from 'react-redux';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
+import { Form, Input, Spin } from 'antd';
+import { useMutation } from '@apollo/client';
+import { REGISTER_USER } from '../../services/auth';
+import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import { connect } from 'react-redux';
+import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
 
 const UserType = {
   Student: 'Student',
   Regular: 'Regular',
 };
 
-const Register = ({handleGeneralErrors}) => {
+const Register = ({ handleGeneralErrors }) => {
   const history = useHistory();
   const [userType, setUserType] = useState('');
   const [agreement, setAgreement] = useState(false);
@@ -38,7 +38,7 @@ const Register = ({handleGeneralErrors}) => {
   };
   const [formData, setFormData] = useState();
 
-  const [addUser, {loading}] = useMutation(REGISTER_USER, {
+  const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
       if (result.data.signUp.token) {
         localStorage.removeItem('tempEnrollmentVerified')
@@ -247,7 +247,7 @@ const Register = ({handleGeneralErrors}) => {
                       </Form.Item>
                     </div>
                   </div>
-                  <div className="col-md-6">
+                  <div className="col-md-6 pass-wrapper">
                     <div className="form-group">
                       <span className="input-icon">
                         <span
@@ -261,31 +261,21 @@ const Register = ({handleGeneralErrors}) => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input your password!',
                           },
                           {
                             min: 6,
-                            message: 'Minimum of 6 characters',
                           },
                           {
                             pattern: new RegExp(/([A-Z])/),
-                            message:
-                              'Please ensure your password contains a capital letter',
                           },
                           {
                             pattern: new RegExp(/([!%@#$&*])/),
-                            message:
-                              'Please ensure your password contains at least one of these special characters: !%@#$&*',
                           },
                           {
                             pattern: new RegExp(/([0-9])/),
-                            message:
-                              'Please ensure your password contains a number',
                           },
                           {
                             pattern: new RegExp(/([a-z])/),
-                            message:
-                              'Please ensure your password contains a small letter',
                           },
                         ]}
                       >
@@ -294,7 +284,11 @@ const Register = ({handleGeneralErrors}) => {
                           className="form-control"
                         />
                       </Form.Item>
+                      <div className='font10'>
+                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*'.
                     </div>
+                    </div>
+
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
@@ -310,7 +304,7 @@ const Register = ({handleGeneralErrors}) => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input your password!',
+                            message: 'Please confirm your password!',
                           },
                         ]}
                       >
@@ -387,4 +381,4 @@ const Register = ({handleGeneralErrors}) => {
   );
 };
 
-export default connect(null, {handleGeneralErrors})(Register);
+export default connect(null, { handleGeneralErrors })(Register);
