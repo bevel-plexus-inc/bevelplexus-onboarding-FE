@@ -128,6 +128,16 @@ const EnterMail = ({ setAlert, handleGeneralErrors, history }) => {
                             </span>
                           </p>
                         )}
+                        <p className="text-grey mt-5">
+                          Click
+                          <Link
+                            className="click mx-1 text-blue"
+                            to='/'
+                          >
+                            here
+                          </Link>
+                          to go back to login
+                        </p>
                       </div>
                     </div>
                   </Form>
