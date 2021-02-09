@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
-import {Sidebar} from '../component/sidebar';
-import {Link, useLocation} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Sidebar } from '../component/sidebar';
+import { Link, useLocation } from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
-import {Form, Input, Spin} from 'antd';
-import {LOGIN} from '../../services/auth';
-import {useMutation} from '@apollo/client';
-import {setAlert} from '../../services/Redux/Actions/Alert';
-import {connect} from 'react-redux';
+import { Form, Input, Spin } from 'antd';
+import { LOGIN } from '../../services/auth';
+import { useMutation } from '@apollo/client';
+import { setAlert } from '../../services/Redux/Actions/Alert';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
+import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
 import ErrorModal from '../component/ErrorModal';
 
-const Login = ({setAlert, handleGeneralErrors, history}) => {
+const Login = ({ setAlert, handleGeneralErrors, history }) => {
   const [ErrorMessage, setErrorMessage] = useState('')
   const search = useLocation().search;
   const redirect_url = new URLSearchParams(search).get('redirect_url');
   const [formData, setFormData] = useState();
-  const [loginUser, {loading}] = useMutation(LOGIN, {
+  const [loginUser, { loading }] = useMutation(LOGIN, {
     update(proxy, result) {
       const returnVal = result.data.login.user;
       if (result.data.login.token) {
@@ -29,31 +29,31 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
       if (redirect_url === null) {
         if (returnVal.userType === 'Student') {
           if (!returnVal.userVerification?.isEmailVerified) {
-            history.push({pathname: `/show-mail`});
+            history.push({ pathname: `/show-mail` });
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
-            history.push({pathname: `/register-step-two`});
+            history.push({ pathname: `/register-step-two` });
           } else if (returnVal.studentAccountDetail === null) {
-            history.push({pathname: `/register-step-three`});
+            history.push({ pathname: `/register-step-three` });
           } else if (!returnVal.userKyc?.isVerified) {
-            history.push({pathname: `/register-step-four`});
+            history.push({ pathname: `/register-step-four` });
           } else {
             window.location.href = 'https://app.bevelplexus.com/dashboard'
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
-            history.push({pathname: `/show-mail`});
+            history.push({ pathname: `/show-mail` });
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
-            history.push({pathname: `/register-step-two`});
+            history.push({ pathname: `/register-step-two` });
           } else if (returnVal.regularAccountDetail === null) {
-            history.push({pathname: `/register-step-three-regular`});
+            history.push({ pathname: `/register-step-three-regular` });
           } else if (!returnVal.userKyc?.isVerified) {
-            history.push({pathname: `/register-step-four-regular`});
+            history.push({ pathname: `/register-step-four-regular` });
           } else {
             window.location.href = 'https://app.bevelplexus.com/dashboard'
           }
         }
       } else {
-        history.push({pathname: `${redirect_url}`});
+        history.push({ pathname: `${redirect_url}` });
       }
     },
     onError(err) {
@@ -154,7 +154,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
                   </div>
 
                   <div className="d-flex flex-wrap align-items-end justify-content-end">
-                    <Link to="/forgot-password" className="text-blue click">
+                    <Link to="/enter-mail" className="text-blue click">
                       Forgot password?
                     </Link>
                   </div>
@@ -171,13 +171,13 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
                         </span>
                       </button>
                     ) : (
-                      <button
-                        type="submit"
-                        className="btn btn-blue btn-lg my-5"
-                      >
-                        Sign In
-                      </button>
-                    )}
+                        <button
+                          type="submit"
+                          className="btn btn-blue btn-lg my-5"
+                        >
+                          Sign In
+                        </button>
+                      )}
                   </Form.Item>
                   <div>
                     Dont have an account?
@@ -192,7 +192,7 @@ const Login = ({setAlert, handleGeneralErrors, history}) => {
         </div>
       </section>
       <NeedHelp />
-      <ErrorModal message = {ErrorMessage}/>
+      <ErrorModal message={ErrorMessage} />
       <span
         className="errorModal"
         data-toggle="modal"
@@ -206,4 +206,4 @@ Login.propTypes = {
   handleGeneralErrors: PropTypes.func.isRequired,
 };
 
-export default connect(null, {setAlert, handleGeneralErrors})(Login);
+export default connect(null, { setAlert, handleGeneralErrors })(Login);
