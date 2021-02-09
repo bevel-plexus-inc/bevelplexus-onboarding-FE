@@ -6,14 +6,14 @@ import NeedHelp from '../component/needHelp';
 
 const ForgotPassword = (props) => {
   const [tabVal, setTabVal] = useState('');
-  // const togglePhoneTab = () => {
-  //   document.querySelector('.phone-tab').classList.add('active');
-  //   document.querySelector('.mail-tab').classList.remove('active');
-  //   setTabVal('phone');
-  // };
+  const togglePhoneTab = () => {
+    document.querySelector('.phone-tab').classList.add('active');
+    document.querySelector('.mail-tab').classList.remove('active');
+    setTabVal('phone');
+  };
   const toggleMailTab = () => {
     document.querySelector('.mail-tab').classList.add('active');
-    // document.querySelector('.phone-tab').classList.remove('active');
+    document.querySelector('.phone-tab').classList.remove('active');
     setTabVal('mail');
   };
   const nextLink = () => {
@@ -45,7 +45,7 @@ const ForgotPassword = (props) => {
               <div className="row">
                 <div className="col-lg-10 col-md-10 col-sm-12 mx-auto">
                   <div className="d-flex register-tab justify-content-center">
-                    {/* <div
+                    <div
                       className="each mr-4 d-flex justify-content-center align-items-center phone-tab"
                       onClick={togglePhoneTab}
                     >
@@ -60,7 +60,7 @@ const ForgotPassword = (props) => {
                         <span className="font18">Send Code to Phone</span>
                       </div>
                     </div>
-                     */}
+                    
                     <div
                       className="each d-flex justify-content-center align-items-center mail-tab"
                       onClick={toggleMailTab}
