@@ -228,9 +228,11 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
             <div className="pt-space">
               <div className="d-flex flex-wrap align-items-end justify-content-end">
                
-                 <a href="https://app.bevelplexus.com/dashboard">
-                  <button className="btn btn-blue btn-lg" disabled={!enrollmentVerified}>Next</button>
-                </a>
+                {enrollmentVerified || tempEnrollmentVerified && (
+                  <a href="https://app.bevelplexus.com/dashboard">
+                    <button className="btn btn-blue btn-lg" >Next</button>
+                  </a>
+              )}
               </div>
             </div>
           </div>
