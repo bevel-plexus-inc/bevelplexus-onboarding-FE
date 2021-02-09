@@ -247,6 +247,7 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             <DatePicker
                               className="form-control"
                               placeholder=" Expected year of graduation"
+                              picker='month'
                             />
                           </Form.Item>
                         </div>
