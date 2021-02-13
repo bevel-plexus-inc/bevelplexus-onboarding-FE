@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sidebar } from '../component/sidebar';
 import regular from '../../assets/img/user-regular.svg';
 import student from '../../assets/img/user-student.svg';
@@ -18,6 +18,11 @@ const UserType = {
 };
 
 const Register = ({ handleGeneralErrors }) => {
+  const [form] = Form.useForm();
+  const [, forceUpdate] = useState({});
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
   const history = useHistory();
   const [userType, setUserType] = useState('');
   const [agreement, setAgreement] = useState(false);
@@ -73,10 +78,17 @@ const Register = ({ handleGeneralErrors }) => {
       setFormData(data);
       addUser();
     }
-  }; 
-  
-  const onError = (values) => {
-    console.log(values)
+  };
+  const [FailedPass, setFailedPass] = useState(false)
+  const onFinishFailed = (errorInfo) => {
+    setFailedPass(false)
+    console.log('Failed:', errorInfo);
+    errorInfo.errorFields.map((val) => {
+      if (val.name[0] == 'password') {
+        setFailedPass(true)
+        return
+      }
+    })
   };
 
   return (
@@ -144,8 +156,9 @@ const Register = ({ handleGeneralErrors }) => {
               name="basic"
               initialValues={{
                 remember: true,
-              }}
+              }} form={form}
               onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
             >
               <div className="my-5">
                 <p className="font-bold">Fill with your details</p>
@@ -288,7 +301,7 @@ const Register = ({ handleGeneralErrors }) => {
                           className="form-control"
                         />
                       </Form.Item>
-                      <div className='font10'>
+                      <div className={FailedPass ? 'font10 text-red' : 'font10'}>
                         Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*.
                     </div>
                     </div>
@@ -360,19 +373,26 @@ const Register = ({ handleGeneralErrors }) => {
                       Sign in here
                     </Link>
                   </div>
-                  <Form.Item className="mb-0">
-                    <button
-                      type="submit"
-                      className="btn btn-blue btn-lg"
-                      disabled={loading}
-                    >
-                      Create account
-                      {loading && (
-                        <span className="ml-4">
-                          <Spin />
-                        </span>
-                      )}
-                    </button>
+                  <Form.Item className="mb-0" shouldUpdate={true}>
+                    {() => (
+                      <button
+                        type="submit"
+                        className="btn btn-blue btn-lg"
+                        htmlType="submit"
+                        // disabled={loading}
+                        disabled={
+                          !form.isFieldsTouched(true) ||
+                          !!form.getFieldsError().filter(({ errors }) => errors.length).length
+                        }
+                      >
+                        Create account
+                        {loading && (
+                          <span className="ml-4">
+                            <Spin />
+                          </span>
+                        )}
+                      </button>
+                    )}
                   </Form.Item>
                 </div>
               </div>
