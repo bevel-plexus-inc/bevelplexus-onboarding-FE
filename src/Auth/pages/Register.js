@@ -73,6 +73,10 @@ const Register = ({ handleGeneralErrors }) => {
       setFormData(data);
       addUser();
     }
+  }; 
+  
+  const onError = (values) => {
+    console.log(values)
   };
 
   return (
@@ -348,7 +352,7 @@ const Register = ({ handleGeneralErrors }) => {
                   </div>
                 </div>
               </div>
-              <div className="pt-space">
+              <div className="pt-5">
                 <div className="d-flex flex-wrap align-items-end justify-content-end">
                   <div className="agreement-check text-grey mr-2">
                     Already have a login?{' '}

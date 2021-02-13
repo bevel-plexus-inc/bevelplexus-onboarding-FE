@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import identity from '../../assets/img/identity.svg';
 import enrollment from '../../assets/img/enrollment.svg';
-import {Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import SecondSidebar from '../component/second-sidebar';
 import NeedHelp from '../component/needHelp';
-import {useMutation} from '@apollo/client';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
-import {connect} from 'react-redux';
-import {VerifyIdentity, verifyEnrollment} from '../../services/auth';
+import { useMutation } from '@apollo/client';
+import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
+import { connect } from 'react-redux';
+import { VerifyIdentity, verifyEnrollment } from '../../services/auth';
 import FailedModal from '../component/FailedModal';
 import SuccessModal from '../component/SuccessModal';
 
-const RegisterStepFourStud = ({handleGeneralErrors}) => {
+const RegisterStepFourStud = ({ handleGeneralErrors }) => {
   const userDetails = JSON.parse(localStorage.getItem('user'));
   const enrollmentVerified = userDetails?.userVerification?.isIdentityVerified;
   const tempEnrollmentVerified = localStorage.getItem('tempEnrollmentVerified');
@@ -31,7 +31,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
     userId: userId,
   });
 
-  const [registerEnrollment, {loading}] = useMutation(verifyEnrollment, {
+  const [registerEnrollment, { loading }] = useMutation(verifyEnrollment, {
     update(proxy, result) {
       setpercentageFile2(100);
       setTimeout(() => {
@@ -56,10 +56,12 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
         file: file,
         userId: userId,
       };
-      registerEnrollment({variables: payload});
+      registerEnrollment({ variables: payload });
     }
   };
-
+  const login = () => {
+    window.location.href = 'https://app.bevelplexus.com/dashboard'
+  };
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'four'} />
@@ -120,12 +122,18 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                             ></span>
                           </button>
                         ) : (
-                          <a href="/verify-identity">
-                            <label className="btn btn-upload">
-                              Click to Verify
+                            <>
+                              <a href="/verify-identity">
+                                <label className="btn btn-upload">
+                                  Verify now
                             </label>
-                          </a>
-                        )}
+                              </a>
+                              <br />
+                              <label className="btn btn-upload" onClick={login}>
+                                Verify later
+                            </label>
+                            </>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -165,7 +173,7 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
-                              style={{width: `${percentageFile2}%`}}
+                              style={{ width: `${percentageFile2}%` }}
                             >
                               {percentageFile2}%
                             </div>
@@ -207,13 +215,13 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
                             </p>
                           </>
                         ) : (
-                          <></>
-                        )}
+                                  <></>
+                                )}
                         {loading && (
                           <div className="progress-container">
                             <div
                               className="progress-inner text-center"
-                              style={{width: `${50}%`}}
+                              style={{ width: `${50}%` }}
                             >
                               {50}%
                             </div>
@@ -227,12 +235,12 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
             </div>
             <div className="pt-space">
               <div className="d-flex flex-wrap align-items-end justify-content-end">
-               
+
                 {enrollmentVerified || tempEnrollmentVerified && (
                   <a href="https://app.bevelplexus.com/dashboard">
                     <button className="btn btn-blue btn-lg" >Next</button>
                   </a>
-              )}
+                )}
               </div>
             </div>
           </div>
@@ -255,4 +263,4 @@ const RegisterStepFourStud = ({handleGeneralErrors}) => {
   );
 };
 
-export default connect(null, {handleGeneralErrors})(RegisterStepFourStud);
+export default connect(null, { handleGeneralErrors })(RegisterStepFourStud);
