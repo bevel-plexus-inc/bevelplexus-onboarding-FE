@@ -28,6 +28,7 @@ import store from './services/Redux/store';
 import GlobalAlert from './globalComponent/GlobalAlert';
 import VerifyIdentity from './Auth/pages/Verify-Identity';
 import Notfound from './Auth/pages/404';
+import CompleteVerification from './Auth/pages/incomplete-verification';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
@@ -77,6 +78,7 @@ const Main = withRouter(({location}) => {
         <Route exact path="/enter-mail" component={EnterMail} />
         <Route exact path="/reset-password/:id" component={ResetPassword} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/complete-verification" component={CompleteVerification} />
         <Route exact path="/register-step-two" component={RegisterStepTwo} />
         <Route
           exact

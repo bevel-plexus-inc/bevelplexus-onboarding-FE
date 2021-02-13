@@ -20,6 +20,9 @@ const RegisterStepFourRegular = () => {
       document.querySelector('.failedModal').click();
     }
   }, []);
+  const login = () => {
+    window.location.href = 'https://app.bevelplexus.com/dashboard'
+  };
   return (
     <div className="register-wrapper one">
       <SecondSidebar sideProgress={'four'} sideLink={'regular'} />
@@ -80,11 +83,17 @@ const RegisterStepFourRegular = () => {
                             ></span>
                           </button>
                         ) : (
-                          <a href="/verify-identity">
-                            <label className="btn btn-upload">
-                              Click to Verify
-                            </label>
-                          </a>
+                             <>
+                             <a href="/verify-identity">
+                               <label className="btn btn-upload">
+                                 Verify now
+                           </label>
+                             </a>
+                             <br />
+                             <label className="btn btn-upload" onClick={login}>
+                               Verify later
+                           </label>
+                           </>
                         )}
                       </div>
                     </div>

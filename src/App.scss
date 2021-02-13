@@ -1,6 +1,6 @@
-@import './styles/button.scss';
-@import './styles/font.scss';
-@import './styles/register.scss';
+@import "./styles/button.scss";
+@import "./styles/font.scss";
+@import "./styles/register.scss";
 
 html {
   scroll-behavior: smooth;
@@ -11,7 +11,7 @@ html {
   margin: 0;
 }
 body {
-  font-family: 'Mulish', sans-serif !important;
+  font-family: "Mulish", sans-serif !important;
   font-weight: 400 !important;
   color: #4a4b65 !important;
   font-size: 16px !important;
@@ -218,7 +218,7 @@ select {
 
   /* Create the checkmark/indicator (hidden when not checked) */
   .checkmark:after {
-    content: '';
+    content: "";
     position: absolute;
     display: none;
   }
@@ -239,7 +239,7 @@ select {
   }
 }
 
-input[type='number'] {
+input[type="number"] {
   /* Firefox */
   -moz-appearance: textfield;
 
@@ -306,8 +306,18 @@ h6 {
     max-width: 100%;
   }
 }
-.reset-password-wrapper{
-.ant-form-item-explain{
-  text-align:left;
+.reset-password-wrapper {
+  .ant-form-item-explain {
+    text-align: left;
+  }
 }
+.verify-continue-later {
+  bottom: 0;
+  position: fixed;
+  margin-bottom: 24px;
+  @media (max-width:770px) {
+    top: 0;
+    bottom: auto;
+    color: #015eff;
+  }
 }

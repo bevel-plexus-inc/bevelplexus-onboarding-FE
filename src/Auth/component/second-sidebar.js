@@ -14,9 +14,6 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
 
 
   const login = () => {
-    console.log(localStorage.getItem('token'))
-    console.log(localStorage.getItem('user'))
-    console.log(localStorage.getItem('userId '))
     window.location.href = 'https://app.bevelplexus.com/dashboard'
   };
 

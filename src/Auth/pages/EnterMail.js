@@ -101,8 +101,8 @@ const EnterMail = ({ setAlert, handleGeneralErrors, history }) => {
                           </Form.Item>
                         </div>
                         {mailSent ? (
-                          <button className="btn btn-green btn-lg mt-4">
-                            Link Sent
+                          <button className="btn btn-green btn-lg mt-4" onClick={goToNext}>
+                            Click Next
                           </button>
                         ) : (
                           <button
@@ -119,7 +119,7 @@ const EnterMail = ({ setAlert, handleGeneralErrors, history }) => {
                         )}
                         {formData.email && (
                           <p className="text-grey mt-5">
-                            Didn't receive the Otp?
+                            Link sent, didn't receive the Otp?
                             <span
                               className="click ml-2 text-blue"
                               onClick={resetPasswordRequest}
@@ -143,7 +143,7 @@ const EnterMail = ({ setAlert, handleGeneralErrors, history }) => {
                   </Form>
                 </div>
               </div>
-              <div className="mt-auto mb-5">
+              {/* <div className="mt-auto mb-5">
                 <div className="text-right">
                   <button
                     className="btn btn-blue btn-lg"
@@ -153,7 +153,7 @@ const EnterMail = ({ setAlert, handleGeneralErrors, history }) => {
                     Next
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

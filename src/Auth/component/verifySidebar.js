@@ -3,11 +3,15 @@ import {Link} from 'react-router-dom';
 import logo from '../../assets/img/logo-white.svg';
 import '../../styles/sidebar.scss';
 
-export const Sidebar = () => {
+export const VerifySidebar = () => {
   const [isOpen, setisOpen] = useState(false);
   const sidebarToggle = () => {
     setisOpen(!isOpen);
   };
+  const login = () => {
+    window.location.href = 'https://app.bevelplexus.com/dashboard'
+  };
+ 
   return (
     <div>
       <div className="side-wrapper">
@@ -36,6 +40,16 @@ export const Sidebar = () => {
               <p className="font-md light-white">
                 Create your accounts in minutes and <br /> send money safely.
               </p>
+              <div className="logout d-flex align-items-center pt-space verify-continue-later" onClick={login}>
+                <span className="mr-2">
+                  <span
+                    className="iconify"
+                    data-icon="codicon:debug-reverse-continue"
+                    data-inline="false"
+                  ></span>
+                </span>
+                <span className="mt-1">Continue Later</span>
+              </div>
             </div>
           </div>
         </section>
