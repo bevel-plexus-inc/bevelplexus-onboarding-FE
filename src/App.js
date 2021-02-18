@@ -29,6 +29,7 @@ import GlobalAlert from './globalComponent/GlobalAlert';
 import VerifyIdentity from './Auth/pages/Verify-Identity';
 import Notfound from './Auth/pages/404';
 import CompleteVerification from './Auth/pages/incomplete-verification';
+import PrivateRoute from './globalComponent/PrivateRoute';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
@@ -74,39 +75,39 @@ const Main = withRouter(({location}) => {
         <Route exact path="/verify-email/:email/:code" component={EmailVerification} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/enter-number" component={EnterPhoneNumber} />
-        <Route exact path="/verify-identity" component={VerifyIdentity} />
         <Route exact path="/enter-mail" component={EnterMail} />
         <Route exact path="/reset-password/:id" component={ResetPassword} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/complete-verification" component={CompleteVerification} />
-        <Route exact path="/register-step-two" component={RegisterStepTwo} />
-        <Route
+        <PrivateRoute exact path="/verify-identity" component={VerifyIdentity} />
+        <PrivateRoute exact path="/complete-verification" component={CompleteVerification} />
+        <PrivateRoute exact path="/register-step-two" component={RegisterStepTwo} />
+        <PrivateRoute
           exact
           path="/register-step-three"
           component={RegisterStepThree}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/register-step-three-regular"
           component={RegisterStepThreeReg}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/register-step-four"
           component={RegisterStepFourStud}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/register-step-four-regular"
           component={RegisterStepFourRegular}
         />
-        <Route
+        <PrivateRoute
           exact
           path="/register-verify-code"
           component={RegisterVerifyCode}
         />
-        <Route exact path="/verify-code" component={VerifyCode} />
-        {/* <Route component={Notfound} /> */}
+        <PrivateRoute exact path="/verify-code" component={VerifyCode} />
+        <Route component={Notfound} />
       </Switch>
     </>
   );

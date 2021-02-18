@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 const RegisterStepThree = ({handleGeneralErrors, history}) => {
   
-  const userId = JSON.parse(localStorage.getItem('user')).id;
+  const userId = JSON.parse(localStorage.getItem('user'))?.id;
   const [countryIso3Code, setCountryIso3Code] = useState('');
   const [dob, setdob] = useState();
   const dobChange = (e) => {

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
 
   const userDetails = JSON.parse(localStorage.getItem('user'));
-  const userId = userDetails.id;
+  const userId = userDetails?.id;
   const [countryIso3Code, setCountryIso3Code] = useState('');
   const [formData, setFormData] = useState({});
   const selectChange = (e) => {
