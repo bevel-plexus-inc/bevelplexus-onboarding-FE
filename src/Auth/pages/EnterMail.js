@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "react-phone-number-input/style.css";
 import { Sidebar } from "../component/sidebar";
@@ -13,6 +13,7 @@ import { Input, Spin, Form } from "antd";
 const EnterMail = ({ setAlert, handleGeneralErrors, history }) => {
   const [mailSent, setMailSent] = useState(false);
   const [formData, setFormData] = useState({});
+ 
 
   const [resetPasswordRequest, { loading }] = useMutation(
     REQUEST_RESET_PASSWORD,
