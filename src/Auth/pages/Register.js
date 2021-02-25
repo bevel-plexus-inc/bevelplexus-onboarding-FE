@@ -4,7 +4,7 @@ import regular from '../../assets/img/user-regular.svg';
 import student from '../../assets/img/user-student.svg';
 import { Link, useHistory } from 'react-router-dom';
 import NeedHelp from '../component/needHelp';
-import { Form, Input, Spin } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
 import { useMutation } from '@apollo/client';
 import { REGISTER_USER } from '../../services/auth';
 import { useState } from 'react';
@@ -65,11 +65,11 @@ const Register = ({ handleGeneralErrors }) => {
       values.referralCode = '';
     }
     if (userType === '') {
-      toast.error('Please you need to select a user type to proceed');
+      toast('You need to select an account type to proceed');
     } else if (agreement === false) {
-      toast.error('Please you need to agree with our policy to proceed');
+      toast('You need to agree with our policy to proceed');
     } else if (values.password !== values.confirmPassword) {
-      toast.error('Password do not match!');
+      toast('Password do not match!');
     } else {
       const data = {
         ...values,
@@ -375,15 +375,13 @@ const Register = ({ handleGeneralErrors }) => {
                   </div>
                   <Form.Item className="mb-0" shouldUpdate={true}>
                     {() => (
-                      <button
+                      <Button
                         type="submit"
                         className="btn btn-blue btn-lg"
                         htmlType="submit"
-                        // disabled={loading}
-                        disabled={
-                          !form.isFieldsTouched(true) ||
-                          !!form.getFieldsError().filter(({ errors }) => errors.length).length
-                        }
+                        disabled={loading || !form.isFieldsTouched(false) ||
+                          form.getFieldsError().filter(({ errors }) => errors.length).length}
+
                       >
                         Create account
                         {loading && (
@@ -391,7 +389,7 @@ const Register = ({ handleGeneralErrors }) => {
                             <Spin />
                           </span>
                         )}
-                      </button>
+                      </Button>
                     )}
                   </Form.Item>
                 </div>
