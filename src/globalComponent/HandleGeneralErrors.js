@@ -6,11 +6,11 @@ import { setAlert } from '../services/Redux/Actions/Alert';
 export const handleGeneralErrors = (errors, history) => (dispatch) => {
   console.log(errors);
   if (errors.graphQLErrors.length < 1) {
-    dispatch(setAlert('An error occured, could not process your request', 'error'));
+    dispatch(setAlert('An error occured, could not process your request'));
     return;
   } else {
     console.log(errors.graphQLErrors);
-    dispatch(setAlert(errors.graphQLErrors[0].message, 'error'));
+    dispatch(setAlert(errors.graphQLErrors[0].message));
   }
 };
 const handleGeneralErr = (errors, props) => {
