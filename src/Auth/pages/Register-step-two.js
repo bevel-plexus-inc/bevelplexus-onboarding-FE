@@ -30,7 +30,7 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
     {
       update(proxy, result) {
         if (result.data.authenticatePhoneNumber) {
-          setAlert(result.data.authenticatePhoneNumber.message, 'success');
+          setAlert(result.data.authenticatePhoneNumber.message);
           history.push({pathname: '/register-verify-code', state: {formData}});
         }
       },

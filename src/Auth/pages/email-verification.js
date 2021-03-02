@@ -11,7 +11,7 @@ const EmailVerification = ({match, setAlert, handleGeneralErrors, history}) => {
   const email = match.params.email;
   const [emailVerification, {loadingg}] = useMutation(VERIFY_MAIL, {
     update(proxy, result) {
-      setAlert('Email Verification Successful', 'success');
+      setAlert('Email Verification Successful');
       history.push({pathname: `/register-step-two`});
     },
     onError(err) {

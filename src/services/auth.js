@@ -49,9 +49,7 @@ export const LOGIN = gql`
         studentAccountDetail {
           studentNumber
           studentEmail
-          country
-          countryIso3Code
-          school
+          institutionId
           yearOfGraduation
           course
           dateOfBirth
@@ -60,8 +58,7 @@ export const LOGIN = gql`
           address
           city
           postalCode
-          country
-          countryIso3Code
+          countryId
         }
         userKyc {
           isVerified
