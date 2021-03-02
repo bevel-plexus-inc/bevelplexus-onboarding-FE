@@ -33,7 +33,7 @@ const RegisterVerifyCode = ({
   const [verifyPhoneNumber, {loading}] = useMutation(VERIFY_PHONE, {
     update(proxy, result) {
       if (result.data.verifyPhoneNumber.message) {
-        setAlert(result.data.verifyPhoneNumber.message, 'success');
+        setAlert(result.data.verifyPhoneNumber.message);
         clearInterval(StartTimer);
         if (userDetails.userType === 'Regular') {
           history.push('/register-step-three-regular');
@@ -82,7 +82,7 @@ const RegisterVerifyCode = ({
     {
       update(proxy, result) {
         if (result.data.authenticatePhoneNumber) {
-          setAlert(result.data.authenticatePhoneNumber.message, 'success');
+          setAlert(result.data.authenticatePhoneNumber.message);
           StartTimer();
         }
       },

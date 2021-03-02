@@ -33,7 +33,7 @@ const EnterPhoneNumber = ({setAlert, handleGeneralErrors, history}) => {
     {
       update(proxy, result) {
         if (result.data.resetPasswordRequest.message) {
-          setAlert(result.data.resetPasswordRequest.message, 'success');
+          setAlert(result.data.resetPasswordRequest.message);
           history.push({pathname: '/verify-code', state: {formData}});
         }
       },

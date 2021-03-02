@@ -16,7 +16,7 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
   const [resetPassword, {loading}] = useMutation(RESET_PASSWORD, {
     update(proxy, result) {
       if (result.data.resetPassword.message) {
-        setAlert(result.data.resetPassword.message, 'success');
+        setAlert(result.data.resetPassword.message);
         history.push({pathname: '/'});
       }
     },

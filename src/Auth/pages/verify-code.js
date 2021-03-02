@@ -26,7 +26,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
     {
       update(proxy, result) {
         if (result.data.resetPasswordRequest.message) {
-          setAlert(result.data.resetPasswordRequest.message, 'success');
+          setAlert(result.data.resetPasswordRequest.message);
           StartTimer();
         }
       },
@@ -40,7 +40,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
   const [validateResetOTP, {loading}] = useMutation(VALIDATE_RESET_OTP, {
     update(proxy, result) {
       if (result.data.validateResetOTP.message) {
-        setAlert(result.data.validateResetOTP.message, 'success');
+        setAlert(result.data.validateResetOTP.message);
         history.push({
           pathname: `/reset-password/${result.data.validateResetOTP.identifier}`,
         });
