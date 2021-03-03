@@ -1,6 +1,6 @@
-import {gql} from '@apollo/client';
-import Axios from 'axios';
-import {LOGOUT} from './Redux/Actions/types';
+import { gql } from "@apollo/client";
+import Axios from "axios";
+import { LOGOUT } from "./Redux/Actions/types";
 
 export const REGISTER_USER = gql`
   mutation signUp(
@@ -38,7 +38,7 @@ export const REGISTER_USER = gql`
 
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
-    login(loginArgs: {email: $email, password: $password}) {
+    login(loginArgs: { email: $email, password: $password }) {
       token
       user {
         id
@@ -79,7 +79,7 @@ export const LOGIN = gql`
 export const AUTHENTICATE_PHONE_NUMBER = gql`
   mutation authenticatePhoneNumber($phoneNumber: String!, $userId: String!) {
     authenticatePhoneNumber(
-      phoneNumberArgs: {phoneNumber: $phoneNumber, userId: $userId}
+      phoneNumberArgs: { phoneNumber: $phoneNumber, userId: $userId }
     ) {
       message
       identifier
@@ -110,7 +110,7 @@ export const VALIDATE_RESET_OTP = gql`
     $phoneNumber: String
   ) {
     validateResetOTP(
-      input: {otp: $otp, email: $email, phoneNumber: $phoneNumber}
+      input: { otp: $otp, email: $email, phoneNumber: $phoneNumber }
     ) {
       message
       identifier
@@ -120,7 +120,7 @@ export const VALIDATE_RESET_OTP = gql`
 
 export const RESET_PASSWORD = gql`
   mutation resetPassword($password: String!, $formToken: String!) {
-    resetPassword(input: {password: $password, formToken: $formToken}) {
+    resetPassword(input: { password: $password, formToken: $formToken }) {
       message
       identifier
     }
@@ -129,7 +129,7 @@ export const RESET_PASSWORD = gql`
 
 export const VERIFY_MAIL = gql`
   mutation verifyEmail($email: String!, $token: String!) {
-    verifyEmail(emailVerificationArgs: {email: $email, token: $token}) {
+    verifyEmail(emailVerificationArgs: { email: $email, token: $token }) {
       message
       identifier
     }
@@ -139,7 +139,7 @@ export const VERIFY_MAIL = gql`
 export const VERIFY_PHONE = gql`
   mutation verifyPhoneNumber($phoneNumber: String!, $token: String!) {
     verifyPhoneNumber(
-      phoneVerificationArgs: {phoneNumber: $phoneNumber, token: $token}
+      phoneVerificationArgs: { phoneNumber: $phoneNumber, token: $token }
     ) {
       message
       identifier
@@ -152,9 +152,8 @@ export const AddStudentAccountDetails = gql`
     $userId: String!
     $studentNumber: String!
     $studentEmail: String!
-    $country: String!
-    $countryIso3Code: String!
-    $school: String!
+    $countryId: String!
+    $institutionId: String!
     $yearOfGraduation: DateTime!
     $course: String!
     $dateOfBirth: DateTime!
@@ -164,9 +163,8 @@ export const AddStudentAccountDetails = gql`
         userId: $userId
         studentNumber: $studentNumber
         studentEmail: $studentEmail
-        country: $country
-        countryIso3Code: $countryIso3Code
-        school: $school
+        countryId: $countryId
+        institutionId: $institutionId
         yearOfGraduation: $yearOfGraduation
         course: $course
         dateOfBirth: $dateOfBirth
@@ -175,9 +173,8 @@ export const AddStudentAccountDetails = gql`
       userId
       studentNumber
       studentEmail
-      country
-      countryIso3Code
-      school
+      countryId
+      institutionId
       yearOfGraduation
       course
       dateOfBirth
@@ -281,6 +278,27 @@ export const ResentEmailOTP = gql`
     resentEmailOTP(email: $email) {
       message
       identifier
+    }
+  }
+`;
+
+export const GetCountries = gql`
+  query getAllCountry {
+    getAllCountry {
+      id
+      name
+      countryCode
+    }
+  }
+`;
+
+export const getInstitutionByCountry = gql`
+  query getInstitutionByCountry($countryId: String!) {
+    getInstitutionByCountry(countryId: $countryId) {
+      id
+      name
+      city
+      countryId
     }
   }
 `;

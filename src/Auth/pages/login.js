@@ -58,7 +58,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
     },
     onError(err) {
       // handleGeneralErrors(err);
-      setErrorMessage(err.graphQLErrors[0].message)
+      setErrorMessage(err.graphQLErrors[0]?.message)
       document.querySelector('.errorModal').click()
     },
     variables: formData,
