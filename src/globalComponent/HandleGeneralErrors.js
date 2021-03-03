@@ -10,7 +10,7 @@ export const handleGeneralErrors = (errors, history) => (dispatch) => {
     return;
   } else {
     console.log(errors.graphQLErrors);
-    dispatch(setAlert(errors.graphQLErrors[0].message));
+    dispatch(setAlert(errors.graphQLErrors[0]?.message));
   }
 };
 const handleGeneralErr = (errors, props) => {

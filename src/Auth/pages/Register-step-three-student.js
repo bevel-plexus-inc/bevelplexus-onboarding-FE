@@ -1,33 +1,62 @@
-import React, {useState} from 'react';
-import SecondSidebar from '../component/second-sidebar';
-import NeedHelp from '../component/needHelp';
-import {connect} from 'react-redux';
-import {Form, Input, Spin, DatePicker, Select} from 'antd';
-import {useMutation} from '@apollo/client';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
-import {AddStudentAccountDetails} from '../../services/auth';
-import {countryISO3} from '../../services/country';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import SecondSidebar from "../component/second-sidebar";
+import NeedHelp from "../component/needHelp";
+import { connect } from "react-redux";
+import { Form, Input, Spin, DatePicker, Select } from "antd";
+import { useMutation, useQuery } from "@apollo/client";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
+import {
+  AddStudentAccountDetails,
+  GetCountries,
+  getInstitutionByCountry,
+} from "../../services/auth";
 
-const RegisterStepThree = ({handleGeneralErrors, history}) => {
-  
-  const userId = JSON.parse(localStorage.getItem('user'))?.id;
-  const [countryIso3Code, setCountryIso3Code] = useState('');
-  const [dob, setdob] = useState();
-  const dobChange = (e) => {
-    setdob(e);
-  };
+const RegisterStepThree = ({ handleGeneralErrors, history }) => {
+  const userId = JSON.parse(localStorage.getItem("user"))?.id;
+
   const [formData, setFormData] = useState({});
-  const selectChange = (e) => {
+  const [institution, setInstitution] = useState([]);
+
+  const { data, error } = useQuery(GetCountries, {
+    context: { uri: "https://bp-transaction.herokuapp.com/graphql/" },
+    onError(err) {
+      handleGeneralErrors(err);
+    },
+  });
+
+  const getSchoolByCountry = useQuery(getInstitutionByCountry, {
+    onCompleted() {
+      console.log("institution again");
+      console.log(getSchoolByCountry.data);
+      setInstitution(getSchoolByCountry.data.getInstitutionByCountry);
+    },
+    variables: {
+      countryId: "null",
+    },
+    context: { uri: "https://bp-transaction.herokuapp.com/graphql/" },
+  });
+
+  const selectChange = async (e) => {
     const val = e.target.value;
-    const result = countryISO3.find(each =>each.Name === val );
-    setCountryIso3Code(result.Code)
+    console.log(val);
+    const res = await getSchoolByCountry.fetchMore({
+      variables: {
+        countryId: val,
+      },
+      updateQuery() {},
+    });
+    console.log(res.data);
+    setInstitution(res.data.getInstitutionByCountry);
   };
-  const [register, {loading}] = useMutation(AddStudentAccountDetails, {
+
+  const [register, { loading }] = useMutation(AddStudentAccountDetails, {
     update(proxy, result) {
       if (result.data.addStudentAccountDetails) {
-        localStorage.setItem('studentDetail', JSON.stringify(result.data.addStudentAccountDetails));
-      history.push('/register-step-four');
+        localStorage.setItem(
+          "studentDetail",
+          JSON.stringify(result.data.addStudentAccountDetails)
+        );
+        history.push("/register-step-four");
       }
     },
     onError(err) {
@@ -40,20 +69,19 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
     const data = {
       ...values,
       userId: userId,
-      countryIso3Code: countryIso3Code,
     };
+    console.log(data);
     setFormData(data);
     register();
   };
 
- 
   return (
     <div className="register-wrapper one">
-      <SecondSidebar sideProgress={'three'} />
+      <SecondSidebar sideProgress={"three"} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help?{' '}
+            Need help?{" "}
             <span
               className="text-blue click ml-2"
               data-toggle="modal"
@@ -98,7 +126,7 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -124,12 +152,12 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             name="studentEmail"
                             rules={[
                               {
-                                type: 'email',
-                                message: 'Please Enter a valid Email!',
+                                type: "email",
+                                message: "Please Enter a valid Email!",
                               },
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -151,31 +179,28 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                           </span>
 
                           <Form.Item
-                            name="country"
+                            name="countryId"
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
-                              <select
+                            <select
                               className="form-control"
                               onChange={(e) => selectChange(e)}
                             >
                               <option value="">Country</option>
-                              {countryISO3.map((each) => {
+
+                              {data?.getAllCountry.map((each) => {
                                 return (
-                                  <option
-                                    key={each.Code}
-                                    value={each.Name}
-                                  >
-                                    {each.Name}
+                                  <option key={each.id} value={each.id}>
+                                    {each.name}
                                   </option>
                                 );
                               })}
                             </select>
-                         
                           </Form.Item>
                         </div>
                       </div>
@@ -189,18 +214,27 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             ></span>
                           </span>
                           <Form.Item
-                            name="school"
+                            name="institutionId"
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
-                            <Input
+                            <select
                               className="form-control"
-                              placeholder="School"
-                            />
+                              onChange={(e) => selectChange(e)}
+                            >
+                              <option value="">Select Institution</option>
+                              {institution?.map((each) => {
+                                return (
+                                  <option key={each.id} value={each.id}>
+                                    {each.name}
+                                  </option>
+                                );
+                              })}
+                            </select>
                           </Form.Item>
                           <div className="info-icon ml-2">
                             <span
@@ -219,7 +253,11 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                                 ></span>
                               </div>
                               <div>
-                              Providing us your school information makes it easy for you to make recurring payments to your school with 1 click. We go the extra length to keep all your data private and protected to avoid stories (privacy policy)
+                                Providing us your school information makes it
+                                easy for you to make recurring payments to your
+                                school with 1 click. We go the extra length to
+                                keep all your data private and protected to
+                                avoid stories (privacy policy)
                               </div>
                             </div>
                           </div>
@@ -240,14 +278,14 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
                             <DatePicker
                               className="form-control"
                               placeholder=" Expected year of graduation"
-                              picker='month'
+                              picker="month"
                             />
                           </Form.Item>
                         </div>
@@ -267,7 +305,7 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -293,7 +331,7 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -310,8 +348,11 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
               </div>
               <div className="pt-space">
                 <div className="d-flex flex-wrap align-items-end justify-content-end">
-                  
-                  <button className="btn btn-blue btn-lg" type="submit" disabled={loading}>
+                  <button
+                    className="btn btn-blue btn-lg"
+                    type="submit"
+                    disabled={loading}
+                  >
                     Next
                     {loading && (
                       <span className="ml-4">
@@ -330,4 +371,4 @@ const RegisterStepThree = ({handleGeneralErrors, history}) => {
   );
 };
 
-export default connect(null, {handleGeneralErrors})(RegisterStepThree);
+export default connect(null, { handleGeneralErrors })(RegisterStepThree);
