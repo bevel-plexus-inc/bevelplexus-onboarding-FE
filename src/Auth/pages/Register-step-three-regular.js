@@ -41,6 +41,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
     const data = {
       ...values,
       userId: userId,
+      countryId: 'd85188f7-ec38-45af-bd5d-1a291fd26750',
       countryIso3Code: countryIso3Code,
     };
     setFormData(data);
