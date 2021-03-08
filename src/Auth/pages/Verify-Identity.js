@@ -3,7 +3,6 @@ import { VerifySidebar } from '../component/verifySidebar';
 
 const VerifyIdentity = () => {
 
-
   return (
     <>
       <body className="register-wrapper">
