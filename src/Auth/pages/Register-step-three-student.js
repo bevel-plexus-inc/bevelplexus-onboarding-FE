@@ -26,7 +26,6 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
 
   const getSchoolByCountry = useQuery(getInstitutionByCountry, {
     onCompleted() {
-      console.log("institution again");
       console.log(getSchoolByCountry.data);
       setInstitution(getSchoolByCountry.data.getInstitutionByCountry);
     },
