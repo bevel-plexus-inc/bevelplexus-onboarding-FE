@@ -48,8 +48,10 @@
     ></script>
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <script src="https://static.vouched.id/widget/vouched-2.0.0.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" url_two = %REACT_APP_USER_URL_TWO% url_one= %REACT_APP_USER_URL%>
       (function () {
+        console.log(document.currentScript.getAttribute('url_two'))
+        console.log(document.currentScript.getAttribute('url_one'))
         let userdetails = JSON.parse(localStorage.getItem('user'));
         let userID;
         if(userdetails){
@@ -62,7 +64,7 @@
           appId: 'nuIbrjutl~#lpmpfGC1F8~cc~YjyKX',
           crossDevice: true,
           crossDeviceQRCode: false,
-          callbackURL: `https://bp-user.herokuapp.com/verify/response/${userID}`,
+          callbackURL: `${document.currentScript.getAttribute('url_two')}/verify/response/${userID}`,
           onSubmit: ({stage, attempts, job}) => {
             console.log('submit', {stage, attempts, job});
           },
@@ -91,7 +93,7 @@
               `,
             };
             let body = JSON.stringify(content);
-            fetch('https://bp-user.herokuapp.com/graphql', {
+            fetch(document.currentScript.getAttribute('url_one'), {
               method: 'post',
               headers: {
                 'Content-Type': 'application/json',

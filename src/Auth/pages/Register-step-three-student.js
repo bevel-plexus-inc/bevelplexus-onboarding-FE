@@ -18,7 +18,7 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
   const [institution, setInstitution] = useState([]);
 
   const { data, error } = useQuery(GetCountries, {
-    context: { uri: "https://bp-transaction.herokuapp.com/graphql/" },
+    context: { uri: process.env.REACT_APP_TRANSACTION_URL},
     onError(err) {
       handleGeneralErrors(err);
     },
@@ -32,7 +32,7 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
     variables: {
       countryId: "null",
     },
-    context: { uri: "https://bp-transaction.herokuapp.com/graphql/" },
+    context: { uri: process.env.REACT_APP_TRANSACTION_URL },
   });
 
   const selectChange = async (e) => {
