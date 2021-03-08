@@ -4,23 +4,28 @@ import SecondSidebar from '../component/second-sidebar';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 import {Form, Input, Spin} from 'antd';
 import {connect} from 'react-redux';
-import {useMutation} from '@apollo/client';
-import {AddRegularAccountDetails} from '../../services/auth';
-import {countryISO3} from '../../services/country';
-import { Link } from 'react-router-dom';
+import {useMutation, useQuery} from '@apollo/client';
+import {AddRegularAccountDetails, GetCountries} from '../../services/auth';
 
 const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
 
   const userDetails = JSON.parse(localStorage.getItem('user'));
   const userId = userDetails?.id;
-  const [countryIso3Code, setCountryIso3Code] = useState('');
+  const [countries, setCountries] = useState([])
   const [formData, setFormData] = useState({});
-  const selectChange = (e) => {
-    const val = e.target.value;
-    const result = countryISO3.find((each) => each.Name === val);
-    result && setCountryIso3Code(result.Code)
-    
-  };
+
+  const getAllCountries = useQuery(GetCountries, {
+    onCompleted() {
+      console.log(getAllCountries.data.getAllCountry);
+      setCountries(getAllCountries.data.getAllCountry);
+    },
+    onError(err) {
+      console.log(err)
+      handleGeneralErrors(err);
+    },
+    context: { uri: "https://bp-transaction.herokuapp.com/graphql/" },
+  });
+
   const [register, {loading}] = useMutation(AddRegularAccountDetails, {
     update(proxy, result) {
       if (result.data.addRegularAccountDetails) {
@@ -41,8 +46,6 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
     const data = {
       ...values,
       userId: userId,
-      countryId: 'd85188f7-ec38-45af-bd5d-1a291fd26750',
-      countryIso3Code: countryIso3Code,
     };
     setFormData(data);
     register();
@@ -97,7 +100,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                             ></span>
                           </span>
                           <Form.Item
-                            name="country"
+                            name="countryId"
                             rules={[
                               {
                                 required: true,
@@ -107,13 +110,12 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                           >
                             <select
                               className="form-control"
-                              onChange={(e) => selectChange(e)}
                             >
                               <option value="">Country</option>
-                              {countryISO3.map((each) => {
+                              {countries.map((each) => {
                                 return (
-                                  <option key={each.Code} value={each.Name}>
-                                    {each.Name}
+                                  <option key={each.id} value={each.id}>
+                                    {each.name}
                                   </option>
                                 );
                               })}
