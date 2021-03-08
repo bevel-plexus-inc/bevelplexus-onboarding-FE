@@ -188,8 +188,7 @@ export const AddRegularAccountDetails = gql`
     $address: String!
     $city: String!
     $postalCode: String!
-    $country: String!
-    $countryIso3Code: String!
+    $countryId: String!
   ) {
     addRegularAccountDetails(
       accountDetails: {
@@ -197,8 +196,7 @@ export const AddRegularAccountDetails = gql`
         address: $address
         city: $city
         postalCode: $postalCode
-        country: $country
-        countryIso3Code: $countryIso3Code
+        countryId: $countryId
       }
     ) {
       id
@@ -206,8 +204,7 @@ export const AddRegularAccountDetails = gql`
       address
       city
       postalCode
-      country
-      countryIso3Code
+      countryId
       createdAt
       updatedAt
       deletedAt
