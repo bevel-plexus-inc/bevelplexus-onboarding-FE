@@ -33,7 +33,7 @@ import PrivateRoute from './globalComponent/PrivateRoute';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
-  uri: `${process.env.REACT_APP_BASE_URL}`,
+  uri: `${process.env.REACT_APP_USER_URL}`,
 });
 
 const authLink = setContext((_, {headers}) => {
