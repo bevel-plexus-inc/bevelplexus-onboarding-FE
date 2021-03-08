@@ -8,7 +8,7 @@ import {useMutation, useQuery} from '@apollo/client';
 import {AddRegularAccountDetails, GetCountries} from '../../services/auth';
 
 const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
-
+console.log(process.env.REACT_APP_TRANSACTION_URL)
   const userDetails = JSON.parse(localStorage.getItem('user'));
   const userId = userDetails?.id;
   const [countries, setCountries] = useState([])
@@ -23,7 +23,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
       console.log(err)
       handleGeneralErrors(err);
     },
-    context: { uri: "https://bp-transaction.herokuapp.com/graphql/" },
+    context: { uri: process.env.REACT_APP_TRANSACTION_URL },
   });
 
   const [register, {loading}] = useMutation(AddRegularAccountDetails, {
