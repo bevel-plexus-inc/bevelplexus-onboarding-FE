@@ -32,7 +32,11 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
           'regularDetail',
           JSON.stringify(result.data.addRegularAccountDetails)
         );
-        history.push('/register-step-four-regular');
+        if (userDetails.userType === 'Regular') {
+          history.push('/register-step-four-regular');
+        } else {
+          history.push('/register-step-three-school');
+        }
       }
     },
     onError(err) {
