@@ -84,10 +84,10 @@ const Register = ({ handleGeneralErrors }) => {
     setFailedPass(false)
     console.log('Failed:', errorInfo);
     errorInfo.errorFields.map((val) => {
-      if (val.name[0] == 'password') {
-        setFailedPass(true)
-        return
+      if (val.name[0] === 'password') {
+        return setFailedPass(true)
       }
+      return;
     })
   };
 

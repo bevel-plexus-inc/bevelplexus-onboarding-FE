@@ -9,8 +9,10 @@ const CompleteVerification = ({ history }) => {
         history.push({ pathname: `/show-mail` });
       } else if (!userDetails.userVerification?.isPhoneNumberVerified) {
         history.push({ pathname: `/register-step-two` });
+      } else if (userDetails.regularAccountDetail === null) {
+        history.push({ pathname: `/register-step-three-address` });
       } else if (userDetails.studentAccountDetail === null) {
-        history.push({ pathname: `/register-step-three` });
+        history.push({ pathname: `/register-step-three-school` });
       } else if (!userDetails.userKyc?.isVerified) {
         history.push({ pathname: `/register-step-four` });
       } else {
@@ -22,7 +24,7 @@ const CompleteVerification = ({ history }) => {
       } else if (!userDetails.userVerification?.isPhoneNumberVerified) {
         history.push({ pathname: `/register-step-two` });
       } else if (userDetails.regularAccountDetail === null) {
-        history.push({ pathname: `/register-step-three-regular` });
+        history.push({ pathname: `/register-step-three-address` });
       } else if (!userDetails.userKyc?.isVerified) {
         history.push({ pathname: `/register-step-four-regular` });
       } else {

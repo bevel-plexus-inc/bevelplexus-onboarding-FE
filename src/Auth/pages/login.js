@@ -32,8 +32,10 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
             history.push({ pathname: `/show-mail` });
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
             history.push({ pathname: `/register-step-two` });
+          } else if (returnVal.regularAccountDetail === null) {
+            history.push({ pathname: `/register-step-three-address` });
           } else if (returnVal.studentAccountDetail === null) {
-            history.push({ pathname: `/register-step-three` });
+            history.push({ pathname: `/register-step-three-school` });
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({ pathname: `/register-step-four` });
           } else {
@@ -45,7 +47,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
             history.push({ pathname: `/register-step-two` });
           } else if (returnVal.regularAccountDetail === null) {
-            history.push({ pathname: `/register-step-three-regular` });
+            history.push({ pathname: `/register-step-three-address` });
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({ pathname: `/register-step-four-regular` });
           } else {

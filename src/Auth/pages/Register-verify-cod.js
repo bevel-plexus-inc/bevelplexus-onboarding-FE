@@ -35,11 +35,7 @@ const RegisterVerifyCode = ({
       if (result.data.verifyPhoneNumber.message) {
         setAlert(result.data.verifyPhoneNumber.message);
         clearInterval(StartTimer);
-        if (userDetails.userType === 'Regular') {
-          history.push('/register-step-three-regular');
-        } else {
-          history.push('/register-step-three');
-        }
+          history.push('/register-step-three-address');
       }
     },
     onError(err) {

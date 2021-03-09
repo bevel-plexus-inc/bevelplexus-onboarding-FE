@@ -30,6 +30,7 @@ import VerifyIdentity from './Auth/pages/Verify-Identity';
 import Notfound from './Auth/pages/404';
 import CompleteVerification from './Auth/pages/incomplete-verification';
 import PrivateRoute from './globalComponent/PrivateRoute';
+import SuccessPage from './Auth/pages/success-page';
 
 // Initialize apollo and set authorization token
 const httpLink = createUploadLink({
@@ -72,6 +73,7 @@ const Main = withRouter(({location}) => {
       <Switch>
         <Route exact path="/" component={Login} />
         <Route exact path="/show-mail" component={ShowMail} />
+        <Route exact path="/success" component={SuccessPage} />
         <Route exact path="/verify-email/:email/:code" component={EmailVerification} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/enter-number" component={EnterPhoneNumber} />
@@ -83,12 +85,12 @@ const Main = withRouter(({location}) => {
         <PrivateRoute exact path="/register-step-two" component={RegisterStepTwo} />
         <PrivateRoute
           exact
-          path="/register-step-three"
+          path="/register-step-three-school"
           component={RegisterStepThree}
         />
         <PrivateRoute
           exact
-          path="/register-step-three-regular"
+          path="/register-step-three-address"
           component={RegisterStepThreeReg}
         />
         <PrivateRoute
