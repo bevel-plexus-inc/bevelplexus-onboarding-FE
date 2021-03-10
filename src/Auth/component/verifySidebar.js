@@ -9,7 +9,7 @@ export const VerifySidebar = () => {
     setisOpen(!isOpen);
   };
   const login = () => {
-    window.location.href = 'https://app.bevelplexus.com/dashboard'
+    window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
   };
  
   return (
