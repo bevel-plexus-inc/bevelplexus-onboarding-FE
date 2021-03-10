@@ -16,7 +16,7 @@ const CompleteVerification = ({ history }) => {
       } else if (!userDetails.userKyc?.isVerified) {
         history.push({ pathname: `/register-step-four` });
       } else {
-        window.location.href = 'https://app.bevelplexus.com/dashboard'
+        window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
       }
     } else {
       if (!userDetails.userVerification?.isEmailVerified) {
@@ -28,7 +28,7 @@ const CompleteVerification = ({ history }) => {
       } else if (!userDetails.userKyc?.isVerified) {
         history.push({ pathname: `/register-step-four-regular` });
       } else {
-        window.location.href = 'https://app.bevelplexus.com/dashboard'
+        window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
       }
     }
   }, [])
