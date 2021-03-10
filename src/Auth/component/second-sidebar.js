@@ -14,7 +14,7 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
 
 
   const login = () => {
-    window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
+    window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
   };
 
   return (
