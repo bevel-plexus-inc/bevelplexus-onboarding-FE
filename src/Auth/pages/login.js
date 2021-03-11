@@ -39,7 +39,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({ pathname: `/register-step-four` });
           } else {
-            window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
+            window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
@@ -51,7 +51,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({ pathname: `/register-step-four-regular` });
           } else {
-            window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
+            window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
           }
         }
       } else {

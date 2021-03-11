@@ -21,7 +21,7 @@ const RegisterStepFourRegular = () => {
     }
   }, []);
   const login = () => {
-    window.location.href = 'https://app.bevelplexus.com/dashboard/payment'
+    window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
   };
   return (
     <div className="register-wrapper one">
@@ -105,7 +105,7 @@ const RegisterStepFourRegular = () => {
               <div className="d-flex flex-wrap align-items-end justify-content-end">
                 
               {enrollmentVerified || tempEnrollmentVerified && (
-                  <a href="https://app.bevelplexus.com/dashboard/payment">
+                  <a href="https://app.bevelplexus.com/payment/dashboard">
                     <button className="btn btn-blue btn-lg" >Next</button>
                   </a>
               )}
