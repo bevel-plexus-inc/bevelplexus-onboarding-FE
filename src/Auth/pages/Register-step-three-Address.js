@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
-import NeedHelp from '../component/needHelp';
-import SecondSidebar from '../component/second-sidebar';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
-import {Form, Input, Spin} from 'antd';
-import {connect} from 'react-redux';
-import {useMutation, useQuery} from '@apollo/client';
-import {AddRegularAccountDetails, GetCountries} from '../../services/auth';
+import React, { useState } from "react";
+import NeedHelp from "../component/needHelp";
+import SecondSidebar from "../component/second-sidebar";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
+import { Form, Input, Spin } from "antd";
+import { connect } from "react-redux";
+import { useMutation, useQuery } from "@apollo/client";
+import { AddRegularAccountDetails, GetCountries } from "../../services/auth";
 
-const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
-  const userDetails = JSON.parse(localStorage.getItem('user'));
+const RegisterStepThreeAddress = ({ handleGeneralErrors, history }) => {
+  const userDetails = JSON.parse(localStorage.getItem("user"));
   const userId = userDetails?.id;
-  const [countries, setCountries] = useState([])
+  const [countries, setCountries] = useState([]);
   const [formData, setFormData] = useState({});
 
   const getAllCountries = useQuery(GetCountries, {
@@ -19,23 +19,23 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
       setCountries(getAllCountries.data.getAllCountry);
     },
     onError(err) {
-      console.log(err)
+      console.log(err);
       handleGeneralErrors(err);
     },
     context: { uri: process.env.REACT_APP_TRANSACTION_URL },
   });
 
-  const [register, {loading}] = useMutation(AddRegularAccountDetails, {
+  const [register, { loading }] = useMutation(AddRegularAccountDetails, {
     update(proxy, result) {
       if (result.data.addRegularAccountDetails) {
         localStorage.setItem(
-          'regularDetail',
+          "regularDetail",
           JSON.stringify(result.data.addRegularAccountDetails)
         );
-        if (userDetails.userType === 'Regular') {
-          history.push('/register-step-four-regular');
+        if (userDetails.userType === "Regular") {
+          history.push("/register-identity-regular");
         } else {
-          history.push('/register-step-three-school');
+          history.push("/register-school");
         }
       }
     },
@@ -53,15 +53,15 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
     setFormData(data);
     register();
   };
-
+  const sideLink = userDetails.userType == "Regular" ? "regular" : "student";
 
   return (
     <div className="register-wrapper one">
-      <SecondSidebar sideProgress={'three'} sideLink={'regular'} />
+      <SecondSidebar sideProgress={"three"} sideLink={sideLink} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help?{' '}
+            Need help?{" "}
             <span
               className="text-blue click ml-2"
               data-toggle="modal"
@@ -107,13 +107,11 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
-                            <select
-                              className="form-control"
-                            >
+                            <select className="form-control">
                               <option value="">Country</option>
                               {countries.map((each) => {
                                 return (
@@ -140,7 +138,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -165,7 +163,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -191,7 +189,7 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
                             rules={[
                               {
                                 required: true,
-                                message: 'Required!',
+                                message: "Required!",
                               },
                             ]}
                           >
@@ -208,8 +206,11 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
               </div>
               <div className="pt-space">
                 <div className="d-flex flex-wrap align-items-end justify-content-end">
-                  
-                  <button className="btn btn-blue btn-lg" type="submit" disabled={loading}>
+                  <button
+                    className="btn btn-blue btn-lg"
+                    type="submit"
+                    disabled={loading}
+                  >
                     Next
                     {loading && (
                       <span className="ml-4">
@@ -228,4 +229,4 @@ const RegisterStepThreeReg = ({handleGeneralErrors, history}) => {
   );
 };
 
-export default connect(null, {handleGeneralErrors})(RegisterStepThreeReg);
+export default connect(null, { handleGeneralErrors })(RegisterStepThreeAddress);

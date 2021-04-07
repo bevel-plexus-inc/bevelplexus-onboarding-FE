@@ -64,7 +64,7 @@ const RegisterStepFourStud = ({ handleGeneralErrors }) => {
   };
   return (
     <div className="register-wrapper one">
-      <SecondSidebar sideProgress={'four'} />
+      <SecondSidebar sideProgress={'five'} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">

@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import SecondSidebar from '../component/second-sidebar';
-import {Link} from 'react-router-dom';
-import ReactCodeInput from 'react-verification-code-input';
-import NeedHelp from '../component/needHelp';
-import {AUTHENTICATE_PHONE_NUMBER, VERIFY_PHONE} from '../../services/auth';
-import {setAlert} from '../../services/Redux/Actions/Alert';
-import {useMutation} from '@apollo/client';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
-import {connect} from 'react-redux';
-import {Spin} from 'antd';
+import React, { useEffect, useState } from "react";
+import SecondSidebar from "../component/second-sidebar";
+import { Link } from "react-router-dom";
+import ReactCodeInput from "react-verification-code-input";
+import NeedHelp from "../component/needHelp";
+import { AUTHENTICATE_PHONE_NUMBER, VERIFY_PHONE } from "../../services/auth";
+import { setAlert } from "../../services/Redux/Actions/Alert";
+import { useMutation } from "@apollo/client";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
+import { connect } from "react-redux";
+import { Spin } from "antd";
 
 const RegisterVerifyCode = ({
   location,
@@ -17,9 +17,9 @@ const RegisterVerifyCode = ({
   history,
 }) => {
   const formData = location.state.formData;
-  const userDetails = JSON.parse(localStorage.getItem('user'));
+  const userDetails = JSON.parse(localStorage.getItem("user"));
   const [iserror, setiserror] = useState(false);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [showResend, setShowResend] = useState(false);
 
   useEffect(() => {
@@ -30,12 +30,12 @@ const RegisterVerifyCode = ({
     setCode(e);
   };
 
-  const [verifyPhoneNumber, {loading}] = useMutation(VERIFY_PHONE, {
+  const [verifyPhoneNumber, { loading }] = useMutation(VERIFY_PHONE, {
     update(proxy, result) {
       if (result.data.verifyPhoneNumber.message) {
         setAlert(result.data.verifyPhoneNumber.message);
         clearInterval(StartTimer);
-          history.push('/register-step-three-address');
+        history.push("/register-address");
       }
     },
     onError(err) {
@@ -51,7 +51,7 @@ const RegisterVerifyCode = ({
       phoneNumber: formData.phoneNumber,
       token: code,
     };
-    verifyPhoneNumber({variables: payload});
+    verifyPhoneNumber({ variables: payload });
   };
 
   let fiveMin = 60 * 5;
@@ -63,8 +63,8 @@ const RegisterVerifyCode = ({
       let mins = Math.floor(fiveMin / 60);
       let secs = Math.floor(fiveMin % 60);
       secs < 10 ? (secs = `0${secs}`) : (secs = secs);
-      if (document.querySelector('.timeResult') != null) {
-        document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
+      if (document.querySelector(".timeResult") != null) {
+        document.querySelector(".timeResult").innerHTML = `${mins}:${secs}`;
       }
       if (fiveMin < 1) {
         setShowResend(true);
@@ -73,7 +73,7 @@ const RegisterVerifyCode = ({
     }, 1000);
   };
 
-  const [authenticatePhoneNumber, {loadin}] = useMutation(
+  const [authenticatePhoneNumber, { loadin }] = useMutation(
     AUTHENTICATE_PHONE_NUMBER,
     {
       update(proxy, result) {
@@ -92,13 +92,15 @@ const RegisterVerifyCode = ({
     e.preventDefault();
     authenticatePhoneNumber();
   };
+
+  const sideLink = userDetails.userType == "Regular" ? "regular" : "student";
   return (
     <div className="register-wrapper">
-      <SecondSidebar sideProgress={'two'} />
+      <SecondSidebar sideProgress={"two"} sideLink={sideLink} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help?{' '}
+            Need help?{" "}
             <span
               className="text-blue click ml-2"
               data-toggle="modal"
@@ -114,12 +116,12 @@ const RegisterVerifyCode = ({
                   <div className="col-lg-12">
                     <p className="font22 font-bold mb-2">Verify your Number</p>
                     <p className="text-grey">
-                      Enter the 6-digit code that has been sent to{' '}
+                      Enter the 6-digit code that has been sent to{" "}
                       <span className="font-bold text-black">
                         {formData.phoneNumber}
-                      </span>{' '}
+                      </span>{" "}
                       <Link
-                        to="/register-step-two"
+                        to="/register-phone"
                         className="font14 text-blue click"
                       >
                         Change number
@@ -134,25 +136,25 @@ const RegisterVerifyCode = ({
                         <div
                           className={
                             iserror
-                              ? 'verify-input mr-3 p-4 error'
-                              : 'verify-input mr-3 p-4'
+                              ? "verify-input mr-3 p-4 error"
+                              : "verify-input mr-3 p-4"
                           }
                         >
                           <ReactCodeInput
-                            type={'number'}
+                            type={"number"}
                             fields={6}
                             onChange={(e) => onCodeChange(e)}
                           />
                         </div>
                         {iserror ? (
                           <div className="my-3 text-grey">
-                            The code typed was{' '}
+                            The code typed was{" "}
                             <span className="text-red">wrong</span>. Please
                             retry
                           </div>
                         ) : (
                           <div className="my-3 text-grey">
-                            The OTP will be expired in{' '}
+                            The OTP will be expired in{" "}
                             <span className="text-black timeResult"></span>
                           </div>
                         )}
@@ -164,20 +166,20 @@ const RegisterVerifyCode = ({
                           Verify Number
                         </button>
                         {showResend && (
-                        <div className="mt-5 text-grey">
-                          Didn't received the code?{' '}
-                          <span
-                            className="text-blue click"
-                            onClick={(e) => resendCode(e)}
-                          >
-                            Resend it
-                            {loading && (
-                              <span className="ml-4">
-                                <Spin />
-                              </span>
-                            )}
-                          </span>
-                        </div>
+                          <div className="mt-5 text-grey">
+                            Didn't received the code?{" "}
+                            <span
+                              className="text-blue click"
+                              onClick={(e) => resendCode(e)}
+                            >
+                              Resend it
+                              {loading && (
+                                <span className="ml-4">
+                                  <Spin />
+                                </span>
+                              )}
+                            </span>
+                          </div>
                         )}
                       </div>
                     </div>
@@ -193,6 +195,6 @@ const RegisterVerifyCode = ({
   );
 };
 
-export default connect(null, {handleGeneralErrors, setAlert})(
+export default connect(null, { handleGeneralErrors, setAlert })(
   RegisterVerifyCode
 );

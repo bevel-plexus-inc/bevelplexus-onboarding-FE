@@ -81,7 +81,7 @@ const ShowMail = ({handleGeneralErrors, setAlert, history}) => {
           </div>
           <div className="text-center mt-auto pb-4">
             <Link
-              to="/register-step-two"
+              to="/register-phone"
               className=" text-grey click ml-2 mt-auto"
             >
               <button className="btn btn-grey btn-lg">Next</button>

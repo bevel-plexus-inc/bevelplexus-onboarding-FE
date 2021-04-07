@@ -55,7 +55,7 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
           "studentDetail",
           JSON.stringify(result.data.addStudentAccountDetails)
         );
-        history.push("/register-step-four");
+        history.push("/register-identity");
       }
     },
     onError(err) {
@@ -76,7 +76,7 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
 
   return (
     <div className="register-wrapper one">
-      <SecondSidebar sideProgress={"three"} />
+      <SecondSidebar sideProgress={"three-school-info"} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">

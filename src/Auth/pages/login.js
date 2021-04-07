@@ -31,13 +31,13 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           if (!returnVal.userVerification?.isEmailVerified) {
             history.push({ pathname: `/show-mail` });
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
-            history.push({ pathname: `/register-step-two` });
+            history.push({ pathname: `/register-phone` });
           } else if (returnVal.regularAccountDetail === null) {
-            history.push({ pathname: `/register-step-three-address` });
+            history.push({ pathname: `/register-address` });
           } else if (returnVal.studentAccountDetail === null) {
-            history.push({ pathname: `/register-step-three-school` });
+            history.push({ pathname: `/register-school` });
           } else if (!returnVal.userKyc?.isVerified) {
-            history.push({ pathname: `/register-step-four` });
+            history.push({ pathname: `/register-identity` });
           } else {
             window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
           }
@@ -45,11 +45,11 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           if (!returnVal.userVerification?.isEmailVerified) {
             history.push({ pathname: `/show-mail` });
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
-            history.push({ pathname: `/register-step-two` });
+            history.push({ pathname: `/register-phone` });
           } else if (returnVal.regularAccountDetail === null) {
-            history.push({ pathname: `/register-step-three-address` });
+            history.push({ pathname: `/register-address` });
           } else if (!returnVal.userKyc?.isVerified) {
-            history.push({ pathname: `/register-step-four-regular` });
+            history.push({ pathname: `/register-identity-regular` });
           } else {
             window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
           }

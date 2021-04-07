@@ -112,19 +112,19 @@
                     if (data.data.getUserKyc.isVerified) {
                       localStorage.setItem('tempEnrollmentVerified', true)
                       localStorage.setItem('VerifyIdentity', 'success');
-                      window.location.href = '/register-step-four';
+                      window.location.href = '/register-identity';
                     } else {
                       localStorage.setItem('VerifyIdentity', 'failed');
-                      window.location.href = '/register-step-four';
+                      window.location.href = '/register-identity';
                     }
                   } else {
                     if (data.data.getUserKyc.isVerified) {
                       localStorage.setItem('tempEnrollmentVerified', true)
                       localStorage.setItem('VerifyIdentity', 'success');
-                      window.location.href = '/register-step-four-regular';
+                      window.location.href = '/register-identity-regular';
                     } else {
                       localStorage.setItem('VerifyIdentity', 'failed');
-                      window.location.href = '/register-step-four-regular';
+                      window.location.href = '/register-identity-regular';
                     }
                   }
                 }, 4000);

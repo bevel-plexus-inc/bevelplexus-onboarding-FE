@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import logo from '../../assets/img/logo-white.svg';
-import checkmark from '../../assets/img/check.png';
-import '../../styles/sidebar.scss';
-import { Link, useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import logo from "../../assets/img/logo-white.svg";
+import checkmark from "../../assets/img/check.png";
+import "../../styles/sidebar.scss";
+import { Link, useHistory } from "react-router-dom";
+import { connect } from "react-redux";
 
 const SecondSidebar = ({ sideProgress, sideLink }) => {
   const history = useHistory();
@@ -12,16 +12,15 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
     setisOpen(!isOpen);
   };
 
-
   const login = () => {
-    window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
+    window.location.href = "https://app.bevelplexus.com/payment/dashboard";
   };
 
   return (
     <div>
       <div className="side-wrapper">
         <div
-          className={isOpen ? 'sidebar-overlay' : ''}
+          className={isOpen ? "sidebar-overlay" : ""}
           onClick={sidebarToggle}
         ></div>
         <div className="menu-icon" onClick={sidebarToggle}>
@@ -31,17 +30,10 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
             data-inline="false"
           ></span>
         </div>
-        <section className={isOpen ? 'sidebar sidebar-isOpen' : 'sidebar'}>
+        <section className={isOpen ? "sidebar sidebar-isOpen" : "sidebar"}>
           <div className="sidebar-wrapper side-with-flex">
             <div>
               <div className="d-flex align-items-center">
-                {/* <div className="mr-3 text-white font24">
-                <span
-                  className="iconify"
-                  data-icon="dashicons:arrow-left-alt"
-                  data-inline="false"
-                ></span>
-              </div> */}
                 <Link to="/">
                   <img src={logo} alt="" />
                 </Link>
@@ -54,53 +46,74 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
                   </div>
                   <div
                     className={
-                      sideProgress === 'two' ? 'each-link active' : 'each-link'
+                      sideProgress === "two" ? "each-link active" : "each-link"
                     }
                   >
-                    {sideProgress === 'three' ? (
-                      <img src={checkmark} alt="" className="check-mark" />
-                    ) : sideProgress === 'four' ? (
+                    {sideProgress === "four" ||
+                    sideProgress === "five" ||
+                    sideProgress === "three" ||
+                    "three-school-info" ? (
                       <img src={checkmark} alt="" className="check-mark" />
                     ) : (
-                          <span className="number">2</span>
-                        )}
+                      <span className="number">2</span>
+                    )}
                     Phone Verification
                   </div>
+
                   <div
                     className={
-                      sideProgress === 'three'
-                        ? 'each-link active'
-                        : 'each-link'
+                      sideProgress === "three"
+                        ? "each-link active"
+                        : "each-link"
                     }
                   >
-                    {sideProgress === 'four' ? (
+                    {sideProgress === "three-school-info" ||
+                    sideProgress === "four" ||
+                    sideProgress === "five" ? (
                       <img src={checkmark} alt="" className="check-mark" />
                     ) : (
-                        <span className="number">3</span>
-                      )}
-                    {sideLink === 'regular' ? (
-                      <span>Address</span>
-                    ) : (
-                        <span>School information</span>
-                      )}
+                      <span className="number">3</span>
+                    )}
+                    <span>Address</span>
                   </div>
+                  {sideLink != "regular" && (
+                    <div
+                      className={
+                        sideProgress === "three-school-info"
+                          ? "each-link active"
+                          : "each-link"
+                      }
+                    >
+                      {sideProgress === "five" ? (
+                        <img src={checkmark} alt="" className="check-mark" />
+                      ) : (
+                        <span className="number">4</span>
+                      )}
+
+                      <span>School information</span>
+                    </div>
+                  )}
                   <div
                     className={
-                      sideProgress === 'four' ? 'each-link active' : 'each-link'
+                      sideProgress === "four" || sideProgress === "five"
+                        ? "each-link active"
+                        : "each-link"
                     }
                   >
-                    <span className="number">4</span>
+                    <span className="number">
+                      {sideLink == "regular" ? 4 : 5}
+                    </span>
 
-                    {sideLink === 'regular' ? (
+                    {sideLink === "regular" ? (
                       <span>Verification</span>
                     ) : (
-                        <span>Documents</span>
-                      )}
+                      <span>Documents</span>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-            {sideProgress != 'two' &&
+            {sideProgress != "two" && (
               <div className="logout d-flex align-items-center" onClick={login}>
                 <span className="mr-2">
                   <span
@@ -111,7 +124,7 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
                 </span>
                 <span className="mt-1">Continue Later</span>
               </div>
-            }
+            )}
           </div>
         </section>
       </div>
@@ -119,4 +132,4 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
   );
 };
 
-export default (SecondSidebar);
+export default SecondSidebar;

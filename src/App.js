@@ -7,7 +7,7 @@ import EnterPhoneNumber from './Auth/pages/EnterPhoneNumber';
 import 'antd/dist/antd.css';
 import VerifyCode from './Auth/pages/verify-code';
 import RegisterStepThree from './Auth/pages/Register-step-three-student';
-import RegisterStepThreeReg from './Auth/pages/Register-step-three-regular';
+import RegisterStepThreeAddress from './Auth/pages/Register-step-three-Address';
 import RegisterStepFourStud from './Auth/pages/Register-step-four';
 import Login from './Auth/pages/login';
 import ShowMail from './Auth/pages/verify-mail';
@@ -82,25 +82,25 @@ const Main = withRouter(({location}) => {
         <Route exact path="/register" component={Register} />
         <PrivateRoute exact path="/verify-identity" component={VerifyIdentity} />
         <PrivateRoute exact path="/complete-verification" component={CompleteVerification} />
-        <PrivateRoute exact path="/register-step-two" component={RegisterStepTwo} />
+        <PrivateRoute exact path="/register-phone" component={RegisterStepTwo} />
         <PrivateRoute
           exact
-          path="/register-step-three-school"
+          path="/register-school"
           component={RegisterStepThree}
         />
         <PrivateRoute
           exact
-          path="/register-step-three-address"
-          component={RegisterStepThreeReg}
+          path="/register-address"
+          component={RegisterStepThreeAddress}
         />
         <PrivateRoute
           exact
-          path="/register-step-four"
+          path="/register-identity"
           component={RegisterStepFourStud}
         />
         <PrivateRoute
           exact
-          path="/register-step-four-regular"
+          path="/register-identity-regular"
           component={RegisterStepFourRegular}
         />
         <PrivateRoute

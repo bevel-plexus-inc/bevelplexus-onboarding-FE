@@ -1,23 +1,24 @@
-import {Spin} from 'antd';
-import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import NeedHelp from '../component/needHelp';
-import SecondSidebar from '../component/second-sidebar';
-import {connect} from 'react-redux';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
-import {useMutation} from '@apollo/client';
-import {AUTHENTICATE_PHONE_NUMBER} from '../../services/auth';
-import {setAlert} from '../../services/Redux/Actions/Alert';
-import PhoneInput from 'react-phone-number-input';
+import { Spin } from "antd";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import NeedHelp from "../component/needHelp";
+import SecondSidebar from "../component/second-sidebar";
+import { connect } from "react-redux";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
+import { useMutation } from "@apollo/client";
+import { AUTHENTICATE_PHONE_NUMBER } from "../../services/auth";
+import { setAlert } from "../../services/Redux/Actions/Alert";
+import PhoneInput from "react-phone-number-input";
 
-const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
+const RegisterStepTwo = ({ handleGeneralErrors, setAlert }) => {
   const history = useHistory();
-  const userId = JSON.parse(localStorage.getItem('user')).id;
+  const userDetails = JSON.parse(localStorage.getItem("user"));
+  const userId = userDetails.id;
   const [formData, setFormData] = useState({
-    phoneNumber: '',
+    phoneNumber: "",
     userId: userId,
   });
-  const {phoneNumber} = formData;
+  const { phoneNumber } = formData;
   const onNumberChange = (e) => {
     setFormData({
       phoneNumber: `${e}`,
@@ -25,13 +26,16 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
     });
   };
 
-  const [authenticatePhoneNumber, {loading}] = useMutation(
+  const [authenticatePhoneNumber, { loading }] = useMutation(
     AUTHENTICATE_PHONE_NUMBER,
     {
       update(proxy, result) {
         if (result.data.authenticatePhoneNumber) {
           setAlert(result.data.authenticatePhoneNumber.message);
-          history.push({pathname: '/register-verify-code', state: {formData}});
+          history.push({
+            pathname: "/register-verify-code",
+            state: { formData },
+          });
         }
       },
       onError(err) {
@@ -43,19 +47,20 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (formData.phoneNumber === '') {
-      setAlert('Please Enter your Phone Number', 'error');
+    if (formData.phoneNumber === "") {
+      setAlert("Please Enter your Phone Number", "error");
     } else {
       authenticatePhoneNumber();
     }
   };
+  const sideLink = userDetails.userType == "Regular" ? "regular" : "student";
   return (
     <div className="register-wrapper">
-      <SecondSidebar sideProgress={'two'} />
+      <SecondSidebar sideProgress={"two"} sideLink={sideLink} />
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help?{' '}
+            Need help?{" "}
             <span
               className="text-blue click ml-2"
               data-toggle="modal"
@@ -126,4 +131,6 @@ const RegisterStepTwo = ({handleGeneralErrors, setAlert}) => {
   );
 };
 
-export default connect(null, {handleGeneralErrors, setAlert})(RegisterStepTwo);
+export default connect(null, { handleGeneralErrors, setAlert })(
+  RegisterStepTwo
+);
