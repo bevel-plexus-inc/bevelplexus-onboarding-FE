@@ -14,7 +14,7 @@ const GlobalAlert = ({alerts}) => {
       ? toast.warn(msg)
       : toast.info(msg);
   };
-  alerts != null &&
+  alerts !== null &&
     alerts.length > 0 &&
     alerts.map((alert) => {
       return (

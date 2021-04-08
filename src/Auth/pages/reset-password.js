@@ -25,7 +25,7 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
     },
   });
   const onFinish = (values) => {
-    if (values.password != values.newPassword) {
+    if (values.password !== values.newPassword) {
       setAlert("There's a mismatch. Make sure its the same with the password above", 'error');
     } else {
       let payload = {

@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import logo from "../../assets/img/logo-white.svg";
 import checkmark from "../../assets/img/check.png";
 import "../../styles/sidebar.scss";
-import { Link, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 const SecondSidebar = ({ sideProgress, sideLink }) => {
-  const history = useHistory();
   const [isOpen, setisOpen] = useState(false);
   const sidebarToggle = () => {
     setisOpen(!isOpen);
@@ -76,7 +74,7 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
                     )}
                     <span>Address</span>
                   </div>
-                  {sideLink != "regular" && (
+                  {sideLink !== "regular" && (
                     <div
                       className={
                         sideProgress === "three-school-info"
@@ -101,7 +99,7 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
                     }
                   >
                     <span className="number">
-                      {sideLink == "regular" ? 4 : 5}
+                      {sideLink === "regular" ? 4 : 5}
                     </span>
 
                     {sideLink === "regular" ? (
@@ -113,7 +111,7 @@ const SecondSidebar = ({ sideProgress, sideLink }) => {
                 </div>
               </div>
             </div>
-            {sideProgress != "two" && (
+            {sideProgress = "two" && (
               <div className="logout d-flex align-items-center" onClick={login}>
                 <span className="mr-2">
                   <span

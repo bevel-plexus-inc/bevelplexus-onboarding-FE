@@ -14,9 +14,9 @@ const RegisterStepFourRegular = () => {
   const tempEnrollmentVerified = localStorage.getItem('tempEnrollmentVerified');
   const verifyId = localStorage.getItem('VerifyIdentity');
   useEffect(() => {
-    if (verifyId && verifyId == 'success') {
+    if (verifyId && verifyId === 'success') {
       document.querySelector('.successModal').click();
-    } else if (verifyId && verifyId == 'failed') {
+    } else if (verifyId && verifyId === 'failed') {
       document.querySelector('.failedModal').click();
     }
   }, []);
