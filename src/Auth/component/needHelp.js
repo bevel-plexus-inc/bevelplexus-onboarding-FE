@@ -4,7 +4,6 @@ import {RequestHelp} from '../../services/auth';
 import {useMutation} from '@apollo/client';
 import {setAlert} from '../../services/Redux/Actions/Alert';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
 
 const NeedHelp = ({setAlert, handleGeneralErrors}) => {

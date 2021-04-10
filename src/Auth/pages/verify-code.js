@@ -66,9 +66,9 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
     let payloadEmail = '';
     let payloadPhone = '';
     let payload = {};
-    if (formData.email != null) {
+    if (formData.email !== null) {
       payloadEmail = formData.email;
-    } else if (formData.phoneNumber != null) {
+    } else if (formData.phoneNumber !== null) {
       payloadPhone = formData.phoneNumber;
     }
     payload = {
@@ -88,7 +88,7 @@ const VerifyCode = ({location, setAlert, handleGeneralErrors, history}) => {
       let mins = Math.floor(fiveMin / 60);
       let secs = Math.floor(fiveMin % 60);
       secs < 10 ? (secs = `0${secs}`) : (secs = secs);
-      if (document.querySelector('.timeResult') != null) {
+      if (document.querySelector('.timeResult') !== null) {
         document.querySelector('.timeResult').innerHTML = `${mins}:${secs}`;
       }
       if (fiveMin < 1) {

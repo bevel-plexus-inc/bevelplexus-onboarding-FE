@@ -63,7 +63,7 @@ const RegisterVerifyCode = ({
       let mins = Math.floor(fiveMin / 60);
       let secs = Math.floor(fiveMin % 60);
       secs < 10 ? (secs = `0${secs}`) : (secs = secs);
-      if (document.querySelector(".timeResult") != null) {
+      if (document.querySelector(".timeResult") !== null) {
         document.querySelector(".timeResult").innerHTML = `${mins}:${secs}`;
       }
       if (fiveMin < 1) {

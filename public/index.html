@@ -108,7 +108,7 @@
                  alert(data.errors[0].message)
                 }
                 setTimeout(function () {
-                  if ((userdetails.userType == 'Student')) {
+                  if ((userdetails.userType === 'Student')) {
                     if (data.data.getUserKyc.isVerified) {
                       localStorage.setItem('tempEnrollmentVerified', true)
                       localStorage.setItem('VerifyIdentity', 'success');
