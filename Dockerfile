@@ -1,5 +1,6 @@
 FROM node:alpine as builder
 
+Run `npm install -g npm@7.9.0`
 
 RUN apk update && apk add python make g++
 
