@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
-import { Sidebar } from '../component/sidebar';
-import { Link, useLocation } from 'react-router-dom';
-import NeedHelp from '../component/needHelp';
-import { Form, Input, Spin } from 'antd';
-import { LOGIN } from '../../services/auth';
-import { useMutation } from '@apollo/client';
-import { setAlert } from '../../services/Redux/Actions/Alert';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
-import ErrorModal from '../component/ErrorModal';
+import React, { useState } from "react";
+import { Sidebar } from "../component/sidebar";
+import { Link, useLocation } from "react-router-dom";
+import NeedHelp from "../component/needHelp";
+import { Form, Input, Spin } from "antd";
+import { LOGIN } from "../../services/auth";
+import { useMutation } from "@apollo/client";
+import { setAlert } from "../../services/Redux/Actions/Alert";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
+import ErrorModal from "../component/ErrorModal";
 
 const Login = ({ setAlert, handleGeneralErrors, history }) => {
-  const [ErrorMessage, setErrorMessage] = useState('')
+  const [ErrorMessage, setErrorMessage] = useState("");
   const search = useLocation().search;
-  const redirect_url = new URLSearchParams(search).get('redirect_url');
+  const redirect_url = new URLSearchParams(search).get("redirect_url");
   const [formData, setFormData] = useState();
   const [loginUser, { loading }] = useMutation(LOGIN, {
     update(proxy, result) {
       const returnVal = result.data.login.user;
       if (result.data.login.token) {
-        localStorage.removeItem('tempEnrollmentVerified')
-        localStorage.removeItem('VerifyIdentity')
-        localStorage.setItem('token', result.data.login.token);
-        localStorage.setItem('user', JSON.stringify(result.data.login.user));
-        localStorage.setItem('userId ', result.data.login.user.id);
+        localStorage.removeItem("tempEnrollmentVerified");
+        localStorage.removeItem("VerifyIdentity");
+        localStorage.setItem("token", result.data.login.token);
+        localStorage.setItem("user", JSON.stringify(result.data.login.user));
+        localStorage.setItem("userId ", result.data.login.user.id);
       }
       if (redirect_url === null) {
-        if (returnVal.userType === 'Student') {
+        if (returnVal.userType === "Student") {
           if (!returnVal.userVerification?.isEmailVerified) {
             history.push({ pathname: `/show-mail` });
           } else if (!returnVal.userVerification?.isPhoneNumberVerified) {
@@ -39,7 +39,8 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({ pathname: `/register-identity` });
           } else {
-            window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
+            window.location.href =
+              "https://app.bevelplexus.com/payment/dashboard";
           }
         } else {
           if (!returnVal.userVerification?.isEmailVerified) {
@@ -51,7 +52,8 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
           } else if (!returnVal.userKyc?.isVerified) {
             history.push({ pathname: `/register-identity-regular` });
           } else {
-            window.location.href = 'https://app.bevelplexus.com/payment/dashboard'
+            window.location.href =
+              "https://app.bevelplexus.com/payment/dashboard";
           }
         }
       } else {
@@ -60,8 +62,8 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
     },
     onError(err) {
       // handleGeneralErrors(err);
-      setErrorMessage(err.graphQLErrors[0]?.message)
-      document.querySelector('.errorModal').click()
+      setErrorMessage(err.graphQLErrors[0]?.message);
+      document.querySelector(".errorModal").click();
     },
     variables: formData,
   });
@@ -77,7 +79,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help?{' '}
+            Need help?{" "}
             <span
               className="text-blue click ml-2"
               data-toggle="modal"
@@ -90,9 +92,9 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
             <div className="row">
               <div className="col-lg-6 text-center col-md-8 mx-auto">
                 <div className="text-center">
-                  <p className="font48 font-bold mb-2">Sign in</p>
+                  <p className="font48 font-bold mb-2">Sign In</p>
                   <p className="text-grey">
-                    Welcome back, we exist to make your money transfers as
+                    Welcome back! We are here to make your money transfer as
                     affordable and seamless as possible.
                   </p>
                 </div>
@@ -118,12 +120,12 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
                       name="email"
                       rules={[
                         {
-                          type: 'email',
-                          message: 'This is not valid E-mail!',
+                          type: "email",
+                          message: "This is not valid E-mail!",
                         },
                         {
                           required: true,
-                          message: 'Please input your email!',
+                          message: "Please input your email!",
                         },
                       ]}
                     >
@@ -144,7 +146,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
                       rules={[
                         {
                           required: true,
-                          message: 'Please input your password!',
+                          message: "Please input your password!",
                         },
                       ]}
                     >
@@ -173,16 +175,16 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
                         </span>
                       </button>
                     ) : (
-                        <button
-                          type="submit"
-                          className="btn btn-blue btn-lg my-5"
-                        >
-                          Sign In
-                        </button>
-                      )}
+                      <button
+                        type="submit"
+                        className="btn btn-blue btn-lg my-5"
+                      >
+                        Sign In
+                      </button>
+                    )}
                   </Form.Item>
                   <div>
-                    Dont have an account?
+                    Don't have an account?
                     <Link to="/register" className="text-blue click ml-2">
                       Sign Up
                     </Link>
