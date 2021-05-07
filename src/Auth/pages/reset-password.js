@@ -25,7 +25,7 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
     },
   });
   const onFinish = (values) => {
-    if (values.password != values.newPassword) {
+    if (values.password !== values.newPassword) {
       setAlert("There's a mismatch. Make sure its the same with the password above", 'error');
     } else {
       let payload = {
@@ -108,7 +108,7 @@ const ResetPassword = ({setAlert, handleGeneralErrors, match, history}) => {
                         />
                       </Form.Item>
                       <div className='font10 text-left'>
-                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*.
+                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 of these special characters: !%@#$&*.
                     </div>
                     </div>
 

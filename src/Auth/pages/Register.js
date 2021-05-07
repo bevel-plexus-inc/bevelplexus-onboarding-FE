@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { Sidebar } from '../component/sidebar';
-import regular from '../../assets/img/user-regular.svg';
-import student from '../../assets/img/user-student.svg';
-import { Link, useHistory } from 'react-router-dom';
-import NeedHelp from '../component/needHelp';
-import { Button, Form, Input, Spin } from 'antd';
-import { useMutation } from '@apollo/client';
-import { REGISTER_USER } from '../../services/auth';
-import { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import { connect } from 'react-redux';
-import { handleGeneralErrors } from '../../globalComponent/HandleGeneralErrors';
+import React, { useEffect } from "react";
+import { Sidebar } from "../component/sidebar";
+import regular from "../../assets/img/user-regular.svg";
+import student from "../../assets/img/user-student.svg";
+import { Link, useHistory } from "react-router-dom";
+import NeedHelp from "../component/needHelp";
+import { Button, Form, Input, Spin } from "antd";
+import { useMutation } from "@apollo/client";
+import { REGISTER_USER } from "../../services/auth";
+import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { connect } from "react-redux";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
 
 const UserType = {
-  Student: 'Student',
-  Regular: 'Regular',
+  Student: "Student",
+  Regular: "Regular",
 };
 
 const Register = ({ handleGeneralErrors }) => {
@@ -24,7 +24,7 @@ const Register = ({ handleGeneralErrors }) => {
     forceUpdate({});
   }, []);
   const history = useHistory();
-  const [userType, setUserType] = useState('');
+  const [userType, setUserType] = useState("");
   const [agreement, setAgreement] = useState(false);
   const checkBoxChange = (e) => {
     const val = e.target.checked;
@@ -32,13 +32,13 @@ const Register = ({ handleGeneralErrors }) => {
   };
 
   const toggleRegularTab = () => {
-    document.querySelector('.regular-tab').classList.add('active');
-    document.querySelector('.student-tab').classList.remove('active');
+    document.querySelector(".regular-tab").classList.add("active");
+    document.querySelector(".student-tab").classList.remove("active");
     setUserType(UserType.Regular);
   };
   const toggleStudentTab = () => {
-    document.querySelector('.student-tab').classList.add('active');
-    document.querySelector('.regular-tab').classList.remove('active');
+    document.querySelector(".student-tab").classList.add("active");
+    document.querySelector(".regular-tab").classList.remove("active");
     setUserType(UserType.Student);
   };
   const [formData, setFormData] = useState();
@@ -46,12 +46,12 @@ const Register = ({ handleGeneralErrors }) => {
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(proxy, result) {
       if (result.data.signUp.token) {
-        localStorage.removeItem('tempEnrollmentVerified')
-        localStorage.removeItem('VerifyIdentity')
-        localStorage.setItem('token', result.data.signUp.token);
-        localStorage.setItem('user', JSON.stringify(result.data.signUp.user));
-        localStorage.setItem('userId ', result.data.signUp.user.id);
-        history.push('/show-mail');
+        localStorage.removeItem("tempEnrollmentVerified");
+        localStorage.removeItem("VerifyIdentity");
+        localStorage.setItem("token", result.data.signUp.token);
+        localStorage.setItem("user", JSON.stringify(result.data.signUp.user));
+        localStorage.setItem("userId ", result.data.signUp.user.id);
+        history.push("/show-mail");
       }
     },
     onError(err) {
@@ -62,14 +62,14 @@ const Register = ({ handleGeneralErrors }) => {
 
   const onFinish = (values) => {
     if (values.referralCode === undefined) {
-      values.referralCode = '';
+      values.referralCode = "";
     }
-    if (userType === '') {
-      toast('You need to select an account type to proceed');
+    if (userType === "") {
+      toast("You need to select an account type to proceed");
     } else if (agreement === false) {
-      toast('You need to agree with our policy to proceed');
+      toast("You need to agree with our policy to proceed");
     } else if (values.password !== values.confirmPassword) {
-      toast('Password do not match!');
+      toast("Password do not match!");
     } else {
       const data = {
         ...values,
@@ -79,16 +79,16 @@ const Register = ({ handleGeneralErrors }) => {
       addUser();
     }
   };
-  const [FailedPass, setFailedPass] = useState(false)
+  const [FailedPass, setFailedPass] = useState(false);
   const onFinishFailed = (errorInfo) => {
-    setFailedPass(false)
-    console.log('Failed:', errorInfo);
+    setFailedPass(false);
+    console.log("Failed:", errorInfo);
     errorInfo.errorFields.map((val) => {
-      if (val.name[0] === 'password') {
-        return setFailedPass(true)
+      if (val.name[0] === "password") {
+        return setFailedPass(true);
       }
       return;
-    })
+    });
   };
 
   return (
@@ -98,7 +98,7 @@ const Register = ({ handleGeneralErrors }) => {
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">
-            Need help?{' '}
+            Need help?{" "}
             <span
               className="text-blue click ml-2"
               data-toggle="modal"
@@ -118,7 +118,7 @@ const Register = ({ handleGeneralErrors }) => {
               </div>
             </div>
             <div className="my-4">
-              <p className="font-bold">Choose the type of Account</p>
+              <p className="font-bold">Select the type of Account</p>
               <div className="d-flex register-tab">
                 <div
                   className="each mr-4 d-flex align-items-center regular-tab"
@@ -130,10 +130,11 @@ const Register = ({ handleGeneralErrors }) => {
                   <div>
                     <p>Regular Account</p>
                     <div className="detail-two">
-                      Not a student? or <br /> not paying school related bills
+                      Select a Regular Account if you want to support your
+                      personal network.
                     </div>
                   </div>
-                  <div className="detail">This option is for you</div>
+                  <div className="detail">This option is for you!</div>
                 </div>
                 <div
                   className="each d-flex align-items-center student-tab"
@@ -145,10 +146,11 @@ const Register = ({ handleGeneralErrors }) => {
                   <div>
                     <p>Student Account</p>
                     <div className="detail-two">
-                      Seeking to study or currently <br /> studying in Canada?
+                      Select a Student Account to <br /> allow you pay your fees
+                      within minutes <br /> and never miss a payment deadline.
                     </div>
                   </div>
-                  <div className="detail">This option is for you</div>
+                  <div className="detail">This option is for you!</div>
                 </div>
               </div>
             </div>
@@ -156,12 +158,13 @@ const Register = ({ handleGeneralErrors }) => {
               name="basic"
               initialValues={{
                 remember: true,
-              }} form={form}
+              }}
+              form={form}
               onFinish={onFinish}
               onFinishFailed={onFinishFailed}
             >
               <div className="my-5">
-                <p className="font-bold">Fill with your details</p>
+                <p className="font-bold">Enter Your Details</p>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
@@ -177,12 +180,12 @@ const Register = ({ handleGeneralErrors }) => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input your first name!',
+                            message: "Please input your first name!",
                           },
                         ]}
                       >
                         <Input
-                          placeholder="First name"
+                          placeholder="First Name"
                           className="form-control"
                         />
                       </Form.Item>
@@ -202,7 +205,7 @@ const Register = ({ handleGeneralErrors }) => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input your last name!',
+                            message: "Please input your last name!",
                           },
                         ]}
                       >
@@ -226,12 +229,12 @@ const Register = ({ handleGeneralErrors }) => {
                         name="email"
                         rules={[
                           {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
+                            type: "email",
+                            message: "The input is not valid E-mail!",
                           },
                           {
                             required: true,
-                            message: 'Please input your email!',
+                            message: "Please input your email!",
                           },
                         ]}
                       >
@@ -301,11 +304,15 @@ const Register = ({ handleGeneralErrors }) => {
                           className="form-control"
                         />
                       </Form.Item>
-                      <div className={FailedPass ? 'font10 text-red' : 'font10'}>
-                        Password must be at least 6 characters in length and must contain at least 1 lowercase letter, 1 uppercase letter, 1 number, and one of these special characters: !%@#$&*.
+                      <div
+                        className={FailedPass ? "font10 text-red" : "font10"}
+                      >
+                        Password must be at least 6 characters in length and
+                        must contain at least 1 lowercase letter, 1 uppercase
+                        letter, 1 number, and 1 of these special characters:
+                        !%@#$&*.
+                      </div>
                     </div>
-                    </div>
-
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
@@ -321,7 +328,7 @@ const Register = ({ handleGeneralErrors }) => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please confirm your password!',
+                            message: "Please confirm your password!",
                           },
                         ]}
                       >
@@ -349,16 +356,16 @@ const Register = ({ handleGeneralErrors }) => {
                         target="_blanc"
                         className="text-blue"
                       >
-                        {' '}
+                        {" "}
                         Privacy Policy
-                      </a>{' '}
+                      </a>{" "}
                       and the
                       <a
                         href="https://bevelplexus.com/terms-conditions/"
                         target="_blanc"
                         className="text-blue"
                       >
-                        {' '}
+                        {" "}
                         Terms and Conditions
                       </a>
                     </div>
@@ -368,7 +375,7 @@ const Register = ({ handleGeneralErrors }) => {
               <div className="pt-5">
                 <div className="d-flex flex-wrap align-items-end justify-content-end">
                   <div className="agreement-check text-grey mr-2">
-                    Already have a login?{' '}
+                    Already have a login?{" "}
                     <Link to="/" className="text-blue click">
                       Sign in here
                     </Link>
@@ -379,11 +386,15 @@ const Register = ({ handleGeneralErrors }) => {
                         type="submit"
                         className="btn btn-blue btn-lg"
                         htmlType="submit"
-                        disabled={loading || !form.isFieldsTouched(false) ||
-                          form.getFieldsError().filter(({ errors }) => errors.length).length}
-
+                        disabled={
+                          loading ||
+                          !form.isFieldsTouched(false) ||
+                          form
+                            .getFieldsError()
+                            .filter(({ errors }) => errors.length).length
+                        }
                       >
-                        Create account
+                        Create Account
                         {loading && (
                           <span className="ml-4">
                             <Spin />
