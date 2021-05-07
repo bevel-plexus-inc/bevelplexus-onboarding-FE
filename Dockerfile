@@ -8,6 +8,8 @@ COPY package.json ./
 
 COPY package-lock.json ./
 
+RUN npm install --save-dev @babel/core
+
 RUN npm install
 
 COPY ./ ./
