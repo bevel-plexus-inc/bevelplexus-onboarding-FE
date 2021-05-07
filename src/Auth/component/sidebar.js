@@ -38,7 +38,7 @@ export const Sidebar = () => {
               </p>
             </div>
           </div>
-        </section>
+        </section> 
       </div>
     </div>
   );
