@@ -1,4 +1,4 @@
-FROM python:3.8-slim as builder
+FROM node:alpine as builder
 
 RUN apk update && apk add python make g++
 
