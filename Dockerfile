@@ -1,6 +1,6 @@
-FROM node:alpine as builder
+FROM node:8.12-alpine as builder
 
-RUN apk add python make g++ && apk update
+RUN apk update && apk add --no-cache python3 make g++
 
 WORKDIR /app
 
