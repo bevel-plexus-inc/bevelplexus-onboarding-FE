@@ -118,7 +118,7 @@ const Register = ({ handleGeneralErrors }) => {
               </div>
             </div>
             <div className="my-4">
-              <p className="font-bold">Select the Type of Account</p>
+              <p className="font-bold">What type of account would you like</p>
               <div className="d-flex register-tab">
                 <div
                   className="each mr-4 d-flex align-items-center regular-tab"
@@ -162,7 +162,7 @@ const Register = ({ handleGeneralErrors }) => {
               onFinishFailed={onFinishFailed}
             >
               <div className="my-5">
-                <p className="font-bold">Enter Your Details</p>
+                <p className="font-bold">Please enter your details</p>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">

@@ -12,18 +12,18 @@ import {
 } from "../../services/auth";
 
 const RegisterStepThree = ({ handleGeneralErrors, history }) => {
+  const [schoolLoading, setSchoolLoading] = useState(false);
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
 
   const [formData, setFormData] = useState({});
   const [institution, setInstitution] = useState([]);
 
   const { data, error } = useQuery(GetCountries, {
-    context: { uri: process.env.REACT_APP_TRANSACTION_URL},
+    context: { uri: process.env.REACT_APP_TRANSACTION_URL },
     onError(err) {
       handleGeneralErrors(err);
     },
   });
-
   const getSchoolByCountry = useQuery(getInstitutionByCountry, {
     onCompleted() {
       console.log(getSchoolByCountry.data);
@@ -36,8 +36,9 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
   });
 
   const selectChange = async (e) => {
+    setSchoolLoading(true);
     const val = e.target.value;
-    console.log(val);
+    console.log(val)
     const res = await getSchoolByCountry.fetchMore({
       variables: {
         countryId: val,
@@ -45,6 +46,9 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
       updateQuery() {},
     });
     console.log(res.data);
+    if (res.data) {
+      setSchoolLoading(false);
+    }
     setInstitution(res.data.getInstitutionByCountry);
   };
 
@@ -99,7 +103,9 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
             >
               <div className="title-space row">
                 <div className="col-lg-7 col-md-8">
-                  <p className="font22 font-bold mb-2">Enter Your School Information</p>
+                  <p className="font22 font-bold mb-2">
+                    Enter Your School Information
+                  </p>
                   <p className="text-grey">
                     Please tell us more about your school.
                   </p>
@@ -190,14 +196,19 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
                               onChange={(e) => selectChange(e)}
                             >
                               <option value="">Country</option>
-
-                              {data?.getAllCountry.map((each) => {
-                                return (
-                                  <option key={each.id} value={each.id}>
-                                    {each.name}
-                                  </option>
-                                );
-                              })}
+                              {!data?.getAllCountry ? (
+                                <option value="">Loading....</option>
+                              ) : (
+                                <>
+                                  {data?.getAllCountry.map((each) => {
+                                    return (
+                                      <option key={each.id} value={each.id}>
+                                        {each.name}
+                                      </option>
+                                    );
+                                  })}
+                                </>
+                              )}
                             </select>
                           </Form.Item>
                         </div>
@@ -222,16 +233,23 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
                           >
                             <select
                               className="form-control"
-                              onChange={(e) => selectChange(e)}
                             >
-                              <option value="">Select Institution</option>
-                              {institution?.map((each) => {
-                                return (
-                                  <option key={each.id} value={each.id}>
-                                    {each.name}
-                                  </option>
-                                );
-                              })}
+                              {schoolLoading ? (
+                                <option value="">Loading....</option>
+                              ) : (
+                                <option value="">Select Institution</option>
+                              )}
+                              {!schoolLoading && institution.length > 0 && (
+                                <>
+                                  {institution.map((each) => {
+                                    return (
+                                      <option key={each.id} value={each.id}>
+                                        {each.name}
+                                      </option>
+                                    );
+                                  })}
+                                </>
+                              )}
                             </select>
                           </Form.Item>
                           <div className="info-icon ml-2">

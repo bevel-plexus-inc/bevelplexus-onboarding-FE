@@ -97,7 +97,7 @@ const RegisterStepFourStud = ({ handleGeneralErrors }) => {
                           <img src={identity} alt="" />
                         </div>
                         <p className="font20 text-black font-bold">
-                          Identity verification
+                          Identity Verification
                         </p>
                         <p className="font14 text-grey">
                           1- Please upload a valid government issued government
@@ -160,7 +160,7 @@ const RegisterStepFourStud = ({ handleGeneralErrors }) => {
                               className="btn btn-upload"
                               htmlFor="chooseFile2"
                             >
-                              Choose file
+                              Choose File
                             </label>
                             <input
                               type="file"
@@ -184,7 +184,7 @@ const RegisterStepFourStud = ({ handleGeneralErrors }) => {
                               className="btn btn-outline-red"
                               htmlFor="chooseFile2"
                             >
-                              Choose file
+                              Choose File
                             </label>
                             <input
                               type="file"

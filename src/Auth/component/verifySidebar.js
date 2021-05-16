@@ -41,18 +41,21 @@ export const VerifySidebar = () => {
                 Create your account in minutes to <br /> start sending money.
               </p>
               <div
-                className="logout d-flex align-items-center pt-space verify-continue-later"
+                className="logout pt-space verify-continue-later"
                 onClick={login}
               >
-                <span className="mr-2">
+                
+                <span className="mt-1">Verified?
+                 <br/>
+                Proceed to Dashboard
+                <span className="ml-2">
                   <span
                     className="iconify"
-                    data-icon="codicon:debug-reverse-continue"
+                    data-icon="codicon:debug-continue"
                     data-inline="false"
                   ></span>
                 </span>
-                <span className="mt-1">Done? <br/>
-                Proceed to Dashboard</span>
+                </span>
               </div>
             </div>
           </div>
