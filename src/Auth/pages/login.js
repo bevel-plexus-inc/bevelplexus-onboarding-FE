@@ -159,7 +159,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
 
                   <div className="d-flex flex-wrap align-items-end justify-content-end">
                     <Link to="/enter-mail" className="text-blue click">
-                      Forgot password?
+                      Forgot Password?
                     </Link>
                   </div>
                   <Form.Item>
