@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
-import {Form, Input, Spin} from 'antd';
-import {RequestHelp} from '../../services/auth';
-import {useMutation} from '@apollo/client';
-import {setAlert} from '../../services/Redux/Actions/Alert';
-import {connect} from 'react-redux';
-import {handleGeneralErrors} from '../../globalComponent/HandleGeneralErrors';
+import React, { useState } from "react";
+import { Form, Input, Spin } from "antd";
+import { RequestHelp } from "../../services/auth";
+import { useMutation } from "@apollo/client";
+import { setAlert } from "../../services/Redux/Actions/Alert";
+import { connect } from "react-redux";
+import { handleGeneralErrors } from "../../globalComponent/HandleGeneralErrors";
 
-const NeedHelp = ({setAlert, handleGeneralErrors}) => {
+const NeedHelp = ({ setAlert, handleGeneralErrors }) => {
   const [formData, setFormData] = useState();
   const [form] = Form.useForm();
-  const [postMessage, {loading}] = useMutation(RequestHelp, {
+  const [postMessage, { loading }] = useMutation(RequestHelp, {
     update(proxy, result) {
-      setAlert('Message Sent');
-      document.querySelector('.close').click();
+      setAlert("Message Sent");
+      document.querySelector(".close").click();
       form.resetFields();
       setFormData();
     },
@@ -52,7 +52,8 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
             <div className="modal-body text-center">
               <p className="font22">How Can We Help?</p>
               <p className="text-grey">
-                We typically respond as soon as possible
+                Fill in your details and enquiry below. We will respond to you
+                within 24 hours
               </p>
               <Form
                 form={form}
@@ -68,7 +69,7 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please enter your name!',
+                      message: "Please enter your name!",
                     },
                   ]}
                 >
@@ -83,12 +84,12 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
                   className="mb-2"
                   rules={[
                     {
-                      type: 'email',
-                      message: 'This is not valid E-mail!',
+                      type: "email",
+                      message: "This is not valid E-mail!",
                     },
                     {
                       required: true,
-                      message: 'Please enter your email!',
+                      message: "Please enter your email!",
                     },
                   ]}
                 >
@@ -100,7 +101,7 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please type in your message',
+                      message: "Please type in your message",
                     },
                   ]}
                 >
@@ -131,4 +132,4 @@ const NeedHelp = ({setAlert, handleGeneralErrors}) => {
   );
 };
 
-export default connect(null, {setAlert, handleGeneralErrors})(NeedHelp);
+export default connect(null, { setAlert, handleGeneralErrors })(NeedHelp);

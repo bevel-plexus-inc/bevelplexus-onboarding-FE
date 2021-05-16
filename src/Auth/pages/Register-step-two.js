@@ -74,7 +74,7 @@ const RegisterStepTwo = ({ handleGeneralErrors, setAlert }) => {
               <div>
                 <div className="title-space row">
                   <div className="col-lg-7 col-md-8">
-                    <p className="font22 font-bold mb-2">Verify your Number</p>
+                    <p className="font22 font-bold mb-2">Verify your number</p>
                     <p className="text-grey">
                       Add your phone number. We'll send you a verification code
                       so we know you're real.
