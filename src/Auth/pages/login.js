@@ -75,7 +75,7 @@ const Login = ({ setAlert, handleGeneralErrors, history }) => {
 
   return (
     <div className="register-wrapper one">
-      <Sidebar />
+      <Sidebar login='true'/>
       <section className="main-auth-content">
         <div>
           <div className="need-help text-grey font14 m-4">

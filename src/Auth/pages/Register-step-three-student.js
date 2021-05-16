@@ -99,10 +99,9 @@ const RegisterStepThree = ({ handleGeneralErrors, history }) => {
             >
               <div className="title-space row">
                 <div className="col-lg-7 col-md-8">
-                  <p className="font22 font-bold mb-2">School Information</p>
+                  <p className="font22 font-bold mb-2">Enter Your School Information</p>
                   <p className="text-grey">
-                    We take all necessary precautions to keep your Personal
-                    Information protected.
+                    Please tell us more about your school.
                   </p>
                 </div>
               </div>

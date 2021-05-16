@@ -80,10 +80,10 @@ const RegisterStepFourStud = ({ handleGeneralErrors }) => {
           <div className="px">
             <div className="title-space row">
               <div className="col-lg-7 col-md-8">
-                <p className="font22 font-bold mb-2">Documents upload</p>
+                <p className="font22 font-bold mb-2">Document Upload</p>
                 <p className="text-grey">
-                  We take all necessary precautions to keep your Personal
-                  Information protected.
+                  We take all necessary precautions to keep your personal
+                  information protected.
                 </p>
               </div>
             </div>
@@ -125,12 +125,12 @@ const RegisterStepFourStud = ({ handleGeneralErrors }) => {
                             <>
                               <a href="/verify-identity">
                                 <label className="btn btn-upload">
-                                  Verify now
+                                  Verify Now
                             </label>
                               </a>
                               <br />
                               <label className="btn btn-upload" onClick={login}>
-                                Verify later
+                                Verify Later
                             </label>
                             </>
                           )}

@@ -67,7 +67,7 @@ const Register = ({ handleGeneralErrors }) => {
     if (userType === "") {
       toast("You need to select an account type to proceed");
     } else if (agreement === false) {
-      toast("You need to agree with our policy to proceed");
+      toast("You need to agree to our policy to proceed");
     } else if (values.password !== values.confirmPassword) {
       toast("Password do not match!");
     } else {
@@ -110,15 +110,15 @@ const Register = ({ handleGeneralErrors }) => {
           <div className="px">
             <div className="title-space row">
               <div className="col-lg-7 col-md-8">
-                <p className="font22 font-bold mb-2">Create an Account</p>
+                <p className="font22 font-bold mb-2">Create An Account</p>
                 <p className="text-grey">
-                  We take all necessary precautions to keep your Personal
-                  Information protected.
+                  We take all necessary precautions to keep your personal
+                  information protected.
                 </p>
               </div>
             </div>
             <div className="my-4">
-              <p className="font-bold">Select the type of Account</p>
+              <p className="font-bold">Select the Type of Account</p>
               <div className="d-flex register-tab">
                 <div
                   className="each mr-4 d-flex align-items-center regular-tab"
@@ -134,7 +134,6 @@ const Register = ({ handleGeneralErrors }) => {
                       personal network.
                     </div>
                   </div>
-                  <div className="detail">This option is for you!</div>
                 </div>
                 <div
                   className="each d-flex align-items-center student-tab"
@@ -150,7 +149,6 @@ const Register = ({ handleGeneralErrors }) => {
                       within minutes <br /> and never miss a payment deadline.
                     </div>
                   </div>
-                  <div className="detail">This option is for you!</div>
                 </div>
               </div>
             </div>
@@ -350,7 +348,7 @@ const Register = ({ handleGeneralErrors }) => {
                       <span className="checkmark"></span>
                     </label>
                     <div className="ml-5">
-                      I agree with the
+                      I agree to the
                       <a
                         href="https://bevelplexus.com/privacy-policy/"
                         target="_blanc"

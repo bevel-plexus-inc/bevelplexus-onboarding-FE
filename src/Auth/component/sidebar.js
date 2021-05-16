@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/img/logo-white.svg";
 import "../../styles/sidebar.scss";
 
-export const Sidebar = () => {
+export const Sidebar = (props) => {
   const [isOpen, setisOpen] = useState(false);
   const sidebarToggle = () => {
     setisOpen(!isOpen);
@@ -33,9 +33,16 @@ export const Sidebar = () => {
               <h3 className="font38 font-bold mb-4">
                 Your Secure Money Transfer is Just A Few Clicks Away
               </h3>
-              <p className="font-md light-white">
-                Create your account in minutes to <br /> start sending money.
-              </p>
+              {props.login ? (
+                <p className="font-md light-white">
+                  We are here to make your money transfer <br /> as affordable
+                  and seamless as possible.
+                </p>
+              ) : (
+                <p className="font-md light-white">
+                  Create your account in minutes to <br /> start sending money.
+                </p>
+              )}
             </div>
           </div>
         </section>

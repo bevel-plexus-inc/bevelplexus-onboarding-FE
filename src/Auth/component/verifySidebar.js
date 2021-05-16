@@ -51,7 +51,8 @@ export const VerifySidebar = () => {
                     data-inline="false"
                   ></span>
                 </span>
-                <span className="mt-1">Continue Later</span>
+                <span className="mt-1">Done? <br/>
+                Proceed to Dashboard</span>
               </div>
             </div>
           </div>
